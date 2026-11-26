@@ -6,6 +6,8 @@ import { Zip, ZipPassThrough } from 'fflate'
 
 export interface ZipFileInput {
   path: string
+  /** fecha de modificación original, para que el zip no la cambie */
+  mtime?: number
   /** se pide al momento de escribir, así no se cargan todas las imágenes a la vez */
   blob: () => Promise<Blob>
 }
@@ -68,6 +70,7 @@ export async function writeZip(
     for (let i = 0; i < files.length; i++) {
       const f = files[i]
       const entry = new ZipPassThrough(f.path)
+      if (f.mtime) entry.mtime = f.mtime
       zip.add(entry)
       entry.push(new Uint8Array(await (await f.blob()).arrayBuffer()), true)
       // se espera a que el disco vaya al ritmo para no acumular trozos en memoria

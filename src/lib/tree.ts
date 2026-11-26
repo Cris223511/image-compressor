@@ -18,16 +18,12 @@ export interface FileNode {
 
 export type TreeNode = FolderNode | FileNode
 
-// un solo collator para todas las comparaciones: crear uno nuevo en cada llamada sale caro
-const collator = new Intl.Collator(undefined, { numeric: true, sensitivity: 'base' })
-
 export function buildTree(entries: { id: string; path: string }[]): TreeNode[] {
   const roots: TreeNode[] = []
   const folders = new Map<string, FolderNode>()
 
-  const sorted = [...entries].sort((a, b) => collator.compare(a.path, b.path))
-
-  for (const { id, path } of sorted) {
+  // el orden es el de llegada: nada se reordena por nombre ni se agrupan las carpetas primero
+  for (const { id, path } of entries) {
     const parts = path.split('/')
     let siblings = roots
     let acc = ''
@@ -47,12 +43,6 @@ export function buildTree(entries: { id: string; path: string }[]): TreeNode[] {
     siblings.push({ type: 'file', id, depth: parts.length - 1 })
   }
 
-  // las carpetas van primero y los archivos después, cada grupo en orden natural
-  const order = (nodes: TreeNode[]) => {
-    nodes.sort((a, b) => (a.type === b.type ? 0 : a.type === 'folder' ? -1 : 1))
-    for (const n of nodes) if (n.type === 'folder') order(n.children)
-  }
-  order(roots)
   return roots
 }
 

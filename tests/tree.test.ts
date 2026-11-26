@@ -9,10 +9,10 @@ const entries = [
 ]
 
 describe('árbol de carpetas', () => {
-  it('pone las carpetas primero y ordena los números de forma natural', () => {
+  it('respeta el orden de llegada sin reordenar por nombre ni agrupar carpetas', () => {
     const rows = flatten(buildTree(entries), new Set())
     const labels = rows.map((n) => (n.type === 'folder' ? `[${n.path}]` : n.id))
-    expect(labels).toEqual(['[fotos]', '[fotos/playa]', '3', '2', '1', '4'])
+    expect(labels).toEqual(['[fotos]', '1', '2', '[fotos/playa]', '3', '4'])
   })
 
   it('cada carpeta conoce todas las imágenes que cuelgan de ella', () => {

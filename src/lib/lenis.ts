@@ -2,21 +2,41 @@ import Lenis from 'lenis'
 
 // scroll suave con lenis, pero a medias: se nota el deslizar sin que la página se sienta lenta
 let lenis: Lenis | null = null
+let raf = 0
+let idleSince = 0
+
+// el bucle solo corre mientras hay desplazamiento y se detiene un instante después: dejarlo siempre
+// activo mantendría al navegador redibujando fotogramas sin necesidad
+function loop(time: number) {
+  if (!lenis) return
+  lenis.raf(time)
+  if (lenis.isScrolling) idleSince = time
+  if (time - idleSince > 300) {
+    raf = 0
+    return
+  }
+  raf = requestAnimationFrame(loop)
+}
+
+function wake() {
+  idleSince = performance.now()
+  if (!raf) raf = requestAnimationFrame(loop)
+}
 
 export function startLenis() {
   if (lenis) return
   lenis = new Lenis({ lerp: 0.14, wheelMultiplier: 1, smoothWheel: true })
-  const raf = (time: number) => {
-    lenis?.raf(time)
-    requestAnimationFrame(raf)
+  for (const ev of ['wheel', 'touchstart', 'keydown', 'scroll'] as const) {
+    window.addEventListener(ev, wake, { passive: true, capture: true })
   }
-  requestAnimationFrame(raf)
+  wake()
 }
 
 /** baja o sube hasta un elemento (o una altura) deslizando; sin lenis usa el scroll nativo */
 export function scrollToTarget(target: number | HTMLElement, offset = -88) {
   if (lenis) {
     lenis.scrollTo(target, { offset: typeof target === 'number' ? 0 : offset, duration: 1.1 })
+    wake()
   } else if (typeof target === 'number') {
     window.scrollTo({ top: target, behavior: 'smooth' })
   } else {
@@ -26,6 +46,8 @@ export function scrollToTarget(target: number | HTMLElement, offset = -88) {
 
 /** al cambiar de página se parte desde arriba al instante, sin deslizar por el contenido nuevo */
 export function scrollTopNow() {
-  if (lenis) lenis.scrollTo(0, { immediate: true })
-  else window.scrollTo({ top: 0, behavior: 'instant' })
+  if (lenis) {
+    lenis.scrollTo(0, { immediate: true })
+    wake()
+  } else window.scrollTo({ top: 0, behavior: 'instant' })
 }

@@ -28,7 +28,7 @@ export function TreeList({ tree, onCompare }: { tree: TreeNode[]; onCompare: (id
   })
 
   return (
-    <div ref={parent} data-lenis-prevent="" className="soft-scroll max-h-[min(62vh,680px)] min-h-[120px] overflow-y-auto" role="tree">
+    <div ref={parent} data-lenis-prevent="" className="soft-scroll max-h-[min(42vh,380px)] min-h-[120px] overflow-y-auto" role="tree">
       <div style={{ height: virt.getTotalSize(), position: 'relative' }}>
         {virt.getVirtualItems().map((v) => {
           const row = rows[v.index]

@@ -68,6 +68,16 @@ describe('readZipDirectory', () => {
   })
 })
 
+describe('fecha de modificación', () => {
+  it('conserva la fecha y la hora guardadas en el zip', async () => {
+    const date = new Date(2021, 5, 15, 10, 30, 40)
+    const zip = zipSync({ 'a.txt': [strToU8('hola'), { mtime: date }] })
+    const [entry] = await readZipDirectory(asFile(zip))
+    // el formato del zip guarda los segundos de a dos
+    expect(Math.abs(entry.mtime - date.getTime())).toBeLessThanOrEqual(2000)
+  })
+})
+
 describe('extractZipEntry', () => {
   it('devuelve el contenido exacto, comprimido o no', async () => {
     const data = new Uint8Array(5000).map((_, i) => i % 251)

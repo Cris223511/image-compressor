@@ -42,13 +42,15 @@ export class CompressionPool {
   submit(req: JobRequest): Promise<JobResult> {
     // gifsicle corre en el hilo principal y es lento: no debe ocupar un worker mientras tanto
     if (req.kind === 'gif') return runGifJob(req)
-    return this.weigh(req).then(
-      (weight) =>
-        new Promise((resolve) => {
-          this.queue.push({ req, resolve, weight })
-          this.pump()
-        }),
-    )
+    return new Promise((resolve) => {
+      // entra a la cola de inmediato, para respetar el orden de llegada; su peso se completa más tarde
+      const task: Task = { req, resolve, weight: DEFAULT_WEIGHT }
+      this.queue.push(task)
+      void this.weigh(req).then((w) => {
+        task.weight = w
+      })
+      this.pump()
+    })
   }
 
   /** lee la cabecera del archivo para saber cuántos píxeles tendrá, sin decodificar nada */
@@ -92,14 +94,15 @@ export class CompressionPool {
 
   private start(slot: Slot, task: Task) {
     slot.busy = true
-    this.inflight += task.weight
+    const weight = task.weight
+    this.inflight += weight
     let settled = false
 
     // libera el slot (o lo reemplaza si el worker quedó mal) una sola vez por tarea
     const settle = (replace: boolean): boolean => {
       if (settled) return false
       settled = true
-      this.inflight -= task.weight
+      this.inflight -= weight
       clearTimeout(timer)
       slot.worker.onmessage = null
       slot.worker.onerror = null

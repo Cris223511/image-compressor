@@ -33,6 +33,6 @@ export async function downloadAllZip(items: Item[], onProgress?: (done: number, 
   }
 
   const files: ZipFileInput[] = []
-  for (const it of items) files.push({ path: outputPath(it), blob: () => resultBlob(it) })
+  for (const it of items) files.push({ path: outputPath(it), mtime: it.mtime, blob: () => resultBlob(it) })
   await writeZip(files, name, disk, onProgress)
 }

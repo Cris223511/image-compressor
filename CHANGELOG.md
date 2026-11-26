@@ -4,6 +4,15 @@ Este documento recoge los cambios importantes de Squeezo, de la versión más re
 
 El formato sigue la convención de [Keep a Changelog](https://keepachangelog.com/es/) y el versionado es [semántico](https://semver.org/lang/es/). El primer número marca los cambios mayores, el segundo las funciones nuevas y el tercero las correcciones.
 
+## 1.0.2 (2026-11-26)
+
+- **Textos en registro formal.** Se reescriben los textos de toda la aplicación, en español y en inglés, con un lenguaje formal y literal. La sección de seguridad pasa a llamarse simplemente "Seguridad", y las preguntas frecuentes se amplían de cinco a nueve, con respuestas completas.
+- **Orden de procesamiento.** Los archivos se muestran y se procesan en el mismo orden en que se añaden, sin reordenarlos por nombre. Pueden comprimirse varios a la vez, pero sus resultados se confirman siempre en ese orden.
+- **Orden y fechas originales en la descarga.** El zip descargado respeta el orden de entrada y conserva la fecha y la hora de modificación de cada archivo, tanto de los archivos sueltos como de los que vienen dentro de un zip.
+- **Diseño del avance.** La lista de archivos es más baja y el botón de comprimir queda debajo, sin flotar. El indicador de avance ocupa ese mismo lugar y muestra el estado, el progreso y el porcentaje.
+- **Menor uso de la tarjeta gráfica.** El desplazamiento suave solo redibuja la página mientras hay desplazamiento.
+- **Recorrido de calidad.** El recorrido de la página Nosotros siempre parte del primer paso, y hay más separación entre las secciones.
+
 ## 1.0.1 (2026-11-26)
 
 - **Entradas suaves de arriba hacia abajo.** Los bloques de cada página caen en cascada, uno tras otro, y la aplicación aparece con un fundido cuando las tipografías ya están listas, sin cambios de letra a mitad de camino.

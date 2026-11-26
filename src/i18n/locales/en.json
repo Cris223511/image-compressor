@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Squeezo | Compress images without losing quality",
-    "description": "Cut the weight of your images, folders and zip files without losing quality or dimensions. Everything is processed in your browser."
+    "description": "Reduce the weight of images, folders and zip files without losing quality or dimensions. All processing is done in the browser."
   },
   "nav": {
     "compress": "Compress",
@@ -16,36 +16,36 @@
     "titleA": "Less",
     "titleSqueeze": "weight.",
     "titleB": "Same image.",
-    "subtitle": "Compress photos, folders and .zip files without losing quality or changing dimensions. Everything happens in your browser.",
+    "subtitle": "Compress photographs, folders and .zip files without losing quality or changing their dimensions. All processing takes place in your browser.",
     "select": "Select images",
     "folder": "Choose a folder",
     "zip": "Choose a .zip file",
-    "dropHint": "or drop images, folders or a .zip here",
-    "sample": "Try it with a sample photo",
+    "dropHint": "or drag images, folders or a .zip file here",
+    "sample": "Try it with a sample photograph",
     "points": [
       {
         "title": "Same dimensions, same sharpness",
-        "text": "It only removes what the eye cannot notice."
+        "text": "Only what the eye cannot perceive is removed."
       },
       {
         "title": "Zips with a preview",
-        "text": "See everything inside before compressing."
+        "text": "You can review the full contents before compressing."
       },
       {
         "title": "Nothing leaves your device",
-        "text": "Nothing to upload and no account to create."
+        "text": "No file is uploaded and no account is required."
       }
     ]
   },
   "drop": {
-    "title": "Drop to add",
+    "title": "Drop the files to add them",
     "text": "Images, folders or .zip files"
   },
   "work": {
     "scanning": "Reading files...",
     "images_one": "{count} image",
     "images_other": "{count} images",
-    "selected": "{count} checked",
+    "selected": "{count} selected",
     "totalWeight": "Original weight",
     "addMore": "Add more",
     "clear": "Clear",
@@ -60,9 +60,9 @@
     "folderCount_one": "{count} image",
     "folderCount_other": "{count} images",
     "progress": "{done} of {total}",
-    "nothingSelected": "Check at least one image to compress.",
-    "onlySkipped": "No images were found in what you added.",
-    "limitHit": "The first {max} images of each zip were taken. The rest are over the limit.",
+    "nothingSelected": "Select at least one image to compress.",
+    "onlySkipped": "No images were found among the files added.",
+    "limitHit": "The first {max} images of each zip were included. The rest exceed the limit.",
     "treeTitle": "Contents",
     "downloadAll": "Download all (.zip)",
     "downloading": "Preparing zip {done} of {total}",
@@ -71,7 +71,7 @@
     "downloadOne": "Download this image",
     "dimensions": "{w} × {h} px",
     "saved": "Your progress is saved in this browser.",
-    "saveFailed": "There is no space to save your session. If you reload, it will be lost.",
+    "saveFailed": "There is no space available to save the session. If you reload the page, it will be lost.",
     "restoring": "Restoring your session..."
   },
   "status": {
@@ -80,18 +80,18 @@
     "saved": "-{percent}"
   },
   "notes": {
-    "alreadyOptimal": "Already optimized. The original is kept.",
+    "alreadyOptimal": "The image was already optimized. The original is kept.",
     "converted": "Converted to {format}.",
-    "noRecompress": "Kept as is (animated or cannot be recompressed).",
+    "noRecompress": "Kept without changes, because it is animated or cannot be recompressed.",
     "resized": "Resized."
   },
   "errors": {
     "notImage": "Not a valid image.",
-    "tooBig": "Too large.",
-    "pixels": "Too many pixels.",
-    "decode": "Could not be read.",
-    "zip": "The zip is damaged or unsafe.",
-    "timeout": "Took too long.",
+    "tooBig": "The file exceeds the maximum allowed size.",
+    "pixels": "It exceeds the maximum number of pixels allowed.",
+    "decode": "The file could not be read.",
+    "zip": "The zip file is damaged or unsafe.",
+    "timeout": "Processing took too long.",
     "unsupported": "This browser cannot read this format."
   },
   "skip": {
@@ -110,14 +110,14 @@
       "invalid": "Content that is not an image",
       "encrypted": "Password protected",
       "unsafe": "Unsafe paths",
-      "suspicious": "Suspected zip bombs",
+      "suspicious": "Possible decompression bombs",
       "unsupported": "Unsupported compression",
       "limit": "Over the {max} image limit"
     }
   },
   "result": {
     "title": "Done",
-    "saved": "You saved {percent}",
+    "saved": "Reduction of {percent}",
     "detail": "From {before} to {after}",
     "count_one": "{count} image compressed",
     "count_other": "{count} images compressed",
@@ -125,7 +125,7 @@
     "unchanged_other": "{count} were already optimized",
     "failed_one": "{count} failed",
     "failed_other": "{count} failed",
-    "nothingSaved": "These images were already very well optimized."
+    "nothingSaved": "These images were already fully optimized."
   },
   "compare": {
     "title": "Before and after",
@@ -142,19 +142,19 @@
     "mode": {
       "recommended": {
         "name": "Recommended",
-        "text": "Much less weight, with no changes visible at a glance."
+        "text": "Large weight reduction, with no changes visible at a glance."
       },
       "high": {
         "name": "High quality",
-        "text": "Differences you cannot see even when zoomed in. Smaller savings."
+        "text": "Differences imperceptible even when zoomed in. Smaller reduction."
       },
       "max": {
         "name": "Maximum compression",
-        "text": "The smallest weight possible. Changes may show when zoomed in."
+        "text": "The smallest weight possible. Changes may be noticeable when zoomed in."
       },
       "custom": {
         "name": "Custom",
-        "text": "You set the quality of every image."
+        "text": "You set the quality of each image."
       }
     },
     "quality": "Quality",
@@ -169,9 +169,9 @@
     "outputHint": "GIF and SVG files always keep their format.",
     "metaTitle": "Metadata",
     "metaLabel": "Keep metadata in JPG files",
-    "metaHint": "Keeps camera data and the color profile. It weighs a bit more and may include the location.",
+    "metaHint": "Keeps the camera data and the color profile. It slightly increases the weight and may include the location.",
     "resizeTitle": "Maximum dimensions",
-    "resizeHint": "Only shrinks images larger than the limit. Off by default.",
+    "resizeHint": "Only reduces images that exceed the limit. Off by default.",
     "resize": {
       "0": "Original dimensions",
       "3840": "4K (3840 px)",
@@ -179,10 +179,10 @@
       "1920": "Full HD (1920 px)",
       "1280": "1280 px"
     },
-    "pngNote": "PNG files with many colors are reduced to a palette when it does not show. \"High quality\" loses not a single pixel."
+    "pngNote": "PNG files with many colors are reduced to a palette when the difference is not noticeable. \"High quality\" loses no pixel."
   },
   "footer": {
-    "blurb": "An image compressor that runs in your browser. Open source and no accounts.",
+    "blurb": "An image compressor that runs in the browser. Open source, with no accounts.",
     "cta": "Compress images",
     "privacy": "Your images never leave your device",
     "top": "Back to top",
@@ -216,7 +216,7 @@
         ]
       },
       {
-        "title": "Built with",
+        "title": "Technologies",
         "links": [
           "React",
           "Vite",
@@ -237,7 +237,7 @@
     "toc": "On this page",
     "about": {
       "title": "How Squeezo works",
-      "lead": "Less weight, same dimensions, and nothing leaves your device.",
+      "lead": "Less weight, same dimensions, and no file leaves your device.",
       "cta": "Try it now",
       "compare": {
         "original": "Original",
@@ -246,19 +246,19 @@
         "drag": "Drag to compare"
       },
       "how": {
-        "title": "From folder to zip",
+        "title": "Step-by-step usage",
         "steps": [
           {
-            "title": "Drop",
-            "text": "Images, folders or a .zip."
+            "title": "Add",
+            "text": "Images, folders or a .zip file."
           },
           {
             "title": "Review",
-            "text": "Choose what goes in and what does not."
+            "text": "Choose what is compressed and what is excluded."
           },
           {
             "title": "Download",
-            "text": "One by one or everything in a zip."
+            "text": "Download each image separately or everything in a zip."
           }
         ],
         "drop": "Drop here",
@@ -268,36 +268,36 @@
         "allAdded": "All added",
         "added": "{count} of {total} added",
         "next": "Next",
-        "marked": "{count} of {total} checked",
+        "marked": "{count} of {total} selected",
         "again": "Repeat",
-        "hint": "It is a demo: drag the files, check what you want and compress."
+        "hint": "This is a demonstration: drag the files, select the ones you want and compress."
       },
       "formats": {
         "title": "What happens to each file",
         "items": [
           {
             "name": "JPG, WebP and AVIF",
-            "text": "Lowers the quality just to the point where the difference stops showing."
+            "text": "Lowers the quality to the point where the difference stops being perceptible."
           },
           {
             "name": "PNG",
-            "text": "Trims the color palette when it does not show. In high quality it keeps every pixel."
+            "text": "Reduces the color palette when the difference is not noticeable. In high quality it keeps every pixel."
           },
           {
             "name": "GIF",
-            "text": "Keeps the animation and takes weight out from the inside."
+            "text": "Keeps the animation and reduces the weight of the file."
           },
           {
             "name": "SVG",
-            "text": "Strips hidden scripts and extra code, and looks just as sharp."
+            "text": "Removes scripts and unnecessary code, without changing its appearance."
           },
           {
             "name": "ZIP",
-            "text": "Opens it in parts, so a huge zip is explored instantly."
+            "text": "It is read in parts, so even a very large zip is explored immediately."
           },
           {
             "name": "Videos and others",
-            "text": "Left alone: you are told which ones were left out."
+            "text": "They are not processed: you are told which ones were left out."
           }
         ]
       },
@@ -331,26 +331,26 @@
         "verified": "Verified",
         "steps": [
           {
-            "title": "Read",
-            "text": "Opens the image in your browser and checks what it really is: its content, its dimensions and its format."
+            "title": "Reading",
+            "text": "The image is opened in the browser and checked for what it really is: its content, its dimensions and its format."
           },
           {
-            "title": "Measure",
-            "text": "Compresses it at several qualities and compares each result with the original, in brightness and in color."
+            "title": "Measurement",
+            "text": "It is compressed at several quality levels and each result is compared with the original, in brightness and in color."
           },
           {
-            "title": "Choose",
-            "text": "Keeps the lightest version that passes the threshold of the chosen level. If none weighs less, it keeps the original."
+            "title": "Selection",
+            "text": "The lightest version that passes the threshold of the chosen level is kept. If none weighs less, the original is kept."
           },
           {
-            "title": "Verify",
-            "text": "Before handing it over, it measures the result on the full image, not just on a sample."
+            "title": "Verification",
+            "text": "Before the result is delivered, it is measured on the full image and not only on a sample."
           }
         ]
       },
       "band": {
-        "title": "A thousand images in a single tab.",
-        "text": "Squeezo splits the work across the cores of your processor and opens zips in parts, without loading them whole into memory. That is why a large zip is explored instantly.",
+        "title": "A thousand images in a single browser tab.",
+        "text": "The work is split across the cores of the processor and zips are read in parts, without loading them whole into memory. That is why a large zip is explored immediately.",
         "facts": [
           {
             "value": "0.1 s",
@@ -362,28 +362,28 @@
           },
           {
             "value": "4",
-            "label": "threads working at once"
+            "label": "simultaneous worker threads"
           }
         ]
       },
       "security": {
-        "title": "Security with no fine print",
+        "title": "Security",
         "items": [
           {
-            "title": "It looks inside the file",
-            "text": "Every file is identified by its content, not by its extension. A .jpg that is really text is rejected."
+            "title": "Content verification",
+            "text": "Every file is identified by its content and not by its extension. A .jpg file that actually contains text is rejected."
           },
           {
-            "title": "Zips that cannot do harm",
-            "text": "Paths that try to escape the folder, password-protected entries and files that inflate far beyond their stated size are rejected."
+            "title": "Protection against malicious zips",
+            "text": "Paths that try to leave the destination folder, password-protected entries and files that, once unpacked, far exceed the size they declare are rejected."
           },
           {
             "title": "SVGs without scripts",
             "text": "Scripts and external links are removed from SVG files, and they are only shown as images, never as pages."
           },
           {
-            "title": "No personal data",
-            "text": "JPG and PNG files lose their hidden data, such as the camera model and the location, unless you ask to keep it."
+            "title": "Protection of personal data",
+            "text": "JPG and PNG files lose their hidden data, such as the camera model and the location, unless it is requested to keep it."
           }
         ]
       },
@@ -392,23 +392,39 @@
         "items": [
           {
             "q": "Is quality lost?",
-            "a": "Not at a glance. Squeezo compares every result with the original and only accepts it if the difference does not show. For maximum fidelity, choose \"High quality\"."
+            "a": "Not visibly, at the recommended level. Squeezo compresses each image at several quality levels, compares each result with the original in brightness and in color, and only accepts the version whose difference cannot be seen at a glance. If you need maximum fidelity, the \"High quality\" level demands differences that are imperceptible even when zooming in, in exchange for a smaller weight reduction."
           },
           {
-            "q": "Do the dimensions change?",
-            "a": "No. Width and height stay the same, unless you turn on the dimension limit in the settings."
+            "q": "Do the dimensions of the image change?",
+            "a": "No. Width and height stay the same, unless you turn on the dimension limit in the settings. In that case only the images that exceed the chosen limit are reduced, and their proportions are kept."
           },
           {
-            "q": "What happens to videos inside a zip?",
-            "a": "They are left out and you are told how many there were. Squeezo only compresses images."
+            "q": "How much is the weight reduced?",
+            "a": "It depends on each image. In tests with photographs, the recommended level reduced the weight by roughly 55% to 80%, and by more than 90% in PNG screenshots. Images that were already well optimized are left unchanged and you are told so."
+          },
+          {
+            "q": "Which formats are supported?",
+            "a": "JPG, PNG, WebP, AVIF, GIF (animated too), SVG and BMP. TIFF and HEIC are processed only in browsers that can read them. GIF and SVG files always keep their format, and animated PNG, WebP or AVIF images are left unchanged so the animation is not lost."
+          },
+          {
+            "q": "What happens to videos and other files inside a zip?",
+            "a": "They are skipped, and you are told how many there were and of what kind. Executables are dropped for safety. Squeezo only compresses images."
           },
           {
             "q": "Is there a limit?",
-            "a": "Up to 1000 images per zip and 50 megapixels per image."
+            "a": "Up to 1000 images per zip and up to 50 megapixels per image are accepted. These limits protect the memory of the browser and prevent the device from being overloaded."
           },
           {
-            "q": "What if I reload the page?",
-            "a": "You pick up where you were. Your progress is saved in the browser, even if a compression was halfway through."
+            "q": "Are my files sent to any server?",
+            "a": "No. All processing takes place in your own browser. No file is sent to a server and no account is needed."
+          },
+          {
+            "q": "What happens if I reload the page or close the tab?",
+            "a": "Your progress is kept. The session is saved in the browser and, when you return, it is restored exactly as it was, even if a compression was halfway through, which resumes automatically. The \"Clear\" button deletes that data."
+          },
+          {
+            "q": "Are the camera data and the location kept?",
+            "a": "By default they are removed from JPG and PNG files. If you need to keep them, you can turn that option on in the compression settings."
           }
         ]
       },
@@ -418,39 +434,39 @@
       "title": "Privacy policy",
       "sections": [
         {
-          "h": "Your files",
+          "h": "Files",
           "p": [
-            "Your images, folders and zips are processed in your browser and never uploaded to a server. So you do not lose your progress, they stay in your browser's storage until you press \"Clear\"."
+            "Images, folders and zip files are processed in the browser and are never sent to a server. To avoid losing progress, they are kept in the browser's own storage until \"Clear\" is pressed."
           ]
         },
         {
           "h": "Personal data",
           "p": [
-            "No accounts, no tracking cookies, no analytics and no ads."
+            "There are no user accounts, tracking cookies, analytics or advertising."
           ]
         },
         {
           "h": "Preferences",
           "p": [
-            "Your browser remembers the language, the theme and the compression settings."
+            "The browser stores the chosen language, theme and compression settings."
           ]
         },
         {
           "h": "Metadata",
           "p": [
-            "When a JPG or a PNG is compressed, hidden data such as the camera or the location is erased unless you choose to keep it. An image that cannot be reduced is returned as it was."
+            "When a JPG or a PNG is compressed, hidden data such as camera or location information is removed, unless it is requested to keep it. If an image cannot be reduced, it is returned unchanged."
           ]
         },
         {
           "h": "Hosting",
           "p": [
-            "The site is hosted on Vercel, which may log technical data about the visit, such as the IP address. It never includes your images."
+            "The site is hosted on Vercel, which may log technical data about the visit, such as the IP address. Those logs never include the images."
           ]
         },
         {
           "h": "Security",
           "p": [
-            "Squeezo checks the real content of every file, never runs anything you add, and strips scripts from SVG files."
+            "Squeezo examines the real content of every file, never runs anything that is added, and removes scripts from SVG files."
           ]
         }
       ]
@@ -461,31 +477,31 @@
         {
           "h": "Use",
           "p": [
-            "Squeezo is free. Use it only with images you have the right to use."
+            "Squeezo is a free tool. It must be used only with images over which the user has the right of use."
           ]
         },
         {
-          "h": "Your files",
+          "h": "Files",
           "p": [
-            "They remain yours. Squeezo never modifies your originals: it creates copies that you download separately."
+            "Files remain the property of their owner. Squeezo never modifies the originals: it creates compressed copies that are downloaded separately."
           ]
         },
         {
           "h": "Results",
           "p": [
-            "Squeezo aims for the difference not to show, but no lossy compression guarantees an identical result. Always keep your originals."
+            "Squeezo aims for the difference not to be perceptible, but no lossy compression guarantees a result identical to the original. Keeping the original files is always recommended."
           ]
         },
         {
           "h": "Limits",
           "p": [
-            "Up to 1000 images per zip. Anything that is not an image, or looks dangerous, is left out."
+            "Up to 1000 images per zip are accepted. Files that are not images, or that represent a risk, are excluded."
           ]
         },
         {
           "h": "Availability",
           "p": [
-            "Provided as is, with no warranty, and it may change or stop being available."
+            "The service is provided as is, without warranties, and may change or stop being available."
           ]
         },
         {
@@ -497,7 +513,7 @@
         {
           "h": "License",
           "p": [
-            "The code is MIT. The name and the logo belong to the project."
+            "The source code is distributed under the MIT license. The name and the logo belong to the project."
           ]
         }
       ]

@@ -17,6 +17,7 @@ type SavedSource = { kind: 'file' } | { kind: 'zip'; zip: string; entry: ZipEntr
 
 interface SavedItem {
   id: string
+  mtime: number
   path: string
   name: string
   size: number
@@ -148,6 +149,7 @@ async function doRestore(): Promise<void> {
 
       items[si.id] = {
         id: si.id,
+        mtime: si.mtime ?? 0,
         path: si.path,
         name: si.name,
         size: si.size,
@@ -217,6 +219,7 @@ async function flush() {
     }
     saved.push({
       id,
+      mtime: it.mtime,
       path: it.path,
       name: it.name,
       size: it.size,

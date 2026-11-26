@@ -145,49 +145,52 @@ export function Workspace({ pickers }: { pickers: ReturnType<typeof usePickers> 
         )
       )}
 
+      {/* acción principal justo debajo de la lista: el botón de comprimir o el avance, uno sobre el otro en el mismo sitio */}
+      <Collapse open={hasImages && phase !== 'done'}>
+        <div className="mt-5 grid pb-6" aria-live="polite">
+          <div
+            className={`col-start-1 row-start-1 flex items-center transition-opacity duration-500 ${running ? 'pointer-events-none opacity-0' : 'opacity-100'}`}
+            {...(running ? ({ inert: '' } as object) : {})}
+          >
+            <button className="btn-primary h-14 w-full text-lg" disabled={stats.todo === 0 || scanning} onClick={run}>
+              <Zap size={20} />
+              {stats.todo === 0 ? t('work.nothingSelected') : t('work.compress', { count: stats.todo })}
+            </button>
+          </div>
+          <div
+            className={`col-start-1 row-start-1 transition-opacity duration-500 ${running ? 'opacity-100' : 'pointer-events-none opacity-0'}`}
+            {...(running ? {} : ({ inert: '' } as object))}
+          >
+            <div className="rounded-3xl border border-line bg-surface p-4 shadow-card sm:p-5">
+              <div className="flex items-center gap-4">
+                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-brand-soft text-brand">
+                  <Loader2 size={22} className="spin" />
+                </span>
+                <div className="min-w-0 flex-1">
+                  <p className="font-display text-lg font-bold leading-tight">{t('work.compressing')}</p>
+                  <p className="text-sm text-muted">{t('work.progress', { done: stats.finished, total })}</p>
+                </div>
+                <p className="font-display text-3xl font-extrabold tabular-nums text-brand">{percent}%</p>
+                <button className="btn-ghost shrink-0" onClick={cancel}>
+                  <Square size={14} /> {t('work.cancel')}
+                </button>
+              </div>
+              <div className="mt-4 h-2.5 overflow-hidden rounded-full bg-sunken">
+                <div
+                  className="h-full rounded-full transition-[width] duration-500 ease-out"
+                  style={{ width: `${percent}%`, backgroundImage: 'linear-gradient(90deg,#1456f0,#1aaeff)' }}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </Collapse>
+
       {skipped.length > 0 && <SkippedPanel />}
 
       <p key={persistFailed ? 'fail' : 'ok'} className={`fade-in mt-6 text-center text-xs ${persistFailed ? 'text-warn' : 'text-muted'}`}>
         {persistFailed ? t('work.saveFailed') : t('work.saved')}
       </p>
-
-      {/* barra de acción fija abajo: botón de comprimir o el avance */}
-      {hasImages && (
-        <div
-          className={`sticky bottom-4 z-20 mt-6 transition-[opacity,transform] duration-500 ease-out ${
-            phase === 'done' ? 'pointer-events-none translate-y-6 opacity-0' : 'translate-y-0 opacity-100'
-          }`}
-          aria-hidden={phase === 'done'}
-        >
-          <div key={running ? 'run' : 'idle'} className="fade-in mx-auto max-w-2xl rounded-3xl border border-line bg-surface p-3 shadow-lift">
-            {running ? (
-              <div className="flex items-center gap-4 px-2 py-1">
-                <div className="min-w-0 flex-1">
-                  <div className="mb-1.5 flex justify-between text-sm font-semibold">
-                    <span>{t('work.compressing')}</span>
-                    <span className="text-muted">{t('work.progress', { done: stats.finished, total })}</span>
-                  </div>
-                  <div className="relative h-2.5 overflow-hidden rounded-full bg-sunken">
-                    <div
-                      className="h-full rounded-full transition-[width] duration-300"
-                      style={{ width: `${percent}%`, backgroundImage: 'linear-gradient(90deg,#1456f0,#1aaeff)' }}
-                    />
-                    <div className="sheen absolute inset-0" />
-                  </div>
-                </div>
-                <button className="btn-ghost shrink-0" onClick={cancel}>
-                  <Square size={14} /> {t('work.cancel')}
-                </button>
-              </div>
-            ) : (
-              <button className="btn-primary h-14 w-full text-lg" disabled={stats.todo === 0 || scanning} onClick={run}>
-                <Zap size={20} />
-                {stats.todo === 0 ? t('work.nothingSelected') : t('work.compress', { count: stats.todo })}
-              </button>
-            )}
-          </div>
-        </div>
-      )}
 
       <SettingsPanel open={settingsOpen} onClose={() => setSettingsOpen(false)} />
       {compareId && <ComparePanel id={compareId} onClose={() => setCompareId(null)} />}

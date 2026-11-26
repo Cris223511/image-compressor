@@ -7,6 +7,8 @@ import { MAX_ENTRY_BYTES, MAX_RATIO, MAX_ZIP_ENTRIES, RATIO_MIN_BYTES } from '..
 import type { SkipCategory } from '../formats'
 
 export interface ZipEntry {
+  /** fecha de modificación guardada en el zip, en milisegundos */
+  mtime: number
   /** ruta ya normalizada, siempre con / y sin partes peligrosas */
   path: string
   method: number
@@ -114,6 +116,10 @@ export async function readZipDirectory(file: File): Promise<ZipEntry[]> {
     const extraLen = dv.getUint16(p + 30, true)
     const commentLen = dv.getUint16(p + 32, true)
     let offset = dv.getUint32(p + 42, true)
+    // fecha y hora en el formato de ms-dos que usa el zip
+    const dosTime = dv.getUint16(p + 12, true)
+    const dosDate = dv.getUint16(p + 14, true)
+    const mtime = new Date(1980 + (dosDate >> 9), ((dosDate >> 5) & 15) - 1, dosDate & 31, dosTime >> 11, (dosTime >> 5) & 63, (dosTime & 31) * 2).getTime()
 
     const name = decodeName(cd.subarray(p + 46, p + 46 + nameLen), (flags & 0x800) !== 0)
 
@@ -155,6 +161,7 @@ export async function readZipDirectory(file: File): Promise<ZipEntry[]> {
     else if (usize > RATIO_MIN_BYTES && csize > 0 && usize / csize > MAX_RATIO) problem = 'suspicious'
 
     entries.push({
+      mtime,
       path: path ?? name,
       method,
       compressedSize: csize,

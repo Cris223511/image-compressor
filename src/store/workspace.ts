@@ -27,6 +27,8 @@ export interface ItemResult {
 
 export interface Item {
   id: string
+  /** fecha de modificación original, para conservarla en el zip descargado */
+  mtime: number
   path: string
   name: string
   size: number
@@ -180,35 +182,55 @@ export const useWorkspace = create<WorkspaceState>((set, get) => ({
     const patch = (id: string, change: Partial<Item>) =>
       set((s) => (s.items[id] ? { items: { ...s.items, [id]: { ...s.items[id], ...change } } } : s))
 
+    // los trabajos arrancan en el orden en que se añadieron y pueden avanzar varios a la vez, pero sus
+    // resultados se aplican siempre en ese mismo orden: el que termina antes de tiempo espera su turno
+    const finished = new Map<number, () => void>()
+    let nextToApply = 0
+    const applyInOrder = () => {
+      while (finished.has(nextToApply)) {
+        finished.get(nextToApply)!()
+        finished.delete(nextToApply)
+        nextToApply++
+      }
+    }
+
     let cursor = 0
     const lane = async () => {
       while (cursor < todo.length && !ctl.signal.aborted) {
-        const id = todo[cursor++]
+        const index = cursor++
+        const id = todo[index]
         const item = get().items[id]
-        if (!item) continue
-        patch(id, { status: 'processing' })
-        const r = await p.submit({ id, source: item.source, settings, kind: item.kind })
-        if (!get().items[id]) continue
-        if (!r.ok) {
-          // una tarea descartada por cancelar vuelve a quedar en espera
-          patch(id, r.error === 'cancelled' ? { status: 'pending' } : { status: 'error', error: r.error, detail: r.detail })
+        if (!item) {
+          finished.set(index, () => undefined)
+          applyInOrder()
           continue
         }
-        if (r.bytes) addToTotal(1)
-        patch(id, {
-          status: r.bytes ? 'done' : 'kept',
-          result: {
-            blob: r.bytes ? new Blob([r.bytes], { type: KIND_MIME[r.outKind] }) : null,
-            name: outputName(item.name, r.inKind, r.outKind),
-            outSize: r.outSize,
-            outKind: r.outKind,
-            width: r.width,
-            height: r.height,
-            note: r.note,
-            score: r.score,
-            quality: r.quality,
-          },
+        patch(id, { status: 'processing' })
+        const r = await p.submit({ id, source: item.source, settings, kind: item.kind })
+        finished.set(index, () => {
+          if (!get().items[id]) return
+          if (!r.ok) {
+            // una tarea descartada por cancelar vuelve a quedar en espera
+            patch(id, r.error === 'cancelled' ? { status: 'pending' } : { status: 'error', error: r.error, detail: r.detail })
+            return
+          }
+          if (r.bytes) addToTotal(1)
+          patch(id, {
+            status: r.bytes ? 'done' : 'kept',
+            result: {
+              blob: r.bytes ? new Blob([r.bytes], { type: KIND_MIME[r.outKind] }) : null,
+              name: outputName(item.name, r.inKind, r.outKind),
+              outSize: r.outSize,
+              outKind: r.outKind,
+              width: r.width,
+              height: r.height,
+              note: r.note,
+              score: r.score,
+              quality: r.quality,
+            },
+          })
         })
+        applyInOrder()
       }
     }
 

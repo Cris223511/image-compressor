@@ -12,6 +12,8 @@ export interface Incoming {
 }
 
 export interface NewItem {
+  /** fecha de modificación original en milisegundos, que se conserva al descargar */
+  mtime: number
   path: string
   name: string
   size: number
@@ -59,27 +61,34 @@ export function entriesFromDataTransfer(dt: DataTransfer): { entries: FsEntry[];
 }
 
 export async function walkEntries(entries: FsEntry[], files: File[]): Promise<Incoming[]> {
-  const out: Incoming[] = files.map((file) => ({ file, path: file.name }))
   let count = 0
 
-  async function walk(entry: FsEntry, prefix: string): Promise<void> {
-    if (count > MAX_WALK) return
+  // cada carpeta devuelve sus archivos en el orden en que el sistema los lista; las lecturas pueden
+  // ir en paralelo, pero el resultado se arma siempre en ese mismo orden
+  async function walk(entry: FsEntry, prefix: string): Promise<Incoming[]> {
+    if (count > MAX_WALK) return []
     if (entry.isFile && entry.file) {
       const file = await new Promise<File>((ok, err) => entry.file!(ok, err))
-      out.push({ file, path: prefix + file.name })
       count++
-    } else if (entry.isDirectory && entry.createReader) {
+      return [{ file, path: prefix + file.name }]
+    }
+    if (entry.isDirectory && entry.createReader) {
       const reader = entry.createReader()
+      const out: Incoming[] = []
       // readEntries devuelve de a lotes, se repite hasta que venga vacío
       for (;;) {
         const batch = await new Promise<FsEntry[]>((ok, err) => reader.readEntries(ok, err))
         if (!batch.length) break
-        await Promise.all(batch.map((child) => walk(child, `${prefix}${entry.name}/`)))
+        const parts = await Promise.all(batch.map((child) => walk(child, `${prefix}${entry.name}/`)))
+        for (const part of parts) out.push(...part)
       }
+      return out
     }
+    return []
   }
 
-  for (const e of entries) await walk(e, '')
+  const out: Incoming[] = files.map((file) => ({ file, path: file.name }))
+  for (const e of entries) out.push(...(await walk(e, '')))
   return out
 }
 
@@ -157,7 +166,7 @@ export async function ingest(incoming: Incoming[], usedPaths: Set<string>): Prom
       }
       looseImages++
       const finalPath = unique(path)
-      items.push({ path: finalPath, name: baseName(finalPath), size: file.size, source: { kind: 'file', file }, kind })
+      items.push({ path: finalPath, name: baseName(finalPath), size: file.size, source: { kind: 'file', file }, kind, mtime: file.lastModified })
     } else if (kindFromExt(file.name)) {
       // decía ser una imagen pero por dentro no lo es
       skipped.push({ path, size: file.size, category: 'invalid' })
@@ -214,6 +223,7 @@ async function ingestZip(
       size: entry.size,
       source: { kind: 'zip', file, entry },
       kind,
+      mtime: entry.mtime,
     })
   }
 }
