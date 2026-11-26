@@ -1,8 +1,9 @@
-import { memo, useMemo, useRef } from 'react'
+import { memo, useCallback, useMemo, useRef, useState } from 'react'
 import { useVirtualizer } from '@tanstack/react-virtual'
 import { useShallow } from 'zustand/react/shallow'
-import { AlertCircle, ArrowRight, ChevronRight, Columns2, Download, Folder, FolderOpen, Loader2 } from 'lucide-react'
+import { AlertCircle, ArrowRight, ChevronRight, Columns2, Download, Folder, FolderOpen, GripVertical, Loader2 } from 'lucide-react'
 import { Checkbox, type CheckState } from './Checkbox'
+import { RemoveButton } from './RemoveButton'
 import { Thumb } from './Thumb'
 import { useWorkspace, type Item } from '../store/workspace'
 import { flatten, type FolderNode, type TreeNode } from '../lib/tree'
@@ -19,6 +20,74 @@ export function TreeList({ tree, onCompare }: { tree: TreeNode[]; onCompare: (id
   const parent = useRef<HTMLDivElement>(null)
 
   const rows = useMemo(() => flatten(tree, new Set(Object.keys(collapsed))), [tree, collapsed])
+  const rowsRef = useRef(rows)
+  rowsRef.current = rows
+  const locked = useWorkspace((s) => s.phase === 'running')
+  const moveItem = useWorkspace((s) => s.moveItem)
+
+  // arrastre para reordenar: solo entre archivos de una misma carpeta, y mientras no se esté comprimiendo
+  const [drag, setDrag] = useState<{ id: string; over: string | null } | null>(null)
+  const startDrag = useCallback(
+    (e: React.PointerEvent, id: string) => {
+      if (e.button !== 0) return
+      e.preventDefault()
+      e.stopPropagation()
+      const host = parent.current
+      if (!host) return
+      const dirOf = (itemId: string) => {
+        const path = useWorkspace.getState().items[itemId]?.path ?? ''
+        return path.slice(0, path.lastIndexOf('/') + 1)
+      }
+      const dir = dirOf(id)
+      let over: string | null = null
+      let y = e.clientY
+      setDrag({ id, over })
+      document.body.style.cursor = 'grabbing'
+
+      // en cada cuadro se mira qué fila hay bajo el puntero y se desplaza la lista si está en un borde
+      let frame = 0
+      const tick = () => {
+        const rect = host.getBoundingClientRect()
+        if (y < rect.top + 36) host.scrollTop -= 10
+        else if (y > rect.bottom - 36) host.scrollTop += 10
+        const row = rowsRef.current[Math.floor((y - rect.top + host.scrollTop) / ROW_H)]
+        const next = row && row.type === 'file' && row.id !== id && dirOf(row.id) === dir ? row.id : null
+        if (next !== over) {
+          over = next
+          setDrag({ id, over })
+        }
+        frame = requestAnimationFrame(tick)
+      }
+      frame = requestAnimationFrame(tick)
+
+      const onMove = (ev: PointerEvent) => (y = ev.clientY)
+      const finish = (commit: boolean) => {
+        cancelAnimationFrame(frame)
+        window.removeEventListener('pointermove', onMove)
+        window.removeEventListener('pointerup', onUp)
+        window.removeEventListener('pointercancel', onCancel)
+        window.removeEventListener('keydown', onKey)
+        document.body.style.cursor = ''
+        if (commit && over) moveItem(id, over)
+        setDrag(null)
+      }
+      const onUp = () => finish(true)
+      const onCancel = () => finish(false)
+      const onKey = (ev: KeyboardEvent) => ev.key === 'Escape' && finish(false)
+      window.addEventListener('pointermove', onMove)
+      window.addEventListener('pointerup', onUp)
+      window.addEventListener('pointercancel', onCancel)
+      window.addEventListener('keydown', onKey)
+    },
+    [moveItem],
+  )
+
+  // dónde se marca que caerá lo arrastrado: debajo de la fila si baja, encima si sube
+  const order = useWorkspace((s) => s.order)
+  const dropSide = (id: string): 'above' | 'below' | null => {
+    if (!drag || drag.over !== id) return null
+    return order.indexOf(drag.id) < order.indexOf(id) ? 'below' : 'above'
+  }
 
   const virt = useVirtualizer({
     count: rows.length,
@@ -41,7 +110,7 @@ export function TreeList({ tree, onCompare }: { tree: TreeNode[]; onCompare: (id
               {row.type === 'folder' ? (
                 <FolderRow node={row} collapsed={!!collapsed[row.path]} />
               ) : (
-                <FileRow id={row.id} depth={row.depth} onCompare={onCompare} />
+                <FileRow id={row.id} depth={row.depth} onCompare={onCompare} onGrip={startDrag} locked={locked} dragging={drag?.id === row.id} drop={dropSide(row.id)} />
               )}
             </div>
           )
@@ -58,6 +127,7 @@ const FolderRow = memo(function FolderRow({ node, collapsed }: { node: FolderNod
   const locale = useLocale()
   const toggleFolder = useWorkspace((s) => s.toggleFolder)
   const setSelected = useWorkspace((s) => s.setSelected)
+  const removeItems = useWorkspace((s) => s.removeItems)
 
   const st = useWorkspace(
     useShallow((s) => {
@@ -88,7 +158,7 @@ const FolderRow = memo(function FolderRow({ node, collapsed }: { node: FolderNod
       aria-expanded={!collapsed}
       onClick={() => toggleFolder(node.path)}
       className="fade-in flex h-full cursor-pointer items-center gap-2.5 border-b border-line/70 pr-4 transition-colors hover:bg-sunken/70"
-      style={{ paddingLeft: 14 + node.depth * INDENT }}
+      style={{ paddingLeft: 34 + node.depth * INDENT }}
     >
       <ChevronRight size={16} className={`shrink-0 text-muted transition-transform duration-200 ${collapsed ? '' : 'rotate-90'}`} />
       <Checkbox state={state} label={node.name} onChange={() => setSelected(node.ids, state !== 'all')} />
@@ -102,25 +172,56 @@ const FolderRow = memo(function FolderRow({ node, collapsed }: { node: FolderNod
         </p>
       </div>
       {saved > 0.005 && <span className="fade-in chip bg-good-soft text-good">{t('status.saved', { percent: formatSaved(saved, locale) })}</span>}
+      <RemoveButton label={t('work.removeFolder')} onConfirm={() => removeItems(node.ids)} />
     </div>
   )
 })
 
 // ---------------------------------------------------------------------------------------
 
-const FileRow = memo(function FileRow({ id, depth, onCompare }: { id: string; depth: number; onCompare: (id: string) => void }) {
+const FileRow = memo(function FileRow({
+  id,
+  depth,
+  onCompare,
+  onGrip,
+  locked,
+  dragging,
+  drop,
+}: {
+  id: string
+  depth: number
+  onCompare: (id: string) => void
+  onGrip: (e: React.PointerEvent, id: string) => void
+  locked: boolean
+  dragging: boolean
+  drop: 'above' | 'below' | null
+}) {
+  const t = useT()
   const item = useWorkspace((s) => s.items[id])
   const setSelected = useWorkspace((s) => s.setSelected)
+  const removeItems = useWorkspace((s) => s.removeItems)
   if (!item) return null
   return (
     <div
       role="treeitem"
       onClick={() => item.status !== 'processing' && setSelected([item.id], !item.selected)}
-      className={`fade-in group flex h-full items-center gap-2.5 border-b border-line/70 pr-4 transition-[background-color,opacity] duration-300 hover:bg-sunken/70 ${
-        item.selected ? '' : 'opacity-55'
+      className={`fade-in group relative flex h-full items-center gap-2.5 border-b border-line/70 pl-2 pr-3 transition-[background-color,opacity] duration-300 hover:bg-sunken/70 ${
+        dragging ? 'bg-sunken opacity-60' : item.selected ? '' : 'opacity-55'
       }`}
-      style={{ paddingLeft: 14 + depth * INDENT + 22 }}
     >
+      {drop && <span aria-hidden className={`pointer-events-none absolute inset-x-2 z-10 h-0.5 rounded-full bg-brand ${drop === 'above' ? '-top-px' : '-bottom-px'}`} />}
+      <button
+        type="button"
+        disabled={locked}
+        title={t('work.reorder')}
+        aria-label={t('work.reorder')}
+        onPointerDown={(e) => onGrip(e, id)}
+        onClick={(e) => e.stopPropagation()}
+        style={{ marginRight: (depth + 1) * INDENT, touchAction: 'none' }}
+        className="grid h-8 w-5 shrink-0 cursor-grab place-items-center rounded-md text-muted/70 transition-colors hover:bg-surface hover:text-ink active:cursor-grabbing disabled:pointer-events-none disabled:opacity-30"
+      >
+        <GripVertical size={16} />
+      </button>
       <Checkbox
         state={item.selected ? 'all' : 'none'}
         label={item.name}
@@ -130,6 +231,7 @@ const FileRow = memo(function FileRow({ id, depth, onCompare }: { id: string; de
       <Thumb item={item} />
       <FileInfo item={item} />
       <FileStatus item={item} onCompare={onCompare} />
+      <RemoveButton label={t('work.remove')} disabled={item.status === 'processing'} onConfirm={() => removeItems([item.id])} />
     </div>
   )
 })

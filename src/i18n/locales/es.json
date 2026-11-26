@@ -72,7 +72,11 @@
     "dimensions": "{w} × {h} px",
     "saved": "Tu progreso se guarda en este navegador.",
     "saveFailed": "No hay espacio disponible para guardar la sesión. Si recargas la página, se perderá.",
-    "restoring": "Recuperando tu sesión..."
+    "restoring": "Recuperando tu sesión...",
+    "remove": "Eliminar",
+    "removeFolder": "Eliminar carpeta",
+    "confirm": "Confirmar",
+    "reorder": "Arrastrar para cambiar el orden"
   },
   "status": {
     "processing": "Comprimiendo",
@@ -435,61 +439,197 @@
         {
           "h": "Principio general",
           "p": [
-            "Squeezo funciona por completo en el navegador. Las imágenes, las carpetas y los archivos zip nunca se envían a un servidor, y no es necesario registrarse ni proporcionar datos personales para usar la herramienta."
+            "Squeezo funciona por completo en el navegador. Las imágenes, las carpetas y los archivos zip nunca se envían a un servidor, y no es necesario registrarse ni proporcionar datos personales para usar la herramienta.",
+            "Este principio se concreta en tres compromisos:",
+            {
+              "ul": [
+                "los archivos del usuario no salen de su equipo;",
+                "no existen cuentas, cookies de seguimiento ni analítica;",
+                "los únicos datos que llegan a un servidor son los estrictamente necesarios para el contador global, y se detallan más abajo."
+              ]
+            }
+          ]
+        },
+        {
+          "h": "Qué datos intervienen",
+          "p": [
+            "Para que la distinción sea clara, estos son los datos según su tratamiento:",
+            {
+              "sub": "Se procesan solo en el equipo del usuario"
+            },
+            {
+              "ul": [
+                "las imágenes, las carpetas y los archivos zip que se añaden;",
+                "los resultados de la compresión;",
+                "las preferencias y los ajustes elegidos."
+              ]
+            },
+            {
+              "sub": "Se envían a un servidor"
+            },
+            {
+              "ul": [
+                "la cantidad de imágenes comprimidas al terminar cada compresión;",
+                "los datos técnicos de cada visita que registra el proveedor de alojamiento."
+              ]
+            },
+            {
+              "sub": "No se recopilan en ningún caso"
+            },
+            {
+              "ul": [
+                "nombres, correos electrónicos ni cualquier otro dato que identifique al usuario;",
+                "el contenido, los nombres ni las propiedades de los archivos;",
+                "la ubicación ni los datos del dispositivo."
+              ]
+            }
           ]
         },
         {
           "h": "Archivos",
           "p": [
-            "Los archivos se leen y se procesan en el equipo del usuario, utilizando los recursos de su propio procesador. Squeezo no recibe ninguna copia de ellos, no los analiza de forma remota ni los comparte con terceros."
+            "Los archivos se leen y se procesan en el equipo del usuario, utilizando los recursos de su propio procesador. Squeezo no recibe ninguna copia de ellos, no los analiza de forma remota ni los comparte con terceros.",
+            "Esto incluye los archivos que se encuentran dentro de un zip: se leen por partes en el propio navegador y nunca se transmiten."
           ]
         },
         {
           "h": "Almacenamiento en el navegador",
           "p": [
-            "Squeezo utiliza el almacenamiento del navegador para guardar la sesión de trabajo, las preferencias elegidas (idioma, tema y ajustes de compresión). Estos datos no salen del equipo, no se asocian a ninguna identidad y pueden eliminarse en cualquier momento con el botón «Vaciar» o desde la configuración del navegador."
+            "Squeezo utiliza el almacenamiento del propio navegador para que el trabajo no se pierda al recargar la página. Concretamente, se guarda:",
+            {
+              "ul": [
+                "la sesión de trabajo, es decir, los archivos añadidos y los resultados, en la base de datos del navegador (IndexedDB);",
+                "las preferencias de idioma y de tema, en el almacenamiento local;",
+                "los ajustes de compresión elegidos, también en el almacenamiento local."
+              ]
+            },
+            "Estos datos no salen del equipo, no se asocian a ninguna identidad y no se comparten con ningún servidor."
+          ]
+        },
+        {
+          "h": "Cómo eliminar los datos guardados",
+          "p": [
+            "El usuario puede borrar en cualquier momento lo que Squeezo guarda en su navegador, de tres maneras:",
+            {
+              "ol": [
+                "pulsando el botón «Vaciar» en la lista de archivos, que elimina la sesión de trabajo;",
+                "borrando los datos del sitio desde la configuración del navegador, que elimina además las preferencias;",
+                "utilizando una ventana privada o de incógnito, en la que nada se conserva al cerrarla."
+              ]
+            },
+            "Tras el borrado, la herramienta vuelve a su estado inicial."
           ]
         },
         {
           "h": "Contador global",
           "p": [
-            "Squeezo mantiene un contador con el total de imágenes comprimidas por todas las personas que lo usan, y la cifra se muestra en la página Nosotros. Al terminar una compresión, el navegador envía únicamente la cantidad de imágenes reducidas, sin archivos, nombres ni contenido. Para evitar abusos, la dirección IP se convierte en una huella abreviada que se conserva durante un minuto y después se elimina. El contador se almacena en Upstash, un servicio de bases de datos que se utiliza a través de Vercel."
+            "Squeezo muestra en la página Nosotros el total de imágenes comprimidas por todas las personas que lo utilizan. Para mantener esa cifra, al terminar una compresión el navegador envía a un servidor un único dato: la cantidad de imágenes reducidas.",
+            {
+              "sub": "Qué se envía y qué se guarda"
+            },
+            {
+              "ul": [
+                "se envía solo un número entero;",
+                "se guarda únicamente el total acumulado, sin relación con ninguna persona ni sesión;",
+                "no se envían archivos, nombres, contenido ni identificadores."
+              ]
+            },
+            {
+              "sub": "Protección frente a abusos"
+            },
+            "Para evitar que se falsee la cifra, se limitan los envíos que puede hacer una misma dirección en un minuto. Con ese fin, la dirección IP se convierte en una huella abreviada que se conserva durante un minuto y después se elimina.",
+            "El contador se almacena en Upstash, un servicio de bases de datos que se utiliza a través de Vercel."
           ]
         },
         {
           "h": "Datos personales",
           "p": [
-            "No existen cuentas de usuario, cookies de seguimiento, analítica ni publicidad. Squeezo no recopila nombres, correos electrónicos ni ningún otro dato que identifique al usuario."
+            "No existen cuentas de usuario, cookies de seguimiento, analítica ni publicidad. Squeezo no recopila nombres, correos electrónicos ni ningún otro dato que identifique al usuario.",
+            "Como no se tratan datos personales, no hay perfiles, no se elaboran estadísticas por persona y no se toman decisiones automatizadas."
+          ]
+        },
+        {
+          "h": "Cookies y tecnologías similares",
+          "p": [
+            "Squeezo no instala cookies. Las únicas tecnologías de almacenamiento que utiliza son el almacenamiento local y la base de datos del navegador, y solo para el funcionamiento descrito en esta política: recordar el trabajo en curso y las preferencias del usuario.",
+            "Ninguna de ellas se emplea para identificar ni para seguir al usuario entre sitios."
           ]
         },
         {
           "h": "Metadatos de las imágenes",
           "p": [
-            "Las fotografías suelen incluir datos ocultos, como el modelo de la cámara o la ubicación donde se tomaron. Al comprimir un JPG o un PNG esos datos se eliminan, salvo que el usuario active la opción de conservarlos. Si una imagen no puede reducirse, se devuelve sin cambios."
+            "Las fotografías suelen incluir datos ocultos, conocidos como metadatos, que pueden revelar información personal. Entre ellos:",
+            {
+              "ul": [
+                "el modelo de la cámara o del teléfono;",
+                "la fecha y la hora de la toma;",
+                "la ubicación donde se tomó la fotografía;",
+                "el perfil de color y otros datos técnicos."
+              ]
+            },
+            "Al comprimir un JPG o un PNG esos datos se eliminan, salvo que el usuario active la opción de conservarlos, en cuyo caso la ubicación podría seguir incluida. Si una imagen no puede reducirse, se devuelve sin cambios y con sus metadatos originales."
           ]
         },
         {
           "h": "Alojamiento y registros",
           "p": [
-            "El sitio está alojado en Vercel, que puede registrar datos técnicos de cada visita, como la dirección IP, la fecha y el tipo de navegador, conforme a su propia política de privacidad. Esos registros no incluyen las imágenes ni su contenido."
+            "El sitio está alojado en Vercel, que puede registrar datos técnicos de cada visita, como la dirección IP, la fecha y el tipo de navegador, conforme a su propia política de privacidad. Esos registros no incluyen las imágenes ni su contenido.",
+            "Este proyecto no tiene acceso a esos registros con fines de seguimiento de personas."
           ]
         },
         {
-          "h": "Recursos de terceros",
+          "h": "Servicios y recursos de terceros",
           "p": [
-            "Squeezo no incorpora scripts, tipografías ni recursos de terceros: todo se sirve desde el propio sitio. Los enlaces al repositorio en GitHub y a las bibliotecas utilizadas conducen a sitios externos, que se rigen por sus propias políticas."
+            "Squeezo no incorpora scripts, tipografías ni recursos de terceros: todo se sirve desde el propio sitio. Los servicios externos que intervienen son:",
+            {
+              "ul": [
+                "Vercel, para el alojamiento del sitio y de la función del contador;",
+                "Upstash, para almacenar el total del contador;",
+                "GitHub, donde se publica el código fuente."
+              ]
+            },
+            "Los enlaces al repositorio en GitHub y a las bibliotecas utilizadas conducen a sitios externos, que se rigen por sus propias políticas de privacidad."
           ]
         },
         {
           "h": "Seguridad",
           "p": [
-            "Squeezo examina el contenido real de cada archivo, no ejecuta nada de lo que se añade, rechaza los zips que representen un riesgo y elimina los scripts de los archivos SVG."
+            "Squeezo examina el contenido real de cada archivo, no ejecuta nada de lo que se añade, rechaza los zips que representen un riesgo y elimina los scripts de los archivos SVG.",
+            "El sitio se sirve con una política de seguridad de contenido restrictiva, que impide cargar recursos de otros orígenes y limita las conexiones a su propio dominio. Esto reduce la posibilidad de que se inyecten scripts ajenos."
+          ]
+        },
+        {
+          "h": "Conservación de los datos",
+          "p": [
+            "El tiempo de conservación depende de cada dato:",
+            {
+              "ul": [
+                "los archivos y resultados guardados en el navegador permanecen hasta que el usuario los elimine;",
+                "las preferencias permanecen hasta que se borren los datos del sitio;",
+                "la huella abreviada de la dirección IP se elimina al cabo de un minuto;",
+                "el total del contador se conserva mientras el servicio esté activo, y no está asociado a ninguna persona."
+              ]
+            }
+          ]
+        },
+        {
+          "h": "Derechos del usuario",
+          "p": [
+            "Dado que Squeezo no almacena datos personales en sus servidores, no hay información que acceder, rectificar o suprimir en ellos. El usuario mantiene el control completo de lo que se guarda en su propio navegador, y puede eliminarlo cuando quiera, como se explica más arriba.",
+            "Para los registros técnicos que lleva el proveedor de alojamiento, los derechos pueden ejercerse conforme a la política de privacidad de ese proveedor."
+          ]
+        },
+        {
+          "h": "Menores de edad",
+          "p": [
+            "Squeezo no recopila datos personales de ninguna persona, incluidos los menores de edad, y no está dirigido a un público concreto. El uso por parte de menores debe contar con la supervisión de quien ejerza su tutela."
           ]
         },
         {
           "h": "Modificación de esta política",
           "p": [
-            "Esta política puede actualizarse. La fecha de la última actualización figura al inicio de esta página."
+            "Esta política puede actualizarse. La fecha de la última actualización figura al inicio de esta página.",
+            "Cualquier cambio sobre los datos que se envían a un servidor se reflejará aquí antes de aplicarse."
           ]
         }
       ]
@@ -500,73 +640,232 @@
         {
           "h": "Aceptación de los términos",
           "p": [
-            "El uso de Squeezo implica la aceptación de estos términos y condiciones. Quien no esté de acuerdo con ellos debe abstenerse de utilizar la herramienta."
+            "El uso de Squeezo implica la aceptación de estos términos y condiciones. Quien no esté de acuerdo con ellos debe abstenerse de utilizar la herramienta.",
+            "Estos términos se aplican a todo lo que forma parte del servicio:",
+            {
+              "ul": [
+                "el sitio web y sus páginas informativas;",
+                "la herramienta de compresión de imágenes, carpetas y archivos zip;",
+                "la función que mantiene el contador global de imágenes comprimidas;",
+                "la documentación y el código fuente publicados en el repositorio del proyecto."
+              ]
+            },
+            "Si el servicio se utiliza en nombre de una organización, quien lo utiliza declara contar con autoridad para aceptar estos términos en su nombre."
           ]
         },
         {
           "h": "Descripción del servicio",
           "p": [
-            "Squeezo es una herramienta gratuita y de código abierto que reduce el peso de imágenes, carpetas y archivos zip directamente en el navegador del usuario. No requiere registro ni cuenta de usuario, y no incluye funciones de pago."
+            "Squeezo es una herramienta gratuita y de código abierto que reduce el peso de imágenes, carpetas y archivos zip directamente en el navegador del usuario. No requiere registro ni cuenta de usuario, y no incluye funciones de pago.",
+            {
+              "sub": "Qué ofrece"
+            },
+            {
+              "ul": [
+                "compresión de imágenes JPG, PNG, WebP, AVIF, GIF, SVG y BMP, conservando las dimensiones originales salvo que el usuario indique lo contrario;",
+                "lectura de carpetas y archivos zip, con vista del contenido antes de comprimir;",
+                "comparación entre la imagen original y la comprimida;",
+                "descarga de los resultados de forma individual o en un archivo zip."
+              ]
+            },
+            {
+              "sub": "Qué no ofrece"
+            },
+            {
+              "ul": [
+                "almacenamiento de archivos en servidores ni copias de seguridad de los trabajos del usuario;",
+                "cuentas, historial entre dispositivos ni sincronización;",
+                "edición, recorte ni procesamiento de videos u otros archivos que no sean imágenes."
+              ]
+            }
+          ]
+        },
+        {
+          "h": "Requisitos de uso",
+          "p": [
+            "El funcionamiento de Squeezo depende de las capacidades del navegador y del equipo desde el que se utiliza. Para un uso adecuado se necesita:",
+            {
+              "ul": [
+                "un navegador actualizado con JavaScript, WebAssembly e IndexedDB habilitados;",
+                "memoria disponible suficiente para el tamaño y la cantidad de imágenes que se procesan;",
+                "espacio libre en el equipo para guardar los resultados."
+              ]
+            },
+            "Algunos formatos, como TIFF y HEIC, solo pueden procesarse en los navegadores que los admiten. En un equipo con pocos recursos, el procesamiento de lotes grandes puede ser lento o interrumpirse."
           ]
         },
         {
           "h": "Uso permitido",
           "p": [
-            "La herramienta debe utilizarse únicamente con imágenes sobre las que el usuario tenga derecho de uso. Queda prohibido emplearla para procesar contenido ilícito o que vulnere derechos de terceros, así como intentar alterar su funcionamiento, eludir sus límites o utilizarla con fines que perjudiquen a otras personas."
+            "La herramienta debe utilizarse únicamente con imágenes sobre las que el usuario tenga derecho de uso. Está permitido su uso personal, educativo, profesional y comercial, siempre que se respeten estos términos.",
+            "Queda prohibido:",
+            {
+              "ul": [
+                "procesar contenido ilícito o que vulnere derechos de terceros;",
+                "intentar alterar el funcionamiento del servicio, eludir sus límites o sobrecargar sus recursos;",
+                "enviar solicitudes automatizadas o masivas al contador global con el fin de falsear la cifra;",
+                "utilizar el servicio con fines que perjudiquen a otras personas."
+              ]
+            },
+            "El incumplimiento de estas reglas puede dar lugar a que se restrinja el acceso al servicio."
           ]
         },
         {
           "h": "Archivos del usuario",
           "p": [
-            "Los archivos siguen siendo propiedad de su titular. Squeezo no los recibe, no los almacena en servidores ni los comparte, porque todo el procesamiento se realiza en el propio navegador. La herramienta nunca modifica los originales: genera copias comprimidas que se descargan por separado."
+            "Los archivos siguen siendo propiedad de su titular. Squeezo no los recibe, no los almacena en servidores ni los comparte, porque todo el procesamiento se realiza en el propio navegador.",
+            "La herramienta nunca modifica los originales: genera copias comprimidas que se descargan por separado. Cuando una imagen no puede reducirse sin pérdida apreciable, se devuelve sin cambios y así se indica en la lista.",
+            "El usuario declara que tiene derecho a procesar los archivos que añade y asume la responsabilidad por su contenido."
           ]
         },
         {
-          "h": "Almacenamiento en el navegador",
+          "h": "Niveles de compresión",
           "p": [
-            "Para evitar la pérdida del progreso, la sesión de trabajo se guarda en el almacenamiento del navegador del usuario, incluidos los archivos añadidos y los resultados obtenidos. Esos datos permanecen en el equipo hasta que se pulse «Vaciar» o se borren los datos del sitio desde la configuración del navegador. En equipos compartidos se recomienda vaciar la sesión al terminar."
+            "Squeezo ofrece cuatro niveles, que pueden cambiarse en los ajustes antes de comprimir:",
+            {
+              "ul": [
+                "Recomendado: busca la mayor reducción de peso sin que el cambio sea visible a simple vista. Es el nivel predeterminado.",
+                "Calidad alta: exige diferencias imperceptibles incluso al ampliar la imagen, a cambio de una reducción menor.",
+                "Máxima compresión: prioriza el menor peso posible, y al ampliar la imagen pueden apreciarse cambios.",
+                "Personalizado: permite fijar manualmente la calidad de cada imagen."
+              ]
+            },
+            "Además, el usuario puede elegir el formato de salida, limitar las dimensiones máximas y decidir si se conservan los metadatos de los JPG. Los GIF y los SVG siempre conservan su formato. Las opciones elegidas son responsabilidad del usuario, que puede restablecerlas en cualquier momento."
           ]
         },
         {
           "h": "Calidad de los resultados",
           "p": [
-            "Squeezo procura que la diferencia entre el original y la imagen comprimida no sea perceptible a simple vista, y verifica cada resultado antes de aceptarlo. Sin embargo, ninguna compresión con pérdida garantiza un resultado idéntico al original, y el efecto puede variar según la imagen y el nivel elegido. Los niveles de mayor compresión, la conversión de formato y la reducción de dimensiones pueden producir diferencias visibles. Se recomienda revisar los resultados con el comparador y conservar siempre los archivos originales."
+            "Squeezo procura que la diferencia entre el original y la imagen comprimida no sea perceptible a simple vista, y verifica cada resultado antes de aceptarlo. Sin embargo, ninguna compresión con pérdida garantiza un resultado idéntico al original, y el efecto puede variar según la imagen y el nivel elegido.",
+            "Los niveles de mayor compresión, la conversión de formato y la reducción de dimensiones pueden producir diferencias visibles. Para comprobarlo, se recomienda:",
+            {
+              "ol": [
+                "revisar los resultados con el comparador antes de descargarlos;",
+                "usar el nivel Calidad alta con imágenes que se vayan a imprimir o a ampliar;",
+                "conservar siempre los archivos originales."
+              ]
+            },
+            "Las imágenes que ya estaban muy optimizadas se dejan sin cambios, de modo que el peso de la imagen resultante nunca supera al del original."
+          ]
+        },
+        {
+          "h": "Descarga de los resultados",
+          "p": [
+            "Los resultados pueden descargarse de forma individual o en un único archivo zip. El zip respeta el orden de entrada y la estructura de carpetas de los archivos añadidos, y conserva la fecha y la hora de modificación de cada archivo.",
+            "En los navegadores que lo permiten, el zip puede guardarse directamente en la ubicación que el usuario elija. En los demás, se descarga mediante el gestor de descargas del navegador. Los archivos sueltos descargados de forma individual no conservan la fecha de modificación original, porque el navegador no lo permite.",
+            "Una vez descargados, los archivos quedan bajo el control exclusivo del usuario, que es responsable de su conservación."
+          ]
+        },
+        {
+          "h": "Almacenamiento en el navegador",
+          "p": [
+            "Para evitar la pérdida del progreso, la sesión de trabajo se guarda en el almacenamiento del navegador del usuario, incluidos los archivos añadidos y los resultados obtenidos. Esos datos permanecen en el equipo hasta que se pulse «Vaciar» o se borren los datos del sitio desde la configuración del navegador.",
+            "En equipos compartidos o públicos se recomienda vaciar la sesión al terminar, ya que cualquier persona con acceso al mismo perfil del navegador podría ver los archivos guardados. El almacenamiento es local: no se sincroniza con otros dispositivos ni con ningún servidor."
           ]
         },
         {
           "h": "Límites técnicos",
           "p": [
-            "Para proteger el funcionamiento del navegador se aplican límites: hasta 1000 imágenes por zip, hasta 50 megapíxeles por imagen y un peso máximo por archivo. Los archivos que no son imágenes, los protegidos con contraseña, los ejecutables y los que representen un riesgo para la seguridad se excluyen del procesamiento. Los formatos TIFF y HEIC solo pueden procesarse en los navegadores que los admiten."
+            "Para proteger el funcionamiento del navegador se aplican los siguientes límites:",
+            {
+              "ul": [
+                "hasta 1000 imágenes por zip y por carga;",
+                "hasta 50 megapíxeles por imagen;",
+                "hasta 768 MB por archivo una vez descomprimido;",
+                "hasta 100 000 entradas leídas en el directorio de un zip;",
+                "hasta 5 minutos de procesamiento por imagen; si se supera, se descarta."
+              ]
+            },
+            "Los archivos que no son imágenes, los protegidos con contraseña, los ejecutables y los que representen un riesgo para la seguridad se excluyen del procesamiento, y la lista de lo omitido se muestra al usuario. Estos límites pueden ajustarse en futuras versiones."
+          ]
+        },
+        {
+          "h": "Medidas de seguridad",
+          "p": [
+            "Squeezo incorpora protecciones para reducir los riesgos de procesar archivos desconocidos:",
+            {
+              "ul": [
+                "cada archivo se identifica por su contenido y no por su extensión;",
+                "se rechazan las rutas de zip que intentan salir de la carpeta de destino, los archivos cifrados y los que al descomprimirse superan con creces el tamaño que declaran;",
+                "se eliminan los scripts y los enlaces externos de los archivos SVG, que solo se muestran como imagen;",
+                "ningún archivo añadido se ejecuta."
+              ]
+            },
+            "Estas medidas reducen el riesgo, pero no lo eliminan por completo. Quien utilice la herramienta debe procurar que los archivos provengan de fuentes de confianza."
+          ]
+        },
+        {
+          "h": "Contador global",
+          "p": [
+            "Squeezo mantiene un contador con el total de imágenes comprimidas por todas las personas que lo utilizan, y la cifra se muestra en la página Nosotros. Al terminar una compresión, el navegador envía únicamente la cantidad de imágenes reducidas.",
+            "Al utilizar la herramienta, el usuario acepta ese envío. El detalle de los datos que intervienen figura en la política de privacidad."
           ]
         },
         {
           "h": "Disponibilidad y cambios en el servicio",
           "p": [
-            "El servicio se ofrece en el estado en que se encuentra, sin garantías de disponibilidad ni de funcionamiento ininterrumpido. Squeezo puede modificarse, actualizarse o dejar de estar disponible en cualquier momento, sin necesidad de aviso previo."
+            "El servicio se ofrece en el estado en que se encuentra, sin garantías de disponibilidad ni de funcionamiento ininterrumpido. Squeezo puede modificarse, actualizarse o dejar de estar disponible en cualquier momento, sin necesidad de aviso previo.",
+            "Dado que el procesamiento se realiza en el navegador, una versión ya cargada puede seguir funcionando aunque el sitio no esté disponible, pero esto no está garantizado."
           ]
         },
         {
           "h": "Exclusión de garantías y responsabilidad",
           "p": [
-            "En la medida en que la ley lo permita, el proyecto no ofrece garantías de ningún tipo, expresas o implícitas, y no se responsabiliza por las pérdidas, los daños o los perjuicios derivados del uso de la herramienta, incluida la pérdida o la alteración de archivos. El usuario es responsable de conservar copias de sus originales."
+            "En la medida en que la ley lo permita, el proyecto no ofrece garantías de ningún tipo, expresas o implícitas, incluidas las de comerciabilidad, idoneidad para un fin determinado y ausencia de errores.",
+            "Tampoco se responsabiliza por las pérdidas, los daños o los perjuicios derivados del uso de la herramienta, entre ellos:",
+            {
+              "ul": [
+                "la pérdida o la alteración de archivos;",
+                "la diferencia de calidad entre el original y el resultado;",
+                "la interrupción del procesamiento por falta de recursos del equipo;",
+                "el uso que terceros hagan de los archivos descargados."
+              ]
+            },
+            "El usuario es responsable de conservar copias de sus originales."
           ]
         },
         {
           "h": "Propiedad intelectual y licencia",
           "p": [
-            "El código fuente de Squeezo se distribuye bajo la licencia MIT, que permite usarlo, copiarlo, modificarlo y distribuirlo conforme a sus términos. El nombre y el logotipo pertenecen al proyecto y no están incluidos en esa licencia. Las bibliotecas de terceros que utiliza conservan sus propias licencias."
+            "El código fuente de Squeezo se distribuye bajo la licencia MIT, que permite usarlo, copiarlo, modificarlo y distribuirlo conforme a sus términos. El nombre y el logotipo pertenecen al proyecto y no están incluidos en esa licencia.",
+            "Squeezo se apoya en bibliotecas de terceros, que conservan sus propias licencias:",
+            {
+              "ul": [
+                "jSquash, que reúne los codificadores MozJPEG, OxiPNG, WebP y AVIF;",
+                "SVGO, para la optimización de archivos SVG;",
+                "gifsicle, para los archivos GIF;",
+                "UPNG, para la reducción de paleta en los PNG;",
+                "fflate, para leer y crear archivos zip."
+              ]
+            },
+            "Las imágenes de ejemplo que acompañan al sitio se utilizan únicamente con fines ilustrativos."
+          ]
+        },
+        {
+          "h": "Código abierto y contribuciones",
+          "p": [
+            "El proyecto es abierto y su código puede consultarse en el repositorio público. Quien envíe una contribución acepta que se publique bajo la misma licencia MIT que el resto del código.",
+            "Los errores y las propuestas de mejora pueden comunicarse mediante las incidencias del repositorio."
           ]
         },
         {
           "h": "Servicios de terceros",
           "p": [
-            "El sitio está alojado en Vercel y el código se publica en GitHub. El uso de esos servicios se rige por sus propias condiciones y políticas, ajenas a este proyecto."
+            "El sitio está alojado en Vercel, el contador global se almacena en Upstash y el código se publica en GitHub. El uso de esos servicios se rige por sus propias condiciones y políticas, ajenas a este proyecto.",
+            "Los enlaces a sitios externos se ofrecen como referencia, y el proyecto no responde por su contenido ni por su disponibilidad."
+          ]
+        },
+        {
+          "h": "Divisibilidad e interpretación",
+          "p": [
+            "Si alguna de estas cláusulas se considerara inválida o inaplicable, el resto seguirá vigente en la medida en que la ley lo permita. Los títulos de las secciones tienen carácter informativo y no alteran el significado de su contenido."
           ]
         },
         {
           "h": "Modificación de estos términos",
           "p": [
-            "Estos términos pueden actualizarse. La fecha de la última actualización figura al inicio de esta página, y continuar usando el sitio después de un cambio supone aceptar la versión vigente."
+            "Estos términos pueden actualizarse. La fecha de la última actualización figura al inicio de esta página, y continuar usando el sitio después de un cambio supone aceptar la versión vigente.",
+            "Se recomienda revisarlos de forma periódica."
           ]
         }
       ]

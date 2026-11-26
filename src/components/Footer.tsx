@@ -13,22 +13,15 @@ const DEST: string[][] = [
   ['https://react.dev', 'https://vite.dev', 'https://github.com/jamsinclair/jSquash', 'https://svgo.dev', 'https://www.lcdf.org/gifsicle/'],
 ]
 
-const linkClass = 'group inline-flex items-center gap-1.5 text-[0.92rem] text-muted transition-all duration-300 hover:translate-x-1 hover:text-brand'
+const linkClass = 'group inline-flex whitespace-nowrap items-center gap-1.5 text-[0.92rem] text-muted transition-all duration-300 hover:translate-x-1 hover:text-brand'
 
 export function Footer() {
   const { footer } = useDict()
 
   return (
     <footer className="relative mt-24 overflow-hidden border-t border-line bg-surface">
-      <div aria-hidden className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brand/60 to-transparent" />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-72"
-        style={{ background: 'radial-gradient(50% 100% at 50% 0%, rgb(var(--brand) / 0.10), transparent 70%)' }}
-      />
-
       <div className="relative mx-auto max-w-6xl px-4 pt-16 sm:px-6">
-        <div className="grid gap-12 lg:grid-cols-[0.85fr_2.15fr]">
+        <div className="grid gap-12 lg:grid-cols-[0.7fr_2.3fr]">
           <div>
             <Logo />
             <p className="mt-5 max-w-xs leading-relaxed text-muted">{footer.blurb}</p>

@@ -1,6 +1,36 @@
 import { useEffect, useState } from 'react'
 import { useDict } from '../i18n'
 
+/** un bloque de texto de una sección: párrafo, subtítulo, lista con viñetas o lista numerada */
+type Block = string | { sub: string } | { ul: string[] } | { ol: string[] }
+
+function Blocks({ blocks }: { blocks: Block[] }) {
+  return (
+    <>
+      {blocks.map((b, i) => {
+        if (typeof b === 'string') return <p key={i}>{b}</p>
+        if ('sub' in b) return <h3 key={i} className="pt-2 font-display text-lg font-bold text-ink">{b.sub}</h3>
+        if ('ul' in b) {
+          return (
+            <ul key={i} className="list-disc space-y-1.5 pl-6 marker:text-brand">
+              {b.ul.map((li) => (
+                <li key={li}>{li}</li>
+              ))}
+            </ul>
+          )
+        }
+        return (
+          <ol key={i} className="list-decimal space-y-1.5 pl-6 marker:font-semibold marker:text-brand">
+            {b.ol.map((li) => (
+              <li key={li}>{li}</li>
+            ))}
+          </ol>
+        )
+      })}
+    </>
+  )
+}
+
 /** páginas de términos y privacidad: texto largo con índice lateral que sigue la lectura */
 export default function Legal({ which }: { which: 'privacy' | 'terms' }) {
   const { pages } = useDict()
@@ -28,7 +58,7 @@ export default function Legal({ which }: { which: 'privacy' | 'terms' }) {
 
       <div className="mt-12 grid gap-10 lg:grid-cols-[220px_1fr]">
         <nav className="hidden lg:block" aria-label={pages.toc}>
-          <div className="sticky top-24">
+          <div className="sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto pr-2">
             <p className="mb-3 text-xs font-bold uppercase tracking-[0.08em] text-muted">{pages.toc}</p>
             <ul className="space-y-0.5 border-l border-line">
               {doc.sections.map((s, i) => (
@@ -53,9 +83,7 @@ export default function Legal({ which }: { which: 'privacy' | 'terms' }) {
               <section id={`sec-${i}`} data-i={i} className="scroll-mt-24">
               <h2 className="font-display text-2xl font-bold">{s.h}</h2>
               <div className="mt-3 space-y-3 leading-relaxed text-muted">
-                {s.p.map((p) => (
-                  <p key={p}>{p}</p>
-                ))}
+                <Blocks blocks={s.p as Block[]} />
               </div>
               </section>
             </div>

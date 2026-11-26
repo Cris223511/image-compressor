@@ -57,6 +57,10 @@ interface WorkspaceState {
 
   addIncoming: (incoming: Incoming[]) => Promise<void>
   setSelected: (ids: string[], value: boolean) => void
+  /** quita imágenes de la lista; las que se están comprimiendo en ese momento se respetan */
+  removeItems: (ids: string[]) => void
+  /** coloca una imagen en el lugar de otra, para cambiar el orden en que se procesa y se descarga */
+  moveItem: (id: string, targetId: string) => void
   toggleFolder: (path: string) => void
   setCollapsedAll: (paths: string[], value: boolean) => void
   clear: () => void
@@ -128,6 +132,29 @@ export const useWorkspace = create<WorkspaceState>((set, get) => ({
         if (it && it.status !== 'processing') items[id] = { ...it, selected: value }
       }
       return { items }
+    }),
+
+  removeItems: (ids) =>
+    set((s) => {
+      const drop = new Set(ids.filter((id) => s.items[id] && s.items[id].status !== 'processing'))
+      if (!drop.size) return {}
+      const items = { ...s.items }
+      for (const id of drop) delete items[id]
+      const order = s.order.filter((id) => !drop.has(id))
+      // sin imágenes ni archivos omitidos que mostrar, la sesión vuelve a la portada
+      const phase: Phase = !order.length && !s.skipped.length ? 'empty' : s.phase
+      return { items, order, phase }
+    }),
+
+  moveItem: (id, targetId) =>
+    set((s) => {
+      const from = s.order.indexOf(id)
+      const to = s.order.indexOf(targetId)
+      if (from < 0 || to < 0 || from === to) return {}
+      const order = [...s.order]
+      order.splice(from, 1)
+      order.splice(to, 0, id)
+      return { order }
     }),
 
   toggleFolder: (path) =>

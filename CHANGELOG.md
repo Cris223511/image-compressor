@@ -4,6 +4,15 @@ Este documento recoge los cambios importantes de Squeezo, de la versión más re
 
 El formato sigue la convención de [Keep a Changelog](https://keepachangelog.com/es/) y el versionado es [semántico](https://semver.org/lang/es/). El primer número marca los cambios mayores, el segundo las funciones nuevas y el tercero las correcciones.
 
+## 1.0.6 (2026-11-26)
+
+- **Términos y condiciones.** Pasan de 12 a 19 secciones, con listas, subtítulos y una lista numerada. Se añaden requisitos de uso, niveles de compresión, descarga de los resultados, medidas de seguridad, contador global, código abierto y contribuciones, y divisibilidad e interpretación.
+- **Política de privacidad.** Pasa de 9 a 16 secciones. Se añaden el detalle de los datos que intervienen, cómo eliminar los datos guardados, el contador global, las cookies, la conservación de los datos, los derechos del usuario y los menores de edad.
+- **Eliminar de la lista.** Cada imagen y cada carpeta tienen al final un botón para eliminarla, que pide confirmación en la misma fila y se cancela con la equis, con Escape o pasados unos segundos.
+- **Reordenar.** Cada imagen tiene al inicio un asa de seis puntos para arrastrarla a otra posición de su misma carpeta. El nuevo orden se aplica al procesar y al descargar el zip, y se conserva al recargar. Mientras se comprime, el asa se desactiva.
+- **Pie de página.** Se quita la línea azul y el degradado superior, y los enlaces ya no se parten en dos líneas.
+- **Formato.** Las páginas legales admiten párrafos, subtítulos, listas con viñetas y listas numeradas, y el índice lateral tiene desplazamiento propio cuando no cabe en pantalla.
+
 ## 1.0.5 (2026-11-26)
 
 - **Preguntas frecuentes.** Las preguntas se muestran de inmediato, sin animación de entrada. Las transiciones al abrir y cerrar cada respuesta se mantienen.
