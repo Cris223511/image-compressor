@@ -3,6 +3,7 @@ node_modules
 dist
 dist-ssr
 *.local
+.vercel
 
 # variables de entorno, nunca al repositorio
 .env
