@@ -24,6 +24,14 @@
 
 ---
 
+## Demo en vivo
+
+Squeezo se usa **directamente en el navegador**, sin instalar nada ni crear una cuenta.
+
+**[squeezo-six.vercel.app](https://squeezo-six.vercel.app)**
+
+Ábrelo, suelta tus imágenes, carpetas o un .zip y descarga el resultado. Los cambios de cada versión están en el [historial de cambios](CHANGELOG.md).
+
 ## Cómo funciona
 
 Arrastras tus imágenes, Squeezo las comprime y descargas el resultado. Por defecto no hay nada que configurar: el archivo pesa menos y se ve igual, con el mismo ancho, el mismo alto y la misma nitidez. Si prefieres decidir tú, hay ajustes opcionales.

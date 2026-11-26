@@ -24,6 +24,14 @@
 
 ---
 
+## Live demo
+
+Squeezo runs **right in the browser**, with nothing to install and no account to create.
+
+**[squeezo-six.vercel.app](https://squeezo-six.vercel.app)**
+
+Open it, drop in your images, folders or a .zip and download the result. The changes of each version are in the [changelog](CHANGELOG.md).
+
 ## How it works
 
 Drag your images in, Squeezo compresses them and you download the result. There is nothing to set up by default: the file gets smaller and looks the same, with the same width, the same height and the same sharpness. If you would rather decide yourself, there are optional settings.
