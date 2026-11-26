@@ -189,7 +189,7 @@ const FolderRow = memo(function FolderRow({ node, collapsed }: { node: FolderNod
         </p>
       </div>
       {saved > 0.005 && <span className="fade-in chip bg-good-soft text-good">{t('status.saved', { percent: formatSaved(saved, locale) })}</span>}
-      <RemoveButton label={t('work.removeFolder')} onConfirm={() => removeItems(node.ids)} />
+      <RemoveButton label={t('work.removeFolder')} onRemove={() => removeItems(node.ids)} />
     </div>
   )
 })
@@ -254,8 +254,11 @@ const FileRow = memo(function FileRow({
       />
       <Thumb item={item} />
       <FileInfo item={item} />
-      <FileStatus item={item} onCompare={onCompare} />
-      <RemoveButton label={t('work.remove')} disabled={item.status === 'processing'} onConfirm={() => removeItems([item.id])} />
+      {/* el estado, las acciones y el botón de eliminar forman un solo grupo, con los botones pegados entre sí */}
+      <div className="flex shrink-0 items-center gap-1">
+        <FileStatus item={item} onCompare={onCompare} />
+        <RemoveButton label={t('work.remove')} disabled={item.status === 'processing'} onRemove={() => removeItems([item.id])} />
+      </div>
     </div>
   )
 })
@@ -316,7 +319,7 @@ function FileStatus({ item, onCompare }: { item: Item; onCompare: (id: string) =
         ) : (
           <span className="chip bg-sunken text-muted">{t('status.kept')}</span>
         )}
-        <div className="flex gap-0.5 opacity-100 transition-opacity md:opacity-0 md:group-hover:opacity-100 md:focus-within:opacity-100">
+        <div className="flex items-center gap-1">
           {r.blob && (
             <button
               className="grid h-8 w-8 place-items-center rounded-lg text-muted hover:bg-surface hover:text-brand"

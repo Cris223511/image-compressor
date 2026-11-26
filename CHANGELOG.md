@@ -4,6 +4,12 @@ Este documento recoge los cambios importantes de Squeezo, de la versión más re
 
 El formato sigue la convención de [Keep a Changelog](https://keepachangelog.com/es/) y el versionado es [semántico](https://semver.org/lang/es/). El primer número marca los cambios mayores, el segundo las funciones nuevas y el tercero las correcciones.
 
+## 1.0.15 (2026-11-26)
+
+- **Descarga de una sola imagen.** Cuando el resultado es una única imagen, el botón principal dice «Descargar» y baja directamente esa imagen, sin crear un zip. Con varias imágenes sigue diciendo «Descargar todo (.zip)».
+- **Acciones de cada fila.** Los botones de comparar, descargar y eliminar se ven siempre, sin esperar a pasar el cursor, y quedan juntos y a la misma distancia.
+- **Eliminar sin confirmación.** Al pulsar el botón de eliminar, la imagen o la carpeta se quita de inmediato.
+
 ## 1.0.14 (2026-11-26)
 
 - **Preguntas frecuentes.** El título de la sección aparece centrado, alineado con las preguntas que tiene debajo.

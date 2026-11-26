@@ -1,7 +1,7 @@
 import { useMemo, useRef, useState } from 'react'
 import { CheckCircle2, Download, Loader2, RotateCcw, SlidersHorizontal } from 'lucide-react'
 import { useWorkspace } from '../store/workspace'
-import { downloadAllZip } from '../lib/download'
+import { downloadAllZip, downloadOne } from '../lib/download'
 import { useCountUp } from '../lib/useCountUp'
 import { formatBytes, formatSaved } from '../lib/format'
 import { useLocale, useT } from '../i18n'
@@ -46,7 +46,13 @@ export function ResultBanner({ open, onSettings }: { open: boolean; onSettings: 
   const shown = useCountUp(Math.round(saved * 100))
   const nothing = s.done === 0
 
+  // con una sola imagen se descarga ella misma, y con varias se arma un zip
+  const single = s.downloadable.length === 1
   const onDownload = async () => {
+    if (single) {
+      await downloadOne(s.downloadable[0])
+      return
+    }
     setZipping({ done: 0, total: s.downloadable.length })
     try {
       await downloadAllZip(s.downloadable, (done, total) => setZipping({ done, total }))
@@ -91,7 +97,7 @@ export function ResultBanner({ open, onSettings }: { open: boolean; onSettings: 
           <div className="flex w-full flex-col gap-2 sm:w-auto sm:min-w-[16rem]">
             <button className="btn-primary h-14 text-base" onClick={onDownload} disabled={!!zipping || s.downloadable.length === 0}>
               {zipping ? <Loader2 size={20} className="spin" /> : <Download size={20} />}
-              {zipping ? t('work.downloading', zipping) : t('work.downloadAll')}
+              {zipping ? t('work.downloading', zipping) : single ? t('work.downloadSingle') : t('work.downloadAll')}
             </button>
             <div className="flex gap-2">
               <button className="btn-ghost flex-1" onClick={redo}>

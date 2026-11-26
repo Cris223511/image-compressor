@@ -75,10 +75,10 @@
     "restoring": "Recuperando tu sesión...",
     "remove": "Eliminar",
     "removeFolder": "Eliminar carpeta",
-    "confirm": "Confirmar",
     "reorder": "Arrastrar, o usar las flechas arriba y abajo, para cambiar el orden",
     "notSaved": "Tu progreso no se guarda al recargar la página.",
-    "notSavedLink": "Cambiar preferencias"
+    "notSavedLink": "Cambiar preferencias",
+    "downloadSingle": "Descargar"
   },
   "status": {
     "processing": "Comprimiendo",
