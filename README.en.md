@@ -5,7 +5,7 @@
 <h1 align="center">Squeezo</h1>
 
 <p align="center">
-  <b>An image compressor that cuts file size without losing quality or dimensions.</b> Drop in
+  <b>An image compressor that cuts the weight of your images without losing quality or dimensions.</b> Drop in
   single photos, folders or a whole .zip, check what is inside and download everything lighter.
   <i>It all happens in your browser: your images are never uploaded to any server.</i>
 </p>
@@ -15,7 +15,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/status-in%20development-1861ff" alt="in development">
+  <a href="https://github.com/Cris223511/image-compressor/releases/latest"><img src="https://img.shields.io/github/v/release/Cris223511/image-compressor?label=release&color=1861ff" alt="latest release"></a>
   <img src="https://img.shields.io/badge/React-18-1861ff" alt="react 18">
   <img src="https://img.shields.io/badge/TypeScript-5-1861ff" alt="typescript 5">
   <img src="https://img.shields.io/badge/Vite-5-1861ff" alt="vite 5">
@@ -32,13 +32,14 @@ It is meant for anyone with a heavy folder of photos, screenshots or designs who
 
 ## Features
 
-- **No quality loss.** Compression looks for the smallest size that still looks identical to the original. If an image cannot be reduced any further, it is left as it is and you are told.
-- **Any image format.** JPG, PNG, WebP, AVIF, GIF (animated too), SVG, BMP, TIFF and HEIC, among others.
+- **Much less weight without it showing.** By default it looks for the smallest weight whose difference cannot be seen at a glance, with the same dimensions. There are three levels: recommended, high quality and maximum compression. If an image cannot be reduced any further, it is left as it is and you are told.
+- **The usual image formats.** JPG, PNG, WebP, AVIF, GIF (animated too), SVG and BMP. TIFF and HEIC are processed in browsers that can read them.
 - **.zip files and folders.** Up to 1000 images per zip, with folders and subfolders. Before compressing, the contents are shown as a tree with thumbnails and the size of each file, so you pick what goes in.
 - **Flags what is not an image.** Videos and other files inside the zip are skipped, and you are told how many and what kind.
-- **Optional settings.** Compression level, conversion to WebP or AVIF, metadata removal and resizing. All off by default.
+- **Optional settings.** Compression level, conversion to WebP, AVIF, JPG or PNG, keeping metadata and limiting the size. Everything is off by default.
 - **Before and after comparison** to check the result image by image.
 - **Flexible download.** One by one, or everything together in a .zip with the same folder structure.
+- **Your progress is never lost.** If you reload, go back or close the tab, you pick up where you left off, even in the middle of a compression. Everything stays in your browser.
 - **Spanish and English,** with light and dark themes.
 
 ## Security and privacy
@@ -61,7 +62,7 @@ Since the site accepts any file, these measures are in place:
 | Interface | [React 18](https://react.dev/) and [TypeScript 5](https://www.typescriptlang.org/) | The app, with strict typing |
 | Bundling | [Vite 5](https://vite.dev/) | Dev server and production build |
 | Styles | [Tailwind CSS](https://tailwindcss.com/) | The design and the light or dark theme |
-| Compression | [jSquash](https://github.com/jamsinclair/jSquash) (MozJPEG, OxiPNG, WebP, AVIF) | The codecs, compiled to WebAssembly |
+| Compression | [jSquash](https://github.com/jamsinclair/jSquash) (MozJPEG, OxiPNG, WebP, AVIF), [SVGO](https://svgo.dev/) and [Gifsicle](https://www.lcdf.org/gifsicle/) | The codecs, compiled to WebAssembly |
 | Parallelism | Web Workers | Compress several images at once without freezing the page |
 | Zip files | [fflate](https://github.com/101arrowz/fflate) | Read and create zips without loading them fully into memory |
 | Deployment | [Vercel](https://vercel.com/) | Static site, no server of its own |
@@ -82,6 +83,11 @@ npm run dev
 | `npm run dev` | Dev server with hot reload. |
 | `npm run build` | Type-checks and builds the production version into `dist`. |
 | `npm run preview` | Serves the build output locally. |
+| `npm test` | Runs the automated tests. |
+
+## How quality is decided
+
+Each JPG, WebP or AVIF is encoded several times and compared with the original by measuring block-wise similarity (SSIM over luminance and color). Squeezo keeps the lightest version that passes the threshold of the chosen level, and the final result is verified on the full image. PNG files with many colors are reduced to a palette when it does not show, except in high quality, which loses not a single pixel. If nothing improves the weight, the original file is kept.
 
 ## Contributing
 

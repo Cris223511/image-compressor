@@ -1,0 +1,84 @@
+import { Link } from 'react-router-dom'
+import { ArrowRight, ArrowUp, ExternalLink, Lock } from 'lucide-react'
+import { Logo } from './Logo'
+import { Reveal } from './about/Reveal'
+import { REPO_URL } from '../config/site'
+import { useDict } from '../i18n'
+
+// destinos de cada enlace, en el mismo orden que las columnas del diccionario
+const DEST: string[][] = [
+  ['/', '/nosotros#como-funciona', '/nosotros#formatos', '/nosotros#seguridad', '/nosotros#faq'],
+  ['/privacidad', '/terminos', `${REPO_URL}/blob/main/LICENSE`],
+  [REPO_URL, `${REPO_URL}/issues`, `${REPO_URL}/blob/main/CHANGELOG.md`, `${REPO_URL}/releases`],
+  ['https://react.dev', 'https://vite.dev', 'https://github.com/jamsinclair/jSquash', 'https://svgo.dev', 'https://www.lcdf.org/gifsicle/'],
+]
+
+const linkClass = 'group inline-flex items-center gap-1.5 text-[0.92rem] text-muted transition-all duration-300 hover:translate-x-1 hover:text-brand'
+
+export function Footer() {
+  const { footer } = useDict()
+
+  return (
+    <footer className="relative mt-24 overflow-hidden border-t border-line bg-surface">
+      <div aria-hidden className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brand/60 to-transparent" />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 h-72"
+        style={{ background: 'radial-gradient(50% 100% at 50% 0%, rgb(var(--brand) / 0.10), transparent 70%)' }}
+      />
+
+      <div className="relative mx-auto max-w-6xl px-4 pt-16 sm:px-6">
+        <div className="grid gap-12 lg:grid-cols-[0.85fr_2.15fr]">
+          <Reveal>
+            <Logo />
+            <p className="mt-5 max-w-xs leading-relaxed text-muted">{footer.blurb}</p>
+            <Link to="/" className="btn-primary mt-6 h-12 px-6">
+              {footer.cta} <ArrowRight size={18} className="transition-transform duration-300 group-hover:translate-x-1" />
+            </Link>
+            <p className="mt-6 inline-flex items-center gap-2 rounded-full bg-good-soft px-3.5 py-1.5 text-xs font-semibold text-good">
+              <Lock size={13} /> {footer.privacy}
+            </p>
+          </Reveal>
+
+          <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-4">
+            {footer.cols.map((col, ci) => (
+              <Reveal key={col.title} delay={ci * 80}>
+                <h3 className="mb-4 text-xs font-bold uppercase tracking-[0.1em] text-ink">{col.title}</h3>
+                <ul className="space-y-3">
+                  {col.links.map((label, li) => {
+                    const to = DEST[ci][li]
+                    return (
+                      <li key={label}>
+                        {to.startsWith('/') ? (
+                          <Link to={to} className={linkClass}>
+                            {label}
+                          </Link>
+                        ) : (
+                          <a href={to} target="_blank" rel="noopener noreferrer" className={linkClass}>
+                            {label}
+                            <ExternalLink size={12} className="opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                          </a>
+                        )}
+                      </li>
+                    )
+                  })}
+                </ul>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-line py-6 text-sm text-muted sm:flex-row">
+          <p>{footer.rights}</p>
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            className="group inline-flex items-center gap-2 rounded-full border border-line px-4 py-2 font-medium transition-all duration-300 hover:border-brand/40 hover:bg-brand-soft hover:text-brand"
+          >
+            {footer.top} <ArrowUp size={15} className="transition-transform duration-300 group-hover:-translate-y-0.5" />
+          </button>
+        </div>
+      </div>
+
+    </footer>
+  )
+}

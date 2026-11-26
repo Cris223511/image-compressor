@@ -4,6 +4,7 @@ dist
 dist-ssr
 *.local
 .vercel
+*.tsbuildinfo
 
 # variables de entorno, nunca al repositorio
 .env

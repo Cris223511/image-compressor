@@ -5,7 +5,7 @@
 <h1 align="center">Squeezo</h1>
 
 <p align="center">
-  <b>Compresor de imágenes que reduce el peso sin perder calidad ni tamaño.</b> Sube fotos sueltas,
+  <b>Compresor de imágenes que reduce el peso sin perder calidad ni dimensiones.</b> Sube fotos sueltas,
   carpetas o un .zip entero, revisa qué contiene y descarga todo más liviano.
   <i>Todo ocurre en tu navegador: tus imágenes no se suben a ningún servidor.</i>
 </p>
@@ -15,7 +15,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/estado-en%20desarrollo-1861ff" alt="en desarrollo">
+  <a href="https://github.com/Cris223511/image-compressor/releases/latest"><img src="https://img.shields.io/github/v/release/Cris223511/image-compressor?label=versi%C3%B3n&color=1861ff" alt="última versión"></a>
   <img src="https://img.shields.io/badge/React-18-1861ff" alt="react 18">
   <img src="https://img.shields.io/badge/TypeScript-5-1861ff" alt="typescript 5">
   <img src="https://img.shields.io/badge/Vite-5-1861ff" alt="vite 5">
@@ -32,13 +32,14 @@ Sirve para quien tiene una carpeta pesada de fotos, capturas o diseños y necesi
 
 ## Características
 
-- **Sin perder calidad.** La compresión busca el menor peso que se vea idéntico al original. Si una imagen ya no se puede reducir, se deja tal cual y se avisa.
-- **Cualquier formato de imagen.** JPG, PNG, WebP, AVIF, GIF (también animados), SVG, BMP, TIFF y HEIC, entre otros.
+- **Mucho menos peso sin que se note.** Por defecto busca el menor peso cuya diferencia no se ve a simple vista, con las mismas dimensiones. Hay tres niveles: recomendado, calidad alta y máxima compresión. Si una imagen ya no se puede reducir, se deja tal cual y se avisa.
+- **Los formatos de imagen de siempre.** JPG, PNG, WebP, AVIF, GIF (también animados), SVG y BMP. TIFF y HEIC se procesan en los navegadores que los saben leer.
 - **Archivos .zip y carpetas.** Hasta 1000 imágenes por zip, con carpetas y subcarpetas. Antes de comprimir se muestra el contenido en un árbol, con miniaturas y el peso de cada archivo, para elegir qué entra.
 - **Avisa de lo que no es imagen.** Videos y otros archivos del zip se omiten y se indica cuántos fueron y de qué tipo.
-- **Ajustes opcionales.** Nivel de compresión, conversión a WebP o AVIF, quitar metadatos y cambiar el tamaño. Todo apagado por defecto.
+- **Ajustes opcionales.** Nivel de compresión, conversión a WebP, AVIF, JPG o PNG, conservar los metadatos y limitar el tamaño. Por defecto todo queda apagado.
 - **Comparador antes y después** para comprobar el resultado imagen por imagen.
 - **Descarga flexible.** Una por una o todo junto en un .zip con la misma estructura de carpetas.
+- **Tu progreso no se pierde.** Si recargas, retrocedes o cierras la pestaña, sigues donde estabas, incluso a mitad de una compresión. Todo queda en tu navegador.
 - **Español e inglés,** con tema claro y oscuro.
 
 ## Seguridad y privacidad
@@ -61,7 +62,7 @@ Al ser un sitio abierto a cualquier archivo, se toman estas medidas:
 | Interfaz | [React 18](https://react.dev/) y [TypeScript 5](https://www.typescriptlang.org/) | La aplicación, con tipado estricto |
 | Empaquetado | [Vite 5](https://vite.dev/) | Servidor de desarrollo y build de producción |
 | Estilos | [Tailwind CSS](https://tailwindcss.com/) | El diseño y el tema claro u oscuro |
-| Compresión | [jSquash](https://github.com/jamsinclair/jSquash) (MozJPEG, OxiPNG, WebP, AVIF) | Los códecs, compilados a WebAssembly |
+| Compresión | [jSquash](https://github.com/jamsinclair/jSquash) (MozJPEG, OxiPNG, WebP, AVIF), [SVGO](https://svgo.dev/) y [Gifsicle](https://www.lcdf.org/gifsicle/) | Los códecs, compilados a WebAssembly |
 | Paralelismo | Web Workers | Comprimir varias imágenes a la vez sin congelar la página |
 | Archivos zip | [fflate](https://github.com/101arrowz/fflate) | Leer y crear zips sin cargarlos enteros en memoria |
 | Despliegue | [Vercel](https://vercel.com/) | Sitio estático, sin servidor propio |
@@ -82,6 +83,11 @@ npm run dev
 | `npm run dev` | Servidor de desarrollo con recarga en caliente. |
 | `npm run build` | Comprueba los tipos y genera la versión de producción en `dist`. |
 | `npm run preview` | Sirve en local el resultado del build. |
+| `npm test` | Corre los tests automáticos. |
+
+## Cómo decide la calidad
+
+Cada JPG, WebP o AVIF se codifica varias veces y se compara con el original midiendo la similitud por bloques (SSIM sobre luminancia y color). Se queda la versión más liviana que supera el umbral del nivel elegido, y el resultado final se verifica sobre la imagen completa. Los PNG con muchos colores se reducen a una paleta cuando no se nota, salvo en calidad alta, que no pierde ni un píxel. Si nada mejora el peso, el archivo original se conserva.
 
 ## Contribuir
 
