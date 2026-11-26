@@ -4,6 +4,10 @@ Este documento recoge los cambios importantes de Squeezo, de la versión más re
 
 El formato sigue la convención de [Keep a Changelog](https://keepachangelog.com/es/) y el versionado es [semántico](https://semver.org/lang/es/). El primer número marca los cambios mayores, el segundo las funciones nuevas y el tercero las correcciones.
 
+## 1.0.14 (2026-11-26)
+
+- **Preguntas frecuentes.** El título de la sección aparece centrado, alineado con las preguntas que tiene debajo.
+
 ## 1.0.13 (2026-11-26)
 
 - **Comparador con zoom.** La rueda del ratón acerca y aleja la imagen sobre el punto donde está el cursor, y al acercar se arrastra con el ratón para recorrerla. Un doble clic acerca y otro vuelve a ajustar la imagen. Además hay botones para acercar, alejar y ajustar, un porcentaje respecto al tamaño real, donde 100 % es un píxel por píxel, y atajos de teclado con las teclas más, menos y cero. El deslizador de antes y después se sigue moviendo con su manija, también con zoom.

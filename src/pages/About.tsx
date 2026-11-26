@@ -105,7 +105,7 @@ export default function About() {
 
         <section id="faq" className="mx-auto max-w-3xl scroll-mt-24">
           <Reveal>
-            <h2 className={h2}>
+            <h2 className={`${h2} text-center`}>
               <Marked text={a.faq.title} />
             </h2>
           </Reveal>
