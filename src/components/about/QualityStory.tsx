@@ -133,7 +133,6 @@ export function QualityStory() {
     const io = new IntersectionObserver(([e]) => (visible.current = e.isIntersecting), { threshold: 0.25 })
     io.observe(el)
 
-    if (still) progress.current = 0.9
     apply(progress.current)
 
     let last = performance.now()
@@ -141,8 +140,12 @@ export function QualityStory() {
     const tick = (now: number) => {
       const dt = now - last
       last = now
-      if (!still && visible.current && !paused.current && !document.hidden) {
+      if (visible.current && !paused.current && !document.hidden) {
         if (progress.current >= 1) {
+          if (still) {
+            raf = requestAnimationFrame(tick)
+            return
+          }
           // al terminar se queda un momento en el resultado y vuelve a empezar
           waited.current += dt
           if (waited.current > HOLD_MS) {
@@ -175,7 +178,7 @@ export function QualityStory() {
     <section
       id="calidad"
       ref={root}
-      className="mx-auto w-full max-w-6xl scroll-mt-24 px-4 py-10 sm:px-6"
+      className="mx-auto w-full max-w-6xl scroll-mt-24 px-4 py-16 sm:px-6"
       onMouseEnter={() => (paused.current = true)}
       onMouseLeave={() => (paused.current = false)}
     >

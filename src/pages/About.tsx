@@ -53,7 +53,7 @@ export default function About() {
         </div>
       </header>
 
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+      <div className="mx-auto max-w-6xl px-4 pb-10 sm:px-6">
         <Reveal>
           <Stats />
         </Reveal>
@@ -61,13 +61,13 @@ export default function About() {
 
       <QualityStory />
 
-      <div className="mx-auto max-w-6xl space-y-28 px-4 pb-8 pt-10 sm:px-6">
+      <div className="mx-auto max-w-6xl space-y-32 px-4 pb-8 pt-16 sm:px-6">
         <section id="como-funciona" className="scroll-mt-24">
           <Reveal>
             <h2 className={h2}>{a.how.title}</h2>
             <p className="mt-3 max-w-xl text-muted">{a.how.hint}</p>
           </Reveal>
-          <Reveal className="mt-8" delay={160}>
+          <Reveal className="mt-10" delay={160}>
             <HowItWorks />
           </Reveal>
         </section>
@@ -98,7 +98,7 @@ export default function About() {
           <Reveal>
             <h2 className={h2}>{a.faq.title}</h2>
           </Reveal>
-          <Reveal className="mt-8" delay={160}>
+          <Reveal className="mt-10" delay={160}>
             <Faq />
           </Reveal>
         </section>

@@ -64,7 +64,14 @@ export function CompareDemo() {
     const t0 = performance.now()
     let raf = 0
     const tick = (now: number) => {
-      if (auto.current && visible.current && !document.hidden && !still) paint(50 + 36 * Math.sin((now - t0) / 1700))
+      if (auto.current && visible.current && !document.hidden) {
+        const t = now - t0
+        // con la preferencia de movimiento reducido solo se hace un barrido y se queda en el centro
+        if (still && t > 5400) {
+          paint(50)
+          auto.current = false
+        } else paint(50 + 36 * Math.sin(t / 1700))
+      }
       raf = requestAnimationFrame(tick)
     }
     raf = requestAnimationFrame(tick)
