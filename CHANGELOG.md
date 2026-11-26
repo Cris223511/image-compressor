@@ -4,6 +4,10 @@ Este documento recoge los cambios importantes de Squeezo, de la versión más re
 
 El formato sigue la convención de [Keep a Changelog](https://keepachangelog.com/es/) y el versionado es [semántico](https://semver.org/lang/es/). El primer número marca los cambios mayores, el segundo las funciones nuevas y el tercero las correcciones.
 
+## 1.0.5 (2026-11-26)
+
+- **Preguntas frecuentes.** Las preguntas se muestran de inmediato, sin animación de entrada. Las transiciones al abrir y cerrar cada respuesta se mantienen.
+
 ## 1.0.4 (2026-11-26)
 
 - **Contador global.** La cifra de la página Nosotros pasa a ser el total de imágenes comprimidas por todas las personas que usan Squeezo, y se llama «imágenes comprimidas». Al terminar una compresión el navegador envía solo la cantidad de imágenes reducidas. Se limita a 20 envíos por minuto desde una misma dirección, y esta solo se conserva como una huella abreviada durante ese minuto.
