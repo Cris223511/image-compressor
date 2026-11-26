@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import { Eye, FileArchive, Folder, ImagePlus, Layers, Loader2, Lock } from 'lucide-react'
 import { usePickers } from '../components/usePickers'
 import { Workspace } from '../components/Workspace'
@@ -13,19 +12,7 @@ export default function Home() {
   const t = useT()
   const pickers = usePickers()
 
-  // al pasar de la portada al espacio de trabajo (y al revés) la vista anterior se desvanece antes de que entre la nueva
-  const view = phase === 'empty' ? 'hero' : 'work'
-  const [shown, setShown] = useState(view)
-  const [leaving, setLeaving] = useState(false)
-  useEffect(() => {
-    if (view === shown) return
-    setLeaving(true)
-    const id = window.setTimeout(() => {
-      setShown(view)
-      setLeaving(false)
-    }, 350)
-    return () => window.clearTimeout(id)
-  }, [view, shown])
+  const shown = phase === 'empty' ? 'hero' : 'work'
 
   // mientras se recupera la sesión guardada no se muestra nada a menos que tarde
   if (hydrating) {
@@ -39,9 +26,7 @@ export default function Home() {
   }
   return (
     <>
-      <div key={shown} className={`transition-opacity duration-300 ease-out ${leaving ? 'opacity-0' : 'opacity-100'}`}>
-        {shown === 'hero' ? <Hero pickers={pickers} /> : <Workspace pickers={pickers} />}
-      </div>
+      {shown === 'hero' ? <Hero pickers={pickers} /> : <Workspace pickers={pickers} />}
       {pickers.inputs}
     </>
   )
@@ -65,18 +50,18 @@ function Hero({ pickers }: { pickers: ReturnType<typeof usePickers> }) {
       />
       <div className="relative mx-auto max-w-3xl px-4 pb-16 pt-14 text-center sm:px-6 sm:pt-20">
         <h1 className="font-display text-[2.9rem] font-extrabold leading-[1.02] sm:text-[4.6rem]">
-          <span className="rise block" style={{ animationDelay: '250ms' }}>
+          <span className="block">
             {t('hero.titleA')} <span className="squeeze text-brand">{t('hero.titleSqueeze')}</span>
           </span>
-          <span className="rise block" style={{ animationDelay: '390ms' }}>
+          <span className="block">
             {t('hero.titleB')}
           </span>
         </h1>
-        <p className="rise mx-auto mt-6 max-w-xl text-lg leading-relaxed text-muted" style={{ animationDelay: '530ms' }}>
+        <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-muted">
           {t('hero.subtitle')}
         </p>
 
-        <div className="rise mt-10 flex items-center justify-center gap-3" style={{ animationDelay: '670ms' }}>
+        <div className="mt-10 flex items-center justify-center gap-3">
           <button
             onClick={pickers.openFiles}
             disabled={scanning}
@@ -95,14 +80,13 @@ function Hero({ pickers }: { pickers: ReturnType<typeof usePickers> }) {
           </div>
         </div>
 
-        <p className="rise mt-5 text-sm text-muted" style={{ animationDelay: '810ms' }}>
+        <p className="mt-5 text-sm text-muted">
           {t('hero.dropHint')}
         </p>
         <button
           onClick={pickers.loadSample}
           disabled={scanning}
-          className="rise mt-3 text-sm font-semibold text-brand underline decoration-brand/30 underline-offset-4 transition-colors hover:decoration-brand"
-          style={{ animationDelay: '950ms' }}
+          className="mt-3 text-sm font-semibold text-brand underline decoration-brand/30 underline-offset-4 transition-colors hover:decoration-brand"
         >
           {t('hero.sample')}
         </button>
@@ -111,11 +95,7 @@ function Hero({ pickers }: { pickers: ReturnType<typeof usePickers> }) {
           {dict.hero.points.map((p, i) => {
             const Icon = POINT_ICONS[i]
             return (
-              <li
-                key={p.title}
-                className="rise rounded-2xl border border-line bg-surface p-5 shadow-card"
-                style={{ animationDelay: `${1090 + i * 140}ms` }}
-              >
+              <li key={p.title} className="rounded-2xl border border-line bg-surface p-5 shadow-card">
                 <span className="grid h-10 w-10 place-items-center rounded-xl bg-brand-soft text-brand">
                   <Icon size={20} />
                 </span>

@@ -87,7 +87,7 @@ const FolderRow = memo(function FolderRow({ node, collapsed }: { node: FolderNod
       role="treeitem"
       aria-expanded={!collapsed}
       onClick={() => toggleFolder(node.path)}
-      className="fade-in flex h-full cursor-pointer items-center gap-2.5 border-b border-line/70 pr-4 transition-colors hover:bg-sunken/70"
+      className="flex h-full cursor-pointer items-center gap-2.5 border-b border-line/70 pr-4 transition-colors hover:bg-sunken/70"
       style={{ paddingLeft: 14 + node.depth * INDENT }}
     >
       <ChevronRight size={16} className={`shrink-0 text-muted transition-transform duration-200 ${collapsed ? '' : 'rotate-90'}`} />
@@ -101,7 +101,7 @@ const FolderRow = memo(function FolderRow({ node, collapsed }: { node: FolderNod
           {t('work.folderCount', { count: node.ids.length })} · {formatBytes(st.before, locale)}
         </p>
       </div>
-      {saved > 0.005 && <span className="fade-in chip bg-good-soft text-good">{t('status.saved', { percent: formatSaved(saved, locale) })}</span>}
+      {saved > 0.005 && <span className="chip bg-good-soft text-good">{t('status.saved', { percent: formatSaved(saved, locale) })}</span>}
     </div>
   )
 })
@@ -116,7 +116,7 @@ const FileRow = memo(function FileRow({ id, depth, onCompare }: { id: string; de
     <div
       role="treeitem"
       onClick={() => item.status !== 'processing' && setSelected([item.id], !item.selected)}
-      className={`fade-in group flex h-full items-center gap-2.5 border-b border-line/70 pr-4 transition-[background-color,opacity] duration-300 hover:bg-sunken/70 ${
+      className={`group flex h-full items-center gap-2.5 border-b border-line/70 pr-4 transition-[background-color,opacity] duration-300 hover:bg-sunken/70 ${
         item.selected ? '' : 'opacity-55'
       }`}
       style={{ paddingLeft: 14 + depth * INDENT + 22 }}
@@ -146,7 +146,7 @@ function FileInfo({ item }: { item: Item }) {
       </p>
       <p className="truncate text-xs text-muted">
         {KIND_LABEL[item.kind]}
-        {dims && <span className="fade-in"> · {dims}</span>}
+        {dims && <span className=""> · {dims}</span>}
         {!item.result ? ` · ${formatBytes(item.size, locale)}` : ''}
       </p>
     </div>
@@ -160,7 +160,7 @@ function FileStatus({ item, onCompare }: { item: Item; onCompare: (id: string) =
 
   if (item.status === 'processing') {
     return (
-      <span className="fade-in flex items-center gap-2 text-sm font-medium text-brand">
+      <span className="flex items-center gap-2 text-sm font-medium text-brand">
         <Loader2 size={16} className="spin" />
         <span className="hidden sm:inline">{t('status.processing')}</span>
       </span>
@@ -168,7 +168,7 @@ function FileStatus({ item, onCompare }: { item: Item; onCompare: (id: string) =
   }
   if (item.status === 'error') {
     return (
-      <span className="fade-in chip max-w-[46%] bg-bad-soft text-bad" title={errorText}>
+      <span className="chip max-w-[46%] bg-bad-soft text-bad" title={errorText}>
         <AlertCircle size={13} className="shrink-0" />
         <span className="truncate">{errorText}</span>
       </span>
@@ -179,7 +179,7 @@ function FileStatus({ item, onCompare }: { item: Item; onCompare: (id: string) =
     const saved = 1 - r.outSize / item.size
     const note = r.note ? t(`notes.${r.note}`, { format: KIND_LABEL[r.outKind] }) : ''
     return (
-      <div className="fade-in flex items-center gap-2" title={note}>
+      <div className="flex items-center gap-2" title={note}>
         <span className="hidden items-center gap-1.5 text-xs text-muted md:flex">
           {formatBytes(item.size, locale)}
           <ArrowRight size={12} />
@@ -219,5 +219,5 @@ function FileStatus({ item, onCompare }: { item: Item; onCompare: (id: string) =
       </div>
     )
   }
-  return <span className="fade-in text-xs text-muted">{formatBytes(item.size, locale)}</span>
+  return <span className="text-xs text-muted">{formatBytes(item.size, locale)}</span>
 }

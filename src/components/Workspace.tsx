@@ -81,17 +81,17 @@ export function Workspace({ pickers }: { pickers: ReturnType<typeof usePickers> 
       </Collapse>
 
       {/* cabecera con el resumen y las acciones generales */}
-      <div className="rise flex flex-wrap items-center justify-between gap-3">
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h2 className="font-display text-2xl font-bold">{t('work.treeTitle')}</h2>
           <p className="mt-0.5 flex flex-wrap items-center gap-x-2 text-sm text-muted">
             {scanning ? (
-              <span key="scan" className="fade-in flex items-center gap-1.5 text-brand">
+              <span key="scan" className="flex items-center gap-1.5 text-brand">
                 <Loader2 size={14} className="spin" />
                 {t('work.scanning')}
               </span>
             ) : (
-              <span key="stats" className="fade-in flex flex-wrap items-center gap-x-2">
+              <span key="stats" className="flex flex-wrap items-center gap-x-2">
                 <span>{t('work.images', { count: order.length })}</span>
                 <span aria-hidden>·</span>
                 <span>{t('work.selected', { count: stats.selected })}</span>
@@ -117,7 +117,7 @@ export function Workspace({ pickers }: { pickers: ReturnType<typeof usePickers> 
       </div>
 
       {hasImages ? (
-        <div className="rise mt-4 overflow-hidden rounded-3xl border border-line bg-surface shadow-card">
+        <div className="mt-4 overflow-hidden rounded-3xl border border-line bg-surface shadow-card">
           <div className="flex flex-wrap items-center gap-1 border-b border-line bg-sunken/60 px-3 py-2 text-[0.8rem] font-semibold text-muted">
             <button className={barBtn} onClick={() => setSelected(order, true)} disabled={running}>
               {t('work.selectAll')}
@@ -126,7 +126,7 @@ export function Workspace({ pickers }: { pickers: ReturnType<typeof usePickers> 
               {t('work.selectNone')}
             </button>
             {folders.length > 0 && (
-              <span className="fade-in inline-flex items-center gap-1">
+              <span className="inline-flex items-center gap-1">
                 <span className="mx-1 h-4 w-px bg-line" aria-hidden />
                 <button className={barBtn} onClick={() => setCollapsedAll(folders, false)}>
                   {t('work.expandAll')}
@@ -141,7 +141,7 @@ export function Workspace({ pickers }: { pickers: ReturnType<typeof usePickers> 
         </div>
       ) : (
         !scanning && (
-          <p className="rise mt-6 rounded-2xl border border-line bg-surface px-5 py-8 text-center text-muted">{t('work.onlySkipped')}</p>
+          <p className="mt-6 rounded-2xl border border-line bg-surface px-5 py-8 text-center text-muted">{t('work.onlySkipped')}</p>
         )
       )}
 
@@ -188,7 +188,7 @@ export function Workspace({ pickers }: { pickers: ReturnType<typeof usePickers> 
 
       {skipped.length > 0 && <SkippedPanel />}
 
-      <p key={persistFailed ? 'fail' : 'ok'} className={`fade-in mt-6 text-center text-xs ${persistFailed ? 'text-warn' : 'text-muted'}`}>
+      <p key={persistFailed ? 'fail' : 'ok'} className={`mt-6 text-center text-xs ${persistFailed ? 'text-warn' : 'text-muted'}`}>
         {persistFailed ? t('work.saveFailed') : t('work.saved')}
       </p>
 
