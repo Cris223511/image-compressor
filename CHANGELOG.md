@@ -4,6 +4,17 @@ Este documento recoge los cambios importantes de Squeezo, de la versión más re
 
 El formato sigue la convención de [Keep a Changelog](https://keepachangelog.com/es/) y el versionado es [semántico](https://semver.org/lang/es/). El primer número marca los cambios mayores, el segundo las funciones nuevas y el tercero las correcciones.
 
+## 1.0.3 (2026-11-26)
+
+- **Términos y condiciones ampliados.** Pasan de siete a doce secciones: aceptación, descripción del servicio, uso permitido, archivos del usuario, almacenamiento en el navegador, calidad de los resultados, límites técnicos, disponibilidad, exclusión de garantías y responsabilidad, propiedad intelectual y licencia, servicios de terceros y modificación de los términos.
+- **Política de privacidad ampliada.** Pasa de seis a nueve secciones y detalla el almacenamiento en el navegador, los datos personales, los metadatos de las imágenes, el alojamiento y los recursos de terceros.
+- **Páginas legales sin animaciones de entrada.** Al ser textos de lectura, se muestran de inmediato, sin transiciones.
+- **Zona de suelta.** El aviso de soltar archivos ya no aparece al arrastrar una imagen de la propia página, ni en las vistas distintas de la principal.
+- **Estadísticas.** Se elimina el contador local de imágenes comprimidas en el navegador, que solo reflejaba el uso de cada persona.
+- **Recorrido de calidad.** Comienza cuando la sección está a la vista y avanza más despacio.
+- **Preguntas frecuentes.** Las respuestas se despliegan sin desvanecerse.
+- **Textos.** Se eliminan las repeticiones sobre el procesamiento local en el encabezado, el pie de página y la introducción de Nosotros.
+
 ## 1.0.2 (2026-11-26)
 
 - **Textos en registro formal.** Se reescriben los textos de toda la aplicación, en español y en inglés, con un lenguaje formal y literal. La sección de seguridad pasa a llamarse simplemente "Seguridad", y las preguntas frecuentes se amplían de cinco a nueve, con respuestas completas.

@@ -457,3 +457,9 @@ html:not(.ready) .fade-in {
   transition-duration: 300ms;
   transition-timing-function: cubic-bezier(0.2, 0.7, 0.2, 1);
 }
+
+/* las imágenes de la página no se arrastran: así no se confunden con archivos que se sueltan */
+img {
+  -webkit-user-drag: none;
+  user-select: none;
+}

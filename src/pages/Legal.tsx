@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { useDict } from '../i18n'
-import { Reveal } from '../components/about/Reveal'
 
 /** páginas de términos y privacidad: texto largo con índice lateral que sigue la lectura */
 export default function Legal({ which }: { which: 'privacy' | 'terms' }) {
@@ -23,16 +22,12 @@ export default function Legal({ which }: { which: 'privacy' | 'terms' }) {
   return (
     <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6 sm:py-16">
       <header className="max-w-2xl">
-        <h1 className="rise font-display text-4xl font-extrabold sm:text-5xl" style={{ animationDelay: '250ms' }}>
-          {doc.title}
-        </h1>
-        <p className="rise mt-3 text-sm text-muted" style={{ animationDelay: '390ms' }}>
-          {pages.updated}
-        </p>
+        <h1 className="font-display text-4xl font-extrabold sm:text-5xl">{doc.title}</h1>
+        <p className="mt-3 text-sm text-muted">{pages.updated}</p>
       </header>
 
       <div className="mt-12 grid gap-10 lg:grid-cols-[220px_1fr]">
-        <nav className="rise hidden lg:block" aria-label={pages.toc} style={{ animationDelay: '530ms' }}>
+        <nav className="hidden lg:block" aria-label={pages.toc}>
           <div className="sticky top-24">
             <p className="mb-3 text-xs font-bold uppercase tracking-[0.08em] text-muted">{pages.toc}</p>
             <ul className="space-y-0.5 border-l border-line">
@@ -54,7 +49,7 @@ export default function Legal({ which }: { which: 'privacy' | 'terms' }) {
 
         <div className="max-w-2xl space-y-10">
           {doc.sections.map((s, i) => (
-            <Reveal key={s.h} delay={i === 0 ? 670 : 0}>
+            <div key={s.h}>
               <section id={`sec-${i}`} data-i={i} className="scroll-mt-24">
               <h2 className="font-display text-2xl font-bold">{s.h}</h2>
               <div className="mt-3 space-y-3 leading-relaxed text-muted">
@@ -63,7 +58,7 @@ export default function Legal({ which }: { which: 'privacy' | 'terms' }) {
                 ))}
               </div>
               </section>
-            </Reveal>
+            </div>
           ))}
         </div>
       </div>

@@ -7,7 +7,6 @@ import { CompressionPool } from '../lib/compress/pool'
 import type { ErrorCode, ResultNote, Source } from '../lib/compress/types'
 import { KIND_EXT, KIND_MIME, type ImageKind } from '../lib/formats'
 import { ingest, type Incoming, type NewSkip } from '../lib/intake'
-import { addToTotal } from '../lib/stats'
 import { useSettings } from './settings'
 
 export type ItemStatus = 'pending' | 'processing' | 'done' | 'kept' | 'error'
@@ -214,7 +213,6 @@ export const useWorkspace = create<WorkspaceState>((set, get) => ({
             patch(id, r.error === 'cancelled' ? { status: 'pending' } : { status: 'error', error: r.error, detail: r.detail })
             return
           }
-          if (r.bytes) addToTotal(1)
           patch(id, {
             status: r.bytes ? 'done' : 'kept',
             result: {

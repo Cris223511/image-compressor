@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Squeezo | Compress images without losing quality",
-    "description": "Reduce the weight of images, folders and zip files without losing quality or dimensions. All processing is done in the browser."
+    "description": "Reduce the weight of images, folders and zip files without losing quality or dimensions."
   },
   "nav": {
     "compress": "Compress",
@@ -16,7 +16,7 @@
     "titleA": "Less",
     "titleSqueeze": "weight.",
     "titleB": "Same image.",
-    "subtitle": "Compress photographs, folders and .zip files without losing quality or changing their dimensions. All processing takes place in your browser.",
+    "subtitle": "Compress photographs, folders and .zip files without losing quality or changing their dimensions.",
     "select": "Select images",
     "folder": "Choose a folder",
     "zip": "Choose a .zip file",
@@ -182,9 +182,8 @@
     "pngNote": "PNG files with many colors are reduced to a palette when the difference is not noticeable. \"High quality\" loses no pixel."
   },
   "footer": {
-    "blurb": "An image compressor that runs in the browser. Open source, with no accounts.",
+    "blurb": "A free, open source image compressor.",
     "cta": "Compress images",
-    "privacy": "Your images never leave your device",
     "top": "Back to top",
     "rights": "© 2026 Squeezo. Open source under the MIT license.",
     "cols": [
@@ -237,7 +236,7 @@
     "toc": "On this page",
     "about": {
       "title": "How Squeezo works",
-      "lead": "Less weight, same dimensions, and no file leaves your device.",
+      "lead": "What Squeezo does with each image and how it checks that the difference cannot be seen.",
       "cta": "Try it now",
       "compare": {
         "original": "Original",
@@ -427,46 +426,63 @@
             "a": "By default they are removed from JPG and PNG files. If you need to keep them, you can turn that option on in the compression settings."
           }
         ]
-      },
-      "liveStat": "compressed in this browser"
+      }
     },
     "privacy": {
       "title": "Privacy policy",
       "sections": [
         {
+          "h": "General principle",
+          "p": [
+            "Squeezo works entirely in the browser. Images, folders and zip files are never sent to a server, and no registration or personal data is needed to use the tool."
+          ]
+        },
+        {
           "h": "Files",
           "p": [
-            "Images, folders and zip files are processed in the browser and are never sent to a server. To avoid losing progress, they are kept in the browser's own storage until \"Clear\" is pressed."
+            "Files are read and processed on the user's device, using the resources of its own processor. Squeezo receives no copy of them, does not analyze them remotely and does not share them with third parties."
+          ]
+        },
+        {
+          "h": "Storage in the browser",
+          "p": [
+            "Squeezo uses the browser's storage to save the working session, the chosen preferences (language, theme and compression settings). This data does not leave the device, is not tied to any identity and can be deleted at any time with the \"Clear\" button or from the browser settings."
           ]
         },
         {
           "h": "Personal data",
           "p": [
-            "There are no user accounts, tracking cookies, analytics or advertising."
+            "There are no user accounts, tracking cookies, analytics or advertising. Squeezo does not collect names, email addresses or any other data that identifies the user."
           ]
         },
         {
-          "h": "Preferences",
+          "h": "Image metadata",
           "p": [
-            "The browser stores the chosen language, theme and compression settings."
+            "Photographs often include hidden data, such as the camera model or the place where they were taken. When a JPG or a PNG is compressed, that data is removed, unless the user turns on the option to keep it. If an image cannot be reduced, it is returned unchanged."
           ]
         },
         {
-          "h": "Metadata",
+          "h": "Hosting and logs",
           "p": [
-            "When a JPG or a PNG is compressed, hidden data such as camera or location information is removed, unless it is requested to keep it. If an image cannot be reduced, it is returned unchanged."
+            "The site is hosted on Vercel, which may log technical data about each visit, such as the IP address, the date and the type of browser, under its own privacy policy. Those logs do not include the images or their content."
           ]
         },
         {
-          "h": "Hosting",
+          "h": "Third-party resources",
           "p": [
-            "The site is hosted on Vercel, which may log technical data about the visit, such as the IP address. Those logs never include the images."
+            "Squeezo includes no third-party scripts, fonts or resources: everything is served from the site itself. The links to the repository on GitHub and to the libraries used lead to external sites, which are governed by their own policies."
           ]
         },
         {
           "h": "Security",
           "p": [
-            "Squeezo examines the real content of every file, never runs anything that is added, and removes scripts from SVG files."
+            "Squeezo examines the real content of every file, never runs anything that is added, rejects zips that pose a risk and removes scripts from SVG files."
+          ]
+        },
+        {
+          "h": "Changes to this policy",
+          "p": [
+            "This policy may be updated. The date of the latest update appears at the top of this page."
           ]
         }
       ]
@@ -475,45 +491,75 @@
       "title": "Terms and conditions",
       "sections": [
         {
-          "h": "Use",
+          "h": "Acceptance of the terms",
           "p": [
-            "Squeezo is a free tool. It must be used only with images over which the user has the right of use."
+            "Using Squeezo implies acceptance of these terms and conditions. Anyone who does not agree with them should refrain from using the tool."
           ]
         },
         {
-          "h": "Files",
+          "h": "Description of the service",
           "p": [
-            "Files remain the property of their owner. Squeezo never modifies the originals: it creates compressed copies that are downloaded separately."
+            "Squeezo is a free, open source tool that reduces the weight of images, folders and zip files directly in the user's browser. It requires no registration or user account, and it includes no paid features."
           ]
         },
         {
-          "h": "Results",
+          "h": "Permitted use",
           "p": [
-            "Squeezo aims for the difference not to be perceptible, but no lossy compression guarantees a result identical to the original. Keeping the original files is always recommended."
+            "The tool must be used only with images over which the user has the right of use. It is forbidden to use it to process unlawful content or content that infringes the rights of third parties, and to attempt to alter its operation, bypass its limits or use it for purposes that harm other people."
           ]
         },
         {
-          "h": "Limits",
+          "h": "User files",
           "p": [
-            "Up to 1000 images per zip are accepted. Files that are not images, or that represent a risk, are excluded."
+            "Files remain the property of their owner. Squeezo does not receive them, does not store them on servers and does not share them, because all processing takes place in the browser itself. The tool never modifies the originals: it creates compressed copies that are downloaded separately."
           ]
         },
         {
-          "h": "Availability",
+          "h": "Storage in the browser",
           "p": [
-            "The service is provided as is, without warranties, and may change or stop being available."
+            "To avoid losing progress, the working session is saved in the user's browser storage, including the files added and the results obtained. That data stays on the device until \"Clear\" is pressed or the site data is deleted from the browser settings. On shared devices it is recommended to clear the session when finished."
           ]
         },
         {
-          "h": "Liability",
+          "h": "Quality of the results",
           "p": [
-            "To the extent permitted by law, Squeezo is not liable for losses or damages arising from its use."
+            "Squeezo aims for the difference between the original and the compressed image not to be perceptible at a glance, and it verifies each result before accepting it. However, no lossy compression guarantees a result identical to the original, and the effect may vary depending on the image and the chosen level. Higher compression levels, format conversion and dimension reduction may produce visible differences. It is recommended to review the results with the comparison view and to always keep the original files."
           ]
         },
         {
-          "h": "License",
+          "h": "Technical limits",
           "p": [
-            "The source code is distributed under the MIT license. The name and the logo belong to the project."
+            "To protect the operation of the browser, limits apply: up to 1000 images per zip, up to 50 megapixels per image and a maximum weight per file. Files that are not images, password-protected files, executables and files that pose a security risk are excluded from processing. The TIFF and HEIC formats can only be processed in browsers that support them."
+          ]
+        },
+        {
+          "h": "Availability and changes to the service",
+          "p": [
+            "The service is provided as is, with no guarantee of availability or uninterrupted operation. Squeezo may be modified, updated or stop being available at any time, without prior notice."
+          ]
+        },
+        {
+          "h": "Disclaimer of warranties and liability",
+          "p": [
+            "To the extent permitted by law, the project offers no warranties of any kind, express or implied, and is not liable for losses, damages or harm arising from the use of the tool, including the loss or alteration of files. The user is responsible for keeping copies of the originals."
+          ]
+        },
+        {
+          "h": "Intellectual property and license",
+          "p": [
+            "The source code of Squeezo is distributed under the MIT license, which allows it to be used, copied, modified and distributed under its terms. The name and the logo belong to the project and are not covered by that license. The third-party libraries it uses keep their own licenses."
+          ]
+        },
+        {
+          "h": "Third-party services",
+          "p": [
+            "The site is hosted on Vercel and the code is published on GitHub. The use of those services is governed by their own conditions and policies, which are separate from this project."
+          ]
+        },
+        {
+          "h": "Changes to these terms",
+          "p": [
+            "These terms may be updated. The date of the latest update appears at the top of this page, and continuing to use the site after a change means accepting the current version."
           ]
         }
       ]

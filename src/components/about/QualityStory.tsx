@@ -61,8 +61,8 @@ const STARTS = [0, 0.22, 0.62, 0.84]
 const stepOf = (p: number) => (p < 0.22 ? 0 : p < 0.62 ? 1 : p < 0.84 ? 2 : 3)
 
 /** duración de una vuelta completa y pausa al final antes de repetir */
-const LOOP_MS = 12000
-const HOLD_MS = 1800
+const LOOP_MS = 20000
+const HOLD_MS = 2600
 
 /**
  * recorrido por los cuatro pasos con que Squeezo decide la calidad. avanza solo mientras se ve
@@ -130,7 +130,19 @@ export function QualityStory() {
     const el = root.current
     if (!el) return
     const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    const io = new IntersectionObserver(([e]) => (visible.current = e.isIntersecting), { threshold: 0.25 })
+    // cuenta como visto cuando ocupa buena parte de la pantalla; al llegar de nuevo desde fuera, vuelve a empezar
+    const io = new IntersectionObserver(
+      ([e]) => {
+        const seen = e.intersectionRatio >= 0.55 || e.intersectionRect.height >= window.innerHeight * 0.6
+        if (seen && !visible.current) {
+          progress.current = 0
+          waited.current = 0
+          apply(0)
+        }
+        visible.current = seen
+      },
+      { threshold: [0, 0.25, 0.55, 0.8, 1] },
+    )
     io.observe(el)
 
     apply(progress.current)

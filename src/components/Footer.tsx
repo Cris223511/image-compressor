@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { ArrowRight, ArrowUp, ExternalLink, Lock } from 'lucide-react'
+import { ArrowRight, ArrowUp, ExternalLink } from 'lucide-react'
 import { Logo } from './Logo'
 import { REPO_URL } from '../config/site'
 import { scrollToTarget } from '../lib/lenis'
@@ -35,9 +35,6 @@ export function Footer() {
             <Link to="/" className="btn-primary mt-6 h-12 px-6">
               {footer.cta} <ArrowRight size={18} className="transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
-            <p className="mt-6 inline-flex items-center gap-2 rounded-full bg-good-soft px-3.5 py-1.5 text-xs font-semibold text-good">
-              <Lock size={13} /> {footer.privacy}
-            </p>
           </div>
 
           <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-4">

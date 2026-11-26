@@ -22,7 +22,7 @@ export function Faq() {
               <span className={`font-display text-lg font-bold transition-colors duration-300 ${on ? 'text-brand' : ''}`}>{it.q}</span>
               <ChevronDown size={20} className={`shrink-0 text-muted transition-transform duration-300 ${on ? 'rotate-180 text-brand' : ''}`} />
             </button>
-            <Collapse open={on}>
+            <Collapse open={on} fade={false}>
               <p className="px-5 pb-5 leading-relaxed text-muted sm:px-6">{it.a}</p>
             </Collapse>
           </Reveal>
