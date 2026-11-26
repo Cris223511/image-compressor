@@ -486,7 +486,7 @@ img {
   user-select: none;
 }
 
-/* velo de los diálogos: el desenfoque y el tinte se animan por separado, porque el desenfoque no se funde con la opacidad */
+/* velo de los diálogos, donde el desenfoque y el tinte se animan por separado porque el desenfoque no se funde con la opacidad */
 .veil {
   background-color: rgb(0 0 0 / 0);
   -webkit-backdrop-filter: blur(0px);

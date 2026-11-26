@@ -4,6 +4,19 @@ Este documento recoge los cambios importantes de Squeezo, de la versión más re
 
 El formato sigue la convención de [Keep a Changelog](https://keepachangelog.com/es/) y el versionado es [semántico](https://semver.org/lang/es/). El primer número marca los cambios mayores, el segundo las funciones nuevas y el tercero las correcciones.
 
+## 1.0.13 (2026-11-26)
+
+- **Comparador con zoom.** La rueda del ratón acerca y aleja la imagen sobre el punto donde está el cursor, y al acercar se arrastra con el ratón para recorrerla. Un doble clic acerca y otro vuelve a ajustar la imagen. Además hay botones para acercar, alejar y ajustar, un porcentaje respecto al tamaño real, donde 100 % es un píxel por píxel, y atajos de teclado con las teclas más, menos y cero. El deslizador de antes y después se sigue moviendo con su manija, también con zoom.
+- **Diálogos más suaves.** El comparador, los ajustes y el aviso de soltar archivos se abren y se cierran de forma gradual. El desenfoque del fondo se animaba de golpe porque no se funde con la opacidad, y ahora se anima por separado. El comparador además reserva su tamaño final desde el principio, para que no crezca bruscamente al terminar de cargar la imagen.
+- **Subrayado de los títulos.** Queda un solo trazo grueso azul, sin el trazo fino de detrás.
+
+## 1.0.12 (2026-11-26)
+
+- **Índice de las páginas legales.** Al hacer clic en una sección, el resaltado pasa a esa sección y no a la anterior, y la página se desliza con suavidad hasta ella. El resaltado sigue ahora la posición real de la lectura.
+- **Desplazamiento suave.** Los desplazamientos animados, como los del índice, los enlaces con ancla y el botón de volver arriba, terminaban de golpe porque el reloj de la biblioteca no se reiniciaba al despertar. Ahora se deslizan de forma gradual y con un arranque y un frenado suaves.
+- **Enlaces con ancla.** Desde el pie de página, las secciones de Nosotros se alcanzan una vez que la página terminó de acomodarse, y la sección queda siempre a la misma distancia de la cabecera.
+- **Índice sin barra de desplazamiento.** Es más compacto y solo muestra su propia barra cuando la pantalla es demasiado baja para que quepa entero.
+
 ## 1.0.11 (2026-11-26)
 
 - **Aviso de cookies.** Es más ancho, con el mismo ancho que el contenido de la web, y más bajo, de modo que el texto ocupa dos líneas en pantallas grandes.
