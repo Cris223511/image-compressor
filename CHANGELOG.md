@@ -13,7 +13,7 @@ El formato sigue la convención de [Keep a Changelog](https://keepachangelog.com
 - **Estadísticas.** Se elimina el contador local de imágenes comprimidas en el navegador, que solo reflejaba el uso de cada persona.
 - **Recorrido de calidad.** Comienza cuando la sección está a la vista y avanza más despacio.
 - **Preguntas frecuentes.** Las respuestas se despliegan sin desvanecerse.
-- **Vista de compresión sin animaciones de entrada.** La portada, la lista de archivos y los textos se muestran de inmediato. Las transiciones de los botones, los menús y las ventanas se mantienen, y los efectos de aparición quedan solo en la página Nosotros.
+- **Portada sin animación de entrada.** El título, el texto, los botones y las tarjetas de la portada se muestran de inmediato. Las transiciones de los botones, los menús y las ventanas se mantienen, y el resto de la aplicación conserva sus efectos de aparición.
 - **Textos.** Se eliminan las repeticiones sobre el procesamiento local en el encabezado, el pie de página y la introducción de Nosotros.
 
 ## 1.0.2 (2026-11-26)

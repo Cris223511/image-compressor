@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { Eye, FileArchive, Folder, ImagePlus, Layers, Loader2, Lock } from 'lucide-react'
 import { usePickers } from '../components/usePickers'
 import { Workspace } from '../components/Workspace'
@@ -12,7 +13,19 @@ export default function Home() {
   const t = useT()
   const pickers = usePickers()
 
-  const shown = phase === 'empty' ? 'hero' : 'work'
+  // al pasar de la portada al espacio de trabajo (y al revés) la vista anterior se desvanece antes de que entre la nueva
+  const view = phase === 'empty' ? 'hero' : 'work'
+  const [shown, setShown] = useState(view)
+  const [leaving, setLeaving] = useState(false)
+  useEffect(() => {
+    if (view === shown) return
+    setLeaving(true)
+    const id = window.setTimeout(() => {
+      setShown(view)
+      setLeaving(false)
+    }, 350)
+    return () => window.clearTimeout(id)
+  }, [view, shown])
 
   // mientras se recupera la sesión guardada no se muestra nada a menos que tarde
   if (hydrating) {
@@ -26,7 +39,9 @@ export default function Home() {
   }
   return (
     <>
-      {shown === 'hero' ? <Hero pickers={pickers} /> : <Workspace pickers={pickers} />}
+      <div key={shown} className={`transition-opacity duration-300 ease-out ${leaving ? 'opacity-0' : 'opacity-100'}`}>
+        {shown === 'hero' ? <Hero pickers={pickers} /> : <Workspace pickers={pickers} />}
+      </div>
       {pickers.inputs}
     </>
   )
@@ -95,7 +110,10 @@ function Hero({ pickers }: { pickers: ReturnType<typeof usePickers> }) {
           {dict.hero.points.map((p, i) => {
             const Icon = POINT_ICONS[i]
             return (
-              <li key={p.title} className="rounded-2xl border border-line bg-surface p-5 shadow-card">
+              <li
+                key={p.title}
+                className="rounded-2xl border border-line bg-surface p-5 shadow-card"
+              >
                 <span className="grid h-10 w-10 place-items-center rounded-xl bg-brand-soft text-brand">
                   <Icon size={20} />
                 </span>
