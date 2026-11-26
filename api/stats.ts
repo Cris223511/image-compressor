@@ -51,7 +51,13 @@ export async function GET(): Promise<Response> {
 export async function POST(request: Request): Promise<Response> {
   // solo se acepta desde la propia web, no desde otras páginas
   const origin = request.headers.get('origin')
-  if (origin && new URL(origin).host !== new URL(request.url).host) return json({ error: 'origen no permitido' }, 403)
+  if (origin) {
+    try {
+      if (new URL(origin).host !== new URL(request.url).host) return json({ error: 'origen no permitido' }, 403)
+    } catch {
+      return json({ error: 'origen no permitido' }, 403)
+    }
+  }
 
   let n = 0
   try {

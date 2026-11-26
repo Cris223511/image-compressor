@@ -52,6 +52,7 @@ describe('contador global', () => {
     expect((await post({ n: -4 })).status).toBe(400)
     expect((await post({ n: 'mucho' })).status).toBe(400)
     expect((await post({ n: 1 }, { origin: 'https://otra-web.com' })).status).toBe(403)
+    expect((await post({ n: 1 }, { origin: 'null' })).status).toBe(403)
   })
 
   it('frena a quien envía demasiadas veces en un minuto', async () => {

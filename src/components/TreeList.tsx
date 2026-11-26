@@ -1,4 +1,4 @@
-import { memo, useCallback, useMemo, useRef, useState } from 'react'
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useVirtualizer } from '@tanstack/react-virtual'
 import { useShallow } from 'zustand/react/shallow'
 import { AlertCircle, ArrowRight, ChevronRight, Columns2, Download, Folder, FolderOpen, GripVertical, Loader2 } from 'lucide-react'
@@ -27,6 +27,9 @@ export function TreeList({ tree, onCompare }: { tree: TreeNode[]; onCompare: (id
 
   // el arrastre para reordenar solo se permite entre archivos de una misma carpeta y mientras no se esté comprimiendo
   const [drag, setDrag] = useState<{ id: string; over: string | null } | null>(null)
+  // permite soltar el arrastre si la lista desaparece antes de que termine
+  const stopDrag = useRef<(() => void) | null>(null)
+  useEffect(() => () => stopDrag.current?.(), [])
   const startDrag = useCallback(
     (e: React.PointerEvent, id: string) => {
       if (e.button !== 0) return
@@ -68,9 +71,11 @@ export function TreeList({ tree, onCompare }: { tree: TreeNode[]; onCompare: (id
         window.removeEventListener('pointercancel', onCancel)
         window.removeEventListener('keydown', onKey)
         document.body.style.cursor = ''
+        stopDrag.current = null
         if (commit && over) moveItem(id, over)
         setDrag(null)
       }
+      stopDrag.current = () => finish(false)
       const onUp = () => finish(true)
       const onCancel = () => finish(false)
       const onKey = (ev: KeyboardEvent) => ev.key === 'Escape' && finish(false)

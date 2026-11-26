@@ -8,6 +8,7 @@ import { useGlobalDrop } from './lib/useGlobalDrop'
 import { startConsentEffects } from './lib/consentEffects'
 import { restoreSession, startPersisting } from './lib/persist'
 import { scrollToTarget, scrollTopNow, startLenis } from './lib/lenis'
+import { SITE_URL } from './config/site'
 import { useT } from './i18n'
 import { useUi } from './store/ui'
 import Home from './pages/Home'
@@ -33,6 +34,13 @@ export default function App() {
     void restoreSession()
     startLenis()
   }, [])
+
+  // cada página declara su propia dirección canónica para los buscadores y al compartir
+  useEffect(() => {
+    const url = SITE_URL + (pathname === '/' ? '/' : pathname)
+    document.querySelector('link[rel="canonical"]')?.setAttribute('href', url)
+    document.querySelector('meta[property="og:url"]')?.setAttribute('content', url)
+  }, [pathname])
 
   useEffect(() => {
     // si el enlace trae un ancla, la página baja con suavidad hasta esa sección, y si no, parte siempre desde arriba

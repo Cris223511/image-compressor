@@ -16,6 +16,8 @@ interface Task {
   resolve: (r: JobResult) => void
   /** megapíxeles que ocupará al decodificarse, para no cargar el equipo de más */
   weight: number
+  /** hasta que no se lee la cabecera la tarea no empieza, así el presupuesto usa el tamaño real */
+  weighed: boolean
 }
 
 /** máximo de workers en paralelo */
@@ -55,13 +57,14 @@ export class CompressionPool {
     // gifsicle gestiona su propio worker y es lento, por eso no debe ocupar uno del grupo mientras trabaja
     if (req.kind === 'gif') return runGifJob(req)
     return new Promise((resolve) => {
-      // entra a la cola de inmediato para respetar el orden de llegada, y su peso se completa más tarde
-      const task: Task = { req, resolve, weight: DEFAULT_WEIGHT }
+      // entra a la cola de inmediato para respetar el orden de llegada, pero espera a conocer su peso para empezar
+      const task: Task = { req, resolve, weight: DEFAULT_WEIGHT, weighed: false }
       this.queue.push(task)
       void this.weigh(req).then((w) => {
         task.weight = w
+        task.weighed = true
+        this.pump()
       })
-      this.pump()
     })
   }
 
@@ -95,6 +98,8 @@ export class CompressionPool {
 
   private pump() {
     while (this.queue.length) {
+      // la primera de la cola manda, y si aún no se conoce su peso se espera
+      if (!this.queue[0].weighed) return
       // si ya hay trabajo en curso y esta imagen lo pasaría del presupuesto, espera a que termine algo
       if (this.inflight > 0 && this.inflight + this.queue[0].weight > PIXEL_BUDGET) return
       let slot = this.slots.find((s) => !s.busy)

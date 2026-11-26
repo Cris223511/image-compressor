@@ -15,6 +15,7 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/Cris223511/image-compressor/actions/workflows/ci.yml"><img src="https://github.com/Cris223511/image-compressor/actions/workflows/ci.yml/badge.svg" alt="estado de la integración continua"></a>
   <a href="https://github.com/Cris223511/image-compressor/releases/latest"><img src="https://img.shields.io/github/v/release/Cris223511/image-compressor?label=versi%C3%B3n&color=1861ff" alt="última versión"></a>
   <img src="https://img.shields.io/badge/React-18-1861ff" alt="react 18">
   <img src="https://img.shields.io/badge/TypeScript-5-1861ff" alt="typescript 5">
@@ -32,6 +33,11 @@ Squeezo se usa **directamente en el navegador**, sin instalar nada ni crear una 
 
 Ábrelo, suelta tus imágenes, carpetas o un .zip y descarga el resultado. Los cambios de cada versión están en el [historial de cambios](CHANGELOG.md).
 
+<p align="center">
+  <img src="assets/screenshots/inicio.png" alt="pantalla de inicio de Squeezo" width="49%">
+  <img src="assets/screenshots/resultados.png" alt="lista de imágenes con el resultado de la compresión" width="49%">
+</p>
+
 ## Cómo funciona
 
 Arrastras tus imágenes, Squeezo las comprime y descargas el resultado. Por defecto no hay nada que configurar: el archivo pesa menos y se ve igual, con el mismo ancho, el mismo alto y la misma nitidez. Si prefieres decidir tú, hay ajustes opcionales.
@@ -45,9 +51,11 @@ Sirve para quien tiene una carpeta pesada de fotos, capturas o diseños y necesi
 - **Archivos .zip y carpetas.** Hasta 1000 imágenes por zip, con carpetas y subcarpetas. Antes de comprimir se muestra el contenido en un árbol, con miniaturas y el peso de cada archivo, para elegir qué entra.
 - **Avisa de lo que no es imagen.** Videos y otros archivos del zip se omiten y se indica cuántos fueron y de qué tipo.
 - **Ajustes opcionales.** Nivel de compresión, conversión a WebP, AVIF, JPG o PNG, conservar los metadatos y limitar el tamaño. Por defecto todo queda apagado.
+- **Lista a tu medida.** Cada imagen o carpeta se puede eliminar con confirmación, y las imágenes se reordenan arrastrando el asa de puntos. El orden elegido es el que se usa al comprimir y al descargar.
 - **Comparador antes y después** para comprobar el resultado imagen por imagen.
 - **Descarga flexible.** Una por una o todo junto en un .zip con la misma estructura de carpetas.
-- **Tu progreso no se pierde.** Si recargas, retrocedes o cierras la pestaña, sigues donde estabas, incluso a mitad de una compresión. Todo queda en tu navegador.
+- **Tu progreso no se pierde.** Si lo permites en las preferencias de cookies, al recargar, retroceder o cerrar la pestaña sigues donde estabas, incluso a mitad de una compresión. Todo queda en tu navegador.
+- **Tú decides qué se guarda.** Un aviso inicial y una página de cookies permiten activar o retirar por separado la memoria de los ajustes, de la sesión de trabajo y del contador global de imágenes comprimidas.
 - **Español e inglés,** con tema claro y oscuro.
 
 ## Seguridad y privacidad
@@ -96,6 +104,10 @@ npm run dev
 ## Cómo decide la calidad
 
 Cada JPG, WebP o AVIF se codifica varias veces y se compara con el original midiendo la similitud por bloques (SSIM sobre luminancia y color). Se queda la versión más liviana que supera el umbral del nivel elegido, y el resultado final se verifica sobre la imagen completa. Los PNG con muchos colores se reducen a una paleta cuando no se nota, salvo en calidad alta, que no pierde ni un píxel. Si nada mejora el peso, el archivo original se conserva.
+
+<p align="center">
+  <img src="assets/screenshots/calidad.png" alt="recorrido de cómo se decide la calidad" width="70%">
+</p>
 
 ## Contribuir
 

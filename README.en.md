@@ -15,6 +15,7 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/Cris223511/image-compressor/actions/workflows/ci.yml"><img src="https://github.com/Cris223511/image-compressor/actions/workflows/ci.yml/badge.svg" alt="continuous integration status"></a>
   <a href="https://github.com/Cris223511/image-compressor/releases/latest"><img src="https://img.shields.io/github/v/release/Cris223511/image-compressor?label=release&color=1861ff" alt="latest release"></a>
   <img src="https://img.shields.io/badge/React-18-1861ff" alt="react 18">
   <img src="https://img.shields.io/badge/TypeScript-5-1861ff" alt="typescript 5">
@@ -32,6 +33,11 @@ Squeezo runs **right in the browser**, with nothing to install and no account to
 
 Open it, drop in your images, folders or a .zip and download the result. The changes of each version are in the [changelog](CHANGELOG.md).
 
+<p align="center">
+  <img src="assets/screenshots/inicio.png" alt="Squeezo home screen" width="49%">
+  <img src="assets/screenshots/resultados.png" alt="list of images with the compression results" width="49%">
+</p>
+
 ## How it works
 
 Drag your images in, Squeezo compresses them and you download the result. There is nothing to set up by default: the file gets smaller and looks the same, with the same width, the same height and the same sharpness. If you would rather decide yourself, there are optional settings.
@@ -45,9 +51,11 @@ It is meant for anyone with a heavy folder of photos, screenshots or designs who
 - **.zip files and folders.** Up to 1000 images per zip, with folders and subfolders. Before compressing, the contents are shown as a tree with thumbnails and the size of each file, so you pick what goes in.
 - **Flags what is not an image.** Videos and other files inside the zip are skipped, and you are told how many and what kind.
 - **Optional settings.** Compression level, conversion to WebP, AVIF, JPG or PNG, keeping metadata and limiting the size. Everything is off by default.
+- **A list that fits you.** Every image or folder can be removed with a confirmation, and images are reordered by dragging the dotted handle. The order you choose is the one used when compressing and downloading.
 - **Before and after comparison** to check the result image by image.
 - **Flexible download.** One by one, or everything together in a .zip with the same folder structure.
-- **Your progress is never lost.** If you reload, go back or close the tab, you pick up where you left off, even in the middle of a compression. Everything stays in your browser.
+- **Your progress is not lost.** If you allow it in the cookie preferences, when you reload, go back or close the tab you pick up where you left off, even in the middle of a compression. Everything stays in your browser.
+- **You decide what is saved.** An initial notice and a cookie page let you turn on or withdraw, separately, the memory of the settings, of the working session and of the global counter of compressed images.
 - **Spanish and English,** with light and dark themes.
 
 ## Security and privacy
@@ -96,6 +104,10 @@ npm run dev
 ## How quality is decided
 
 Each JPG, WebP or AVIF is encoded several times and compared with the original by measuring block-wise similarity (SSIM over luminance and color). Squeezo keeps the lightest version that passes the threshold of the chosen level, and the final result is verified on the full image. PNG files with many colors are reduced to a palette when it does not show, except in high quality, which loses not a single pixel. If nothing improves the weight, the original file is kept.
+
+<p align="center">
+  <img src="assets/screenshots/calidad.png" alt="walkthrough of how quality is decided" width="70%">
+</p>
 
 ## Contributing
 

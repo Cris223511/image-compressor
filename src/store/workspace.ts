@@ -72,6 +72,8 @@ interface WorkspaceState {
 let pool: CompressionPool | null = null
 let abort: AbortController | null = null
 let counter = 0
+/** imágenes que ya se sumaron al contador global, para que repetir la compresión no las cuente otra vez */
+const counted = new Set<string>()
 
 function getPool(): CompressionPool {
   if (!pool) pool = new CompressionPool()
@@ -266,7 +268,9 @@ export const useWorkspace = create<WorkspaceState>((set, get) => ({
     await Promise.all(Array.from({ length: p.lanes }, lane))
     if (abort === ctl) abort = null
     // al terminar o cancelar se suma al contador global lo que realmente se redujo
-    reportCompressed(todo.filter((id) => get().items[id]?.status === 'done').length)
+    const fresh = todo.filter((id) => get().items[id]?.status === 'done' && !counted.has(id))
+    fresh.forEach((id) => counted.add(id))
+    reportCompressed(fresh.length)
     // si se vació la sesión mientras corría no se pisa ese estado, y al cancelar la sesión queda lista para seguir
     if (get().phase === 'running') set({ phase: ctl.signal.aborted ? 'ready' : 'done' })
   },

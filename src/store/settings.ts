@@ -11,11 +11,27 @@ interface SettingsState {
 
 // los ajustes se recuerdan entre visitas solo si la persona lo permitió en las preferencias de cookies
 const gatedStorage = {
-  getItem: (key: string) => localStorage.getItem(key),
-  setItem: (key: string, value: string) => {
-    if (useConsent.getState().settings) localStorage.setItem(key, value)
+  getItem: (key: string) => {
+    try {
+      return localStorage.getItem(key)
+    } catch {
+      return null
+    }
   },
-  removeItem: (key: string) => localStorage.removeItem(key),
+  setItem: (key: string, value: string) => {
+    try {
+      if (useConsent.getState().settings) localStorage.setItem(key, value)
+    } catch {
+      /* con el almacenamiento bloqueado o lleno los ajustes solo rigen durante la visita */
+    }
+  },
+  removeItem: (key: string) => {
+    try {
+      localStorage.removeItem(key)
+    } catch {
+      /* no hay nada que borrar */
+    }
+  },
 }
 
 export const useSettings = create<SettingsState>()(

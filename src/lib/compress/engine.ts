@@ -477,14 +477,16 @@ function optimisePngAside(buf: ArrayBuffer, s: Settings): Promise<Uint8Array> {
       resolve(here())
       return
     }
-    worker.onmessage = (e: MessageEvent<ArrayBuffer>) => {
+    worker.onmessage = (e: MessageEvent<ArrayBuffer | { failed: true }>) => {
       worker.terminate()
-      resolve(new Uint8Array(e.data))
+      resolve(e.data instanceof ArrayBuffer ? new Uint8Array(e.data) : here())
     }
-    worker.onerror = () => {
+    const fallback = () => {
       worker.terminate()
       resolve(here())
     }
+    worker.onerror = fallback
+    worker.onmessageerror = fallback
     worker.postMessage({ buf: buf.slice(0), settings: s }, [])
   })
 }
@@ -507,7 +509,8 @@ async function compressRaster(
     // la pasada sin pérdida corre en un worker auxiliar mientras aquí se prepara la paleta, y el resultado es el mismo
     const losslessJob = optimisePngAside(stripped, s)
     // salvo en calidad alta, un png con muchos colores se reduce a una paleta si no se nota la diferencia
-    const reduced = s.mode === 'high' ? null : await quantizePng(bytes, dims, s)
+    // si la paleta falla por cualquier motivo, igual se entrega la versión sin pérdida
+    const reduced = s.mode === 'high' ? null : await quantizePng(bytes, dims, s).catch(() => null)
     const lossless = await losslessJob
     const best = reduced && reduced.length < lossless.length ? reduced : lossless
     return finish(bytes, kind, 'png', best, dims, { converted: false })

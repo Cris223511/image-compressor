@@ -9,7 +9,12 @@ const ctx = self as unknown as {
 }
 
 ctx.onmessage = async (e) => {
-  const out = await optimisePng(e.data.buf, e.data.settings)
-  const buf = out.buffer.slice(out.byteOffset, out.byteOffset + out.byteLength) as ArrayBuffer
-  ctx.postMessage(buf, [buf])
+  try {
+    const out = await optimisePng(e.data.buf, e.data.settings)
+    const buf = out.buffer.slice(out.byteOffset, out.byteOffset + out.byteLength) as ArrayBuffer
+    ctx.postMessage(buf, [buf])
+  } catch {
+    // se avisa del fallo para que el worker principal lo resuelva por su cuenta
+    ctx.postMessage({ failed: true })
+  }
 }

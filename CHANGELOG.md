@@ -4,6 +4,14 @@ Este documento recoge los cambios importantes de Squeezo, de la versión más re
 
 El formato sigue la convención de [Keep a Changelog](https://keepachangelog.com/es/) y el versionado es [semántico](https://semver.org/lang/es/). El primer número marca los cambios mayores, el segundo las funciones nuevas y el tercero las correcciones.
 
+## 1.0.9 (2026-11-26)
+
+- **Vista previa al compartir.** Al pegar el enlace en redes sociales o aplicaciones de mensajería aparece una tarjeta con el título, la descripción y una imagen propia. Cada página declara además su dirección canónica.
+- **Buscadores.** Se añaden `robots.txt` y `sitemap.xml`.
+- **Integración continua.** Cada cambio que se sube comprueba los tipos, ejecuta las pruebas y compila el proyecto.
+- **README.** Incluye capturas de la aplicación y describe la lista editable, las preferencias de cookies y la insignia de la integración continua.
+- **Revisión de código.** Se corrigen varios problemas detectados. El presupuesto de memoria ahora usa el tamaño real de cada imagen antes de empezar a procesarla, el worker auxiliar de los PNG ya no puede dejar una imagen colgada si falla, y una paleta que falla no impide entregar la versión sin pérdida. El guardado de la sesión no puede dejar un resultado antiguo tras repetir la compresión ni borrarse al activar y desactivar el permiso con rapidez. Un almacenamiento bloqueado no rompe los ajustes, un origen no válido recibe un 403 en el contador, cada imagen se suma una sola vez al contador global y el arrastre se libera si la lista desaparece.
+
 ## 1.0.8 (2026-11-26)
 
 - **Títulos de Nosotros.** La palabra clave de cada título se resalta con el color primario, y en el título de la página, «Squeezo» va en azul. En los subtítulos de sección la palabra clave se subraya además con un trazo de pincel que se dibuja de izquierda a derecha cuando el título entra en pantalla.

@@ -72,7 +72,7 @@ async function tx<T>(store: 'kv' | 'blobs', mode: IDBTransactionMode, run: (s: I
 // ---------------------------------------------------------------------------------------
 // qué hay ya guardado y cómo se identifican los zips, que se guardan una sola vez
 
-const written = new Set<string>()
+const written = new Map<string, Blob>()
 const zipKeys = new WeakMap<File, string>()
 let zipCounter = 0
 
@@ -121,7 +121,7 @@ async function doRestore(): Promise<void> {
       if (si.source.kind === 'file') {
         const file = await tx<File | undefined>('blobs', 'readonly', (s) => s.get(`src:${si.id}`))
         if (!file) continue
-        written.add(`src:${si.id}`)
+        written.set(`src:${si.id}`, file)
         source = { kind: 'file', file }
       } else {
         const zipKey = si.source.zip
@@ -131,7 +131,7 @@ async function doRestore(): Promise<void> {
           if (!zip) continue
           files.set(zipKey, zip)
           zipKeys.set(zip, zipKey)
-          written.add(zipKey)
+          written.set(zipKey, zip)
           zipCounter = Math.max(zipCounter, Number(zipKey.slice(4)) || 0)
         }
         source = { kind: 'zip', file: zip, entry: si.source.entry }
@@ -147,7 +147,7 @@ async function doRestore(): Promise<void> {
           status = 'pending'
         } else {
           result = { ...rest, blob: blob ?? null }
-          if (blob) written.add(`res:${si.id}`)
+          if (blob) written.set(`res:${si.id}`, blob)
         }
       }
       // una imagen que estaba a medio comprimir al cerrar vuelve a la cola
@@ -240,11 +240,12 @@ async function flush() {
   }
 
   for (const [key, blob] of need) {
-    if (written.has(key)) continue
+    // solo se omite si la clave ya guarda exactamente este archivo
+    if (written.get(key) === blob) continue
     await tx('blobs', 'readwrite', (k) => k.put(blob, key))
-    written.add(key)
+    written.set(key, blob)
   }
-  for (const key of [...written]) {
+  for (const key of [...written.keys()]) {
     if (need.has(key)) continue
     await tx('blobs', 'readwrite', (k) => k.delete(key))
     written.delete(key)
@@ -291,6 +292,8 @@ export async function applySessionConsent(on: boolean) {
   clearTimeout(timer)
   dirty = false
   while (running) await new Promise((r) => setTimeout(r, 50))
+  // si mientras tanto se volvió a conceder el permiso, no se borra lo que acaba de guardarse
+  if (useConsent.getState().session) return
   try {
     await tx('kv', 'readwrite', (k) => k.clear())
     await tx('blobs', 'readwrite', (k) => k.clear())
