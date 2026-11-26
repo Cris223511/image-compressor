@@ -1,0 +1,22 @@
+# dependencias y resultados del build
+node_modules
+dist
+dist-ssr
+*.local
+
+# variables de entorno, nunca al repositorio
+.env
+.env.*
+!.env.example
+
+# registros cuando algo falla
+*.log
+
+# archivos de prueba pesados, las imágenes y zips de ensayo no se suben
+/pruebas
+
+# basura que dejan el sistema y los editores
+.DS_Store
+Thumbs.db
+.vscode
+.idea
