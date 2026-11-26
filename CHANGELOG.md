@@ -11,6 +11,7 @@ El formato sigue la convención de [Keep a Changelog](https://keepachangelog.com
 - **Scroll suave con Lenis,** moderado, que respeta las listas con desplazamiento propio y los enlaces a secciones.
 - **Transiciones en lo que se abre y se cierra.** Las preguntas frecuentes, las pestañas de la demostración, los avisos, el resumen de resultados, el selector de calidad personalizada y los omitidos se abren y se cierran deslizando. Las casillas, las miniaturas y los estados de cada imagen cambian con un fundido, igual que los diálogos, que además desenfocan el fondo.
 - **Versión visible en el pie de página,** con enlace a las notas de esa versión.
+- **Encabezado y pie quietos.** El marco del sitio no anima su entrada, y conserva solo los cambios suaves al pasar el cursor.
 - **Página Nosotros renovada.** El recorrido de calidad avanza solo mientras se ve, se detiene al pasar el cursor y cada paso se puede tocar, sin atar el desplazamiento de la página. Se retira la sección ilustrada de privacidad y se reescriben con frases más claras los textos de Nosotros, Privacidad y Términos.
 - **Movimiento reducido.** Con esa preferencia del sistema solo se detienen las repeticiones decorativas, y lo que está cerrado deja de recibir foco con el teclado.
 

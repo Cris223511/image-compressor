@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight, ArrowUp, ExternalLink, Lock } from 'lucide-react'
 import { Logo } from './Logo'
-import { Reveal } from './about/Reveal'
 import { REPO_URL } from '../config/site'
 import { scrollToTarget } from '../lib/lenis'
 import { useDict } from '../i18n'
@@ -30,7 +29,7 @@ export function Footer() {
 
       <div className="relative mx-auto max-w-6xl px-4 pt-16 sm:px-6">
         <div className="grid gap-12 lg:grid-cols-[0.85fr_2.15fr]">
-          <Reveal>
+          <div>
             <Logo />
             <p className="mt-5 max-w-xs leading-relaxed text-muted">{footer.blurb}</p>
             <Link to="/" className="btn-primary mt-6 h-12 px-6">
@@ -39,11 +38,11 @@ export function Footer() {
             <p className="mt-6 inline-flex items-center gap-2 rounded-full bg-good-soft px-3.5 py-1.5 text-xs font-semibold text-good">
               <Lock size={13} /> {footer.privacy}
             </p>
-          </Reveal>
+          </div>
 
           <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-4">
             {footer.cols.map((col, ci) => (
-              <Reveal key={col.title} delay={ci * 140}>
+              <div key={col.title}>
                 <h3 className="mb-4 text-xs font-bold uppercase tracking-[0.1em] text-ink">{col.title}</h3>
                 <ul className="space-y-3">
                   {col.links.map((label, li) => {
@@ -64,7 +63,7 @@ export function Footer() {
                     )
                   })}
                 </ul>
-              </Reveal>
+              </div>
             ))}
           </div>
         </div>
