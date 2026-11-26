@@ -4,6 +4,11 @@ Este documento recoge los cambios importantes de Squeezo, de la versión más re
 
 El formato sigue la convención de [Keep a Changelog](https://keepachangelog.com/es/) y el versionado es [semántico](https://semver.org/lang/es/). El primer número marca los cambios mayores, el segundo las funciones nuevas y el tercero las correcciones.
 
+## 1.0.8 (2026-11-26)
+
+- **Títulos de Nosotros.** La palabra clave de cada título se resalta con el color primario, y en el título de la página, «Squeezo» va en azul. En los subtítulos de sección la palabra clave se subraya además con un trazo de pincel que se dibuja de izquierda a derecha cuando el título entra en pantalla.
+- **Recorrido de calidad.** Ya no se detiene al pasar el cursor por encima, y hay más espacio entre el título y la lista de pasos.
+
 ## 1.0.7 (2026-11-26)
 
 - **Cookies y almacenamiento.** Un aviso sube desde la parte inferior en la primera visita, con los botones Aceptar, Rechazar y Personalizar preferencias. Lo único que siempre se guarda es el idioma, el tema y la decisión tomada. Los ajustes de compresión, la sesión de trabajo y el envío al contador global solo se activan con permiso, y al retirar un permiso se borran los datos que dependían de él.

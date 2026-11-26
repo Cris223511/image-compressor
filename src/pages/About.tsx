@@ -8,6 +8,7 @@ import { ParallaxBand } from '../components/about/ParallaxBand'
 import { Security } from '../components/about/Security'
 import { Faq } from '../components/about/Faq'
 import { Stats } from '../components/about/Stats'
+import { Marked } from '../components/about/Marked'
 import { Reveal } from '../components/about/Reveal'
 import { REPO_URL } from '../config/site'
 import { useDict, useT } from '../i18n'
@@ -33,7 +34,9 @@ export default function About() {
         />
         <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-4 pb-20 pt-14 sm:px-6 sm:pt-20 lg:grid-cols-[0.9fr_1.1fr]">
           <div>
-            <h1 className="rise font-display text-5xl font-extrabold leading-[1.02] sm:text-6xl">{a.title}</h1>
+            <h1 className="rise font-display text-5xl font-extrabold leading-[1.02] sm:text-6xl">
+              <Marked text={a.title} underline={false} />
+            </h1>
             <p className="rise mt-5 max-w-md text-lg leading-relaxed text-muted" style={{ animationDelay: '140ms' }}>
               {a.lead}
             </p>
@@ -64,7 +67,9 @@ export default function About() {
       <div className="mx-auto max-w-6xl space-y-32 px-4 pb-8 pt-16 sm:px-6">
         <section id="como-funciona" className="scroll-mt-24">
           <Reveal>
-            <h2 className={h2}>{a.how.title}</h2>
+            <h2 className={h2}>
+              <Marked text={a.how.title} />
+            </h2>
             <p className="mt-3 max-w-xl text-muted">{a.how.hint}</p>
           </Reveal>
           <Reveal className="mt-10" delay={160}>
@@ -78,7 +83,9 @@ export default function About() {
 
         <section id="formatos" className="scroll-mt-24">
           <Reveal>
-            <h2 className={h2}>{a.formats.title}</h2>
+            <h2 className={h2}>
+              <Marked text={a.formats.title} />
+            </h2>
           </Reveal>
           <div className="mt-8">
             <FormatCards />
@@ -87,7 +94,9 @@ export default function About() {
 
         <section id="seguridad" className="scroll-mt-24">
           <Reveal>
-            <h2 className={h2}>{a.security.title}</h2>
+            <h2 className={h2}>
+              <Marked text={a.security.title} />
+            </h2>
           </Reveal>
           <div className="mt-10">
             <Security />
@@ -96,7 +105,9 @@ export default function About() {
 
         <section id="faq" className="mx-auto max-w-3xl scroll-mt-24">
           <Reveal>
-            <h2 className={h2}>{a.faq.title}</h2>
+            <h2 className={h2}>
+              <Marked text={a.faq.title} />
+            </h2>
           </Reveal>
           <Reveal className="mt-10" delay={160}>
             <Faq />

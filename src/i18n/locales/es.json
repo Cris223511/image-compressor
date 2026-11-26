@@ -242,7 +242,7 @@
     "updated": "Última actualización: 26 de noviembre de 2026",
     "toc": "En esta página",
     "about": {
-      "title": "Así funciona Squeezo",
+      "title": "Así funciona *Squeezo*",
       "lead": "Qué hace Squeezo con cada imagen y cómo comprueba que la diferencia no se note.",
       "cta": "Probar ahora",
       "compare": {
@@ -252,7 +252,7 @@
         "drag": "Arrastra para comparar"
       },
       "how": {
-        "title": "Uso paso a paso",
+        "title": "Uso *paso a paso*",
         "steps": [
           {
             "title": "Añade",
@@ -279,7 +279,7 @@
         "hint": "Esta es una demostración: arrastra los archivos, selecciona los que quieras y comprime."
       },
       "formats": {
-        "title": "Qué ocurre con cada archivo",
+        "title": "Qué ocurre con *cada archivo*",
         "items": [
           {
             "name": "JPG, WebP y AVIF",
@@ -327,7 +327,7 @@
         }
       ],
       "story": {
-        "title": "Cómo se decide la calidad",
+        "title": "Cómo se decide *la calidad*",
         "sample": "foto de ejemplo",
         "quality": "Calidad",
         "weight": "Peso",
@@ -374,7 +374,7 @@
         ]
       },
       "security": {
-        "title": "Seguridad",
+        "title": "*Seguridad*",
         "items": [
           {
             "title": "Verificación del contenido",
@@ -395,7 +395,7 @@
         ]
       },
       "faq": {
-        "title": "Preguntas frecuentes",
+        "title": "Preguntas *frecuentes*",
         "items": [
           {
             "q": "¿Se pierde calidad?",

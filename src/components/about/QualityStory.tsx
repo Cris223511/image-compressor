@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { CheckCircle2 } from 'lucide-react'
 import { useDict } from '../../i18n'
+import { Marked } from './Marked'
 import { Reveal } from './Reveal'
 
 // medición real de la foto de ejemplo (3000 × 2000) con la calidad, el peso en KB y la similitud con el original
@@ -88,7 +89,6 @@ export function QualityStory() {
   const verdict = useRef<HTMLSpanElement>(null)
 
   const progress = useRef(0)
-  const paused = useRef(false)
   const visible = useRef(false)
   const waited = useRef(0)
 
@@ -152,7 +152,7 @@ export function QualityStory() {
     const tick = (now: number) => {
       const dt = now - last
       last = now
-      if (visible.current && !paused.current && !document.hidden) {
+      if (visible.current && !document.hidden) {
         if (progress.current >= 1) {
           if (still) {
             raf = requestAnimationFrame(tick)
@@ -191,15 +191,15 @@ export function QualityStory() {
       id="calidad"
       ref={root}
       className="mx-auto w-full max-w-6xl scroll-mt-24 px-4 py-16 sm:px-6"
-      onMouseEnter={() => (paused.current = true)}
-      onMouseLeave={() => (paused.current = false)}
     >
       <div className="grid items-center gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
         <div>
           <Reveal>
-            <h2 className="font-display text-3xl font-extrabold sm:text-4xl">{s.title}</h2>
+            <h2 className="font-display text-3xl font-extrabold sm:text-4xl">
+              <Marked text={s.title} />
+            </h2>
           </Reveal>
-          <ol className="relative mt-8 space-y-3 pl-7">
+          <ol className="relative mt-14 space-y-3 pl-7">
             <span aria-hidden className="absolute bottom-3 left-[7px] top-3 w-0.5 rounded-full bg-line" />
             <span
               aria-hidden

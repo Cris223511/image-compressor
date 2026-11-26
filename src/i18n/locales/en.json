@@ -242,7 +242,7 @@
     "updated": "Last updated: November 26, 2026",
     "toc": "On this page",
     "about": {
-      "title": "How Squeezo works",
+      "title": "How *Squeezo* works",
       "lead": "What Squeezo does with each image and how it checks that the difference cannot be seen.",
       "cta": "Try it now",
       "compare": {
@@ -252,7 +252,7 @@
         "drag": "Drag to compare"
       },
       "how": {
-        "title": "Step-by-step usage",
+        "title": "*Step-by-step* usage",
         "steps": [
           {
             "title": "Add",
@@ -279,7 +279,7 @@
         "hint": "This is a demonstration: drag the files, select the ones you want and compress."
       },
       "formats": {
-        "title": "What happens to each file",
+        "title": "What happens to *each file*",
         "items": [
           {
             "name": "JPG, WebP and AVIF",
@@ -327,7 +327,7 @@
         }
       ],
       "story": {
-        "title": "How quality is decided",
+        "title": "How *quality* is decided",
         "sample": "sample photo",
         "quality": "Quality",
         "weight": "Weight",
@@ -374,7 +374,7 @@
         ]
       },
       "security": {
-        "title": "Security",
+        "title": "*Security*",
         "items": [
           {
             "title": "Content verification",
@@ -395,7 +395,7 @@
         ]
       },
       "faq": {
-        "title": "Frequently asked questions",
+        "title": "Frequently asked *questions*",
         "items": [
           {
             "q": "Is quality lost?",
