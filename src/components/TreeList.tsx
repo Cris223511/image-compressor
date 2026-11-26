@@ -87,6 +87,18 @@ export function TreeList({ tree, onCompare }: { tree: TreeNode[]; onCompare: (id
     [moveItem],
   )
 
+  // con el teclado, las flechas mueven la imagen un lugar dentro de su carpeta
+  const nudge = useCallback(
+    (id: string, step: -1 | 1) => {
+      const { items, order } = useWorkspace.getState()
+      const dirOf = (itemId: string) => (items[itemId]?.path ?? '').slice(0, (items[itemId]?.path ?? '').lastIndexOf('/') + 1)
+      const siblings = order.filter((o) => dirOf(o) === dirOf(id))
+      const target = siblings[siblings.indexOf(id) + step]
+      if (target) moveItem(id, target)
+    },
+    [moveItem],
+  )
+
   // la marca de dónde caerá lo arrastrado queda debajo de la fila si baja y encima si sube
   const order = useWorkspace((s) => s.order)
   const dropSide = (id: string): 'above' | 'below' | null => {
@@ -115,7 +127,7 @@ export function TreeList({ tree, onCompare }: { tree: TreeNode[]; onCompare: (id
               {row.type === 'folder' ? (
                 <FolderRow node={row} collapsed={!!collapsed[row.path]} />
               ) : (
-                <FileRow id={row.id} depth={row.depth} onCompare={onCompare} onGrip={startDrag} locked={locked} dragging={drag?.id === row.id} drop={dropSide(row.id)} />
+                <FileRow id={row.id} depth={row.depth} onCompare={onCompare} onGrip={startDrag} onNudge={nudge} locked={locked} dragging={drag?.id === row.id} drop={dropSide(row.id)} />
               )}
             </div>
           )
@@ -189,6 +201,7 @@ const FileRow = memo(function FileRow({
   depth,
   onCompare,
   onGrip,
+  onNudge,
   locked,
   dragging,
   drop,
@@ -197,6 +210,7 @@ const FileRow = memo(function FileRow({
   depth: number
   onCompare: (id: string) => void
   onGrip: (e: React.PointerEvent, id: string) => void
+  onNudge: (id: string, step: -1 | 1) => void
   locked: boolean
   dragging: boolean
   drop: 'above' | 'below' | null
@@ -221,6 +235,11 @@ const FileRow = memo(function FileRow({
         title={t('work.reorder')}
         aria-label={t('work.reorder')}
         onPointerDown={(e) => onGrip(e, id)}
+        onKeyDown={(e) => {
+          if (e.key !== 'ArrowUp' && e.key !== 'ArrowDown') return
+          e.preventDefault()
+          onNudge(id, e.key === 'ArrowUp' ? -1 : 1)
+        }}
         onClick={(e) => e.stopPropagation()}
         style={{ marginRight: (depth + 1) * INDENT, touchAction: 'none' }}
         className="grid h-8 w-5 shrink-0 cursor-grab place-items-center rounded-md text-muted/70 transition-colors hover:bg-surface hover:text-ink active:cursor-grabbing disabled:pointer-events-none disabled:opacity-30"

@@ -33,7 +33,7 @@ export function Footer() {
           <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-4">
             {footer.cols.map((col, ci) => (
               <div key={col.title}>
-                <h3 className="mb-4 text-xs font-bold uppercase tracking-[0.1em] text-ink">{col.title}</h3>
+                <h2 className="mb-4 text-xs font-bold uppercase tracking-[0.1em] text-ink">{col.title}</h2>
                 <ul className="space-y-3">
                   {col.links.map((label, li) => {
                     const to = DEST[ci][li]

@@ -32,7 +32,7 @@ export function SettingsPanel({ open, onClose }: { open: boolean; onClose: () =>
         className={`absolute inset-0 bg-transparent backdrop-blur-md transition-opacity duration-300 ${open ? 'opacity-100' : 'opacity-0'}`}
         onClick={onClose}
       />
-      <aside
+      <div
         role="dialog"
         aria-label={t('settings.title')}
         data-lenis-prevent="" className={`soft-scroll absolute right-0 top-0 h-full w-full max-w-md overflow-y-auto border-l border-line bg-surface p-6 shadow-lift transition-transform duration-300 ease-out ${
@@ -114,7 +114,7 @@ export function SettingsPanel({ open, onClose }: { open: boolean; onClose: () =>
         <button className="btn-ghost mt-8 w-full" onClick={reset}>
           <RotateCcw size={15} /> {t('settings.reset')}
         </button>
-      </aside>
+      </div>
     </div>
   )
 }

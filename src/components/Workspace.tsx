@@ -86,7 +86,7 @@ export function Workspace({ pickers }: { pickers: ReturnType<typeof usePickers> 
       {/* cabecera con el resumen y las acciones generales */}
       <div className="rise flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h2 className="font-display text-2xl font-bold">{t('work.treeTitle')}</h2>
+          <h1 className="font-display text-2xl font-bold">{t('work.treeTitle')}</h1>
           <p className="mt-0.5 flex flex-wrap items-center gap-x-2 text-sm text-muted">
             {scanning ? (
               <span key="scan" className="fade-in flex items-center gap-1.5 text-brand">

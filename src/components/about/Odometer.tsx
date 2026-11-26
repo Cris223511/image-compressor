@@ -8,7 +8,7 @@ export function Odometer({ value, active, duration = 1800 }: { value: number; ac
   let col = 0
 
   return (
-    <span className="inline-flex tabular-nums leading-none" aria-label={value.toLocaleString()}>
+    <span role="img" className="inline-flex tabular-nums leading-none" aria-label={value.toLocaleString()}>
       {chars.map((ch, i) =>
         /\d/.test(ch) ? (
           <Column key={i} digit={Number(ch)} spins={spins} active={active} delay={col++ * 110} duration={duration} />

@@ -4,6 +4,14 @@ Este documento recoge los cambios importantes de Squeezo, de la versión más re
 
 El formato sigue la convención de [Keep a Changelog](https://keepachangelog.com/es/) y el versionado es [semántico](https://semver.org/lang/es/). El primer número marca los cambios mayores, el segundo las funciones nuevas y el tercero las correcciones.
 
+## 1.0.10 (2026-11-26)
+
+- **Accesibilidad.** Una auditoría con axe-core sobre todas las páginas, en modo claro y oscuro, y sobre el aviso de cookies y el panel de ajustes termina sin problemas. Se corrige el contraste del azul sobre fondo azul claro, el atenuado de los pasos inactivos del recorrido de calidad, el orden de los encabezados, el encabezado principal de la lista y el rol de los contadores animados.
+- **Teclado.** Las imágenes de la lista se pueden reordenar con las flechas arriba y abajo desde el asa de puntos.
+- **Pruebas.** Se añaden 13 pruebas para el consentimiento de cookies, el contador, eliminar imágenes y reordenarlas. Ahora son 60.
+- **Navegadores.** La compresión completa, con JPG, PNG, GIF y SVG, el worker auxiliar de los PNG, el aviso de cookies y el reordenar con teclado se verifican también en Firefox, con los mismos resultados que en Chromium salvo diferencias de un 1 a un 2 % en algunos PNG por el decodificador de cada navegador.
+- **Rendimiento.** Se mide el hilo principal durante la compresión de 24 imágenes y no aparece ningún bloqueo de más de 50 ms.
+
 ## 1.0.9 (2026-11-26)
 
 - **Vista previa al compartir.** Al pegar el enlace en redes sociales o aplicaciones de mensajería aparece una tarjeta con el título, la descripción y una imagen propia. Cada página declara además su dirección canónica.

@@ -216,11 +216,14 @@ export function QualityStory() {
                 <button
                   onClick={() => jump(i)}
                   aria-current={active === i}
-                  className={`w-full rounded-2xl p-3 text-left transition-all duration-500 ease-out hover:bg-surface hover:opacity-100 ${
-                    active === i ? 'bg-surface opacity-100 shadow-card' : 'opacity-45'
+                  className={`group w-full rounded-2xl p-3 text-left transition-all duration-500 ease-out hover:bg-surface ${
+                    active === i ? 'bg-surface shadow-card' : ''
                   }`}
                 >
-                  <h3 className="font-display text-xl font-bold">{st.title}</h3>
+                  {/* solo el título se atenúa en los pasos inactivos, para que el texto conserve el contraste */}
+                  <h3 className={`font-display text-xl font-bold transition-opacity duration-500 group-hover:opacity-100 ${active === i ? '' : 'opacity-60'}`}>
+                    {st.title}
+                  </h3>
                   <p className="mt-1 max-w-md text-[0.95rem] leading-relaxed text-muted">{st.text}</p>
                 </button>
               </li>

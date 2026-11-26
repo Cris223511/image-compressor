@@ -76,7 +76,7 @@
     "remove": "Remove",
     "removeFolder": "Remove folder",
     "confirm": "Confirm",
-    "reorder": "Drag to change the order",
+    "reorder": "Drag, or use the up and down arrow keys, to change the order",
     "notSaved": "Your progress is not saved when the page is reloaded.",
     "notSavedLink": "Change preferences"
   },
