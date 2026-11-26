@@ -4,6 +4,11 @@ Este documento recoge los cambios importantes de Squeezo, de la versión más re
 
 El formato sigue la convención de [Keep a Changelog](https://keepachangelog.com/es/) y el versionado es [semántico](https://semver.org/lang/es/). El primer número marca los cambios mayores, el segundo las funciones nuevas y el tercero las correcciones.
 
+## 1.0.11 (2026-11-26)
+
+- **Aviso de cookies.** Es más ancho, con el mismo ancho que el contenido de la web, y más bajo, de modo que el texto ocupa dos líneas en pantallas grandes.
+- **Pie de página.** Se quita el botón «Comprimir imágenes» de la primera columna, ya que el mismo enlace sigue en la columna Producto.
+
 ## 1.0.10 (2026-11-26)
 
 - **Accesibilidad.** Una auditoría con axe-core sobre todas las páginas, en modo claro y oscuro, y sobre el aviso de cookies y el panel de ajustes termina sin problemas. Se corrige el contraste del azul sobre fondo azul claro, el atenuado de los pasos inactivos del recorrido de calidad, el orden de los encabezados, el encabezado principal de la lista y el rol de los contadores animados.

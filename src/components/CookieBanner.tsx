@@ -31,7 +31,7 @@ export function CookieBanner() {
       }`}
       style={{ visibility: show ? 'visible' : 'hidden', transitionProperty: 'transform, opacity, visibility', transitionDelay: show ? '0s' : '0s, 0s, 0.7s' }}
     >
-      <div className="mx-auto flex max-w-3xl flex-col gap-4 rounded-3xl border border-line bg-surface p-5 shadow-lift sm:flex-row sm:items-center sm:gap-5 sm:p-6">
+      <div className="mx-auto flex max-w-6xl flex-col gap-4 rounded-3xl border border-line bg-surface px-5 py-4 shadow-lift sm:flex-row sm:items-center sm:gap-6 sm:px-8 sm:py-5">
         <span className="hidden h-12 w-12 shrink-0 place-items-center rounded-2xl bg-brand-soft text-brand sm:grid">
           <Cookie size={24} />
         </span>
