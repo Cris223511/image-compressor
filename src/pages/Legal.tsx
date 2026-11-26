@@ -6,17 +6,34 @@ import { useDict } from '../i18n'
 /** cada bloque de texto de una sección puede ser un párrafo, un subtítulo, una lista con viñetas o una numerada */
 type Block = string | { sub: string } | { ul: string[] } | { ol: string[] }
 
+/** los textos pueden marcar con **doble asterisco** lo que conviene resaltar en negrita */
+function Rich({ text }: { text: string }) {
+  return (
+    <>
+      {text.split('**').map((part, i) =>
+        i % 2 ? (
+          <strong key={i} className="font-semibold text-ink">
+            {part}
+          </strong>
+        ) : (
+          part
+        ),
+      )}
+    </>
+  )
+}
+
 function Blocks({ blocks }: { blocks: Block[] }) {
   return (
     <>
       {blocks.map((b, i) => {
-        if (typeof b === 'string') return <p key={i}>{b}</p>
+        if (typeof b === 'string') return <p key={i}><Rich text={b} /></p>
         if ('sub' in b) return <h3 key={i} className="pt-2 font-display text-lg font-bold text-ink">{b.sub}</h3>
         if ('ul' in b) {
           return (
             <ul key={i} className="list-disc space-y-1.5 pl-6 marker:text-brand">
               {b.ul.map((li) => (
-                <li key={li}>{li}</li>
+                <li key={li}><Rich text={li} /></li>
               ))}
             </ul>
           )
@@ -24,7 +41,7 @@ function Blocks({ blocks }: { blocks: Block[] }) {
         return (
           <ol key={i} className="list-decimal space-y-1.5 pl-6 marker:font-semibold marker:text-brand">
             {b.ol.map((li) => (
-              <li key={li}>{li}</li>
+              <li key={li}><Rich text={li} /></li>
             ))}
           </ol>
         )

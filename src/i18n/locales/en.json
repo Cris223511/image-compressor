@@ -445,15 +445,16 @@
         {
           "h": "General principle",
           "p": [
-            "Squeezo works entirely in the browser. Images, folders and zip files are never sent to a server, and no registration or personal data is needed to use the tool.",
+            "Squeezo works entirely in the browser. Images, folders and zip files are **never sent to a server**, and no registration or personal data is needed to use the tool.",
             "This principle comes down to three commitments:",
             {
               "ul": [
-                "the user's files do not leave their device;",
-                "there are no accounts, tracking cookies or analytics;",
-                "the only data that reaches a server is what is strictly necessary for the global counter, and it is detailed below."
+                "the user's files do not leave their device",
+                "there are no accounts, tracking cookies or analytics",
+                "the only data that reaches a server is what is strictly necessary for the global counter, and it is detailed below"
               ]
-            }
+            },
+            "This commitment holds even when the optional functions are turned on, because none of them needs the files or personal data in order to work."
           ]
         },
         {
@@ -465,9 +466,9 @@
             },
             {
               "ul": [
-                "the images, folders and zip files that are added;",
-                "the results of the compression;",
-                "the preferences and settings chosen."
+                "the images, folders and zip files that are added",
+                "the results of the compression",
+                "the preferences and settings chosen"
               ]
             },
             {
@@ -475,8 +476,8 @@
             },
             {
               "ul": [
-                "the number of images compressed when each compression finishes;",
-                "the technical data of each visit that the hosting provider records."
+                "**the number of images compressed** when each compression finishes",
+                "the technical data of each visit that the hosting provider records"
               ]
             },
             {
@@ -484,18 +485,20 @@
             },
             {
               "ul": [
-                "names, email addresses or any other data that identifies the user;",
-                "the content, the names or the properties of the files;",
-                "the location or data about the device."
+                "names, email addresses or any other data that identifies the user",
+                "the content, the names or the properties of the files",
+                "the location or data about the device"
               ]
-            }
+            },
+            "This classification determines which decisions are within the person's reach: what stays on the device can be deleted from the browser, and the only thing sent to a server is **a number** unrelated to anyone."
           ]
         },
         {
           "h": "Files",
           "p": [
             "Files are read and processed on the user's device, using the resources of its own processor. Squeezo receives no copy of them, does not analyze them remotely and does not share them with third parties.",
-            "This includes the files inside a zip: they are read in parts in the browser itself and are never transmitted."
+            "This includes the files inside a zip: they are read in parts in the browser itself and are **never transmitted**.",
+            "For that reason the tool can also be used with sensitive images, such as personal photographs or work screenshots, without their content **leaving the device**. Even so, the usual judgment should be applied to confidential information."
           ]
         },
         {
@@ -504,12 +507,13 @@
             "Squeezo uses the browser's own storage so that work is not lost when the page is reloaded. What is saved depends on the permissions the person grants in the cookie preferences:",
             {
               "ul": [
-                "always, the language, the theme and the decision about cookies, in local storage;",
-                "only with permission, the compression settings, in local storage;",
-                "only with permission, the working session, that is, the files added and the results, in the browser's database (IndexedDB)."
+                "always, the language, the theme and the decision about cookies, in local storage",
+                "only with permission, the compression settings, in local storage",
+                "only with permission, the working session, that is, the files added and the results, in the browser's database (IndexedDB)"
               ]
             },
-            "This data does not leave the device, is not tied to any identity and is not shared with any server."
+            "This data does not leave the device, is not tied to any identity and is **not shared with any server**.",
+            "If no optional permission is granted, the tool remembers only the language, the theme and the decision about cookies, and **everything else is lost** when the page is closed or reloaded."
           ]
         },
         {
@@ -518,48 +522,52 @@
             "The user can delete what Squeezo saves in their browser at any time, in four ways:",
             {
               "ol": [
-                "withdrawing the permissions on the cookie page, which immediately deletes the data tied to each one;",
-                "pressing the \"Clear\" button in the file list, which deletes the working session;",
-                "deleting the site data from the browser settings, which also deletes the preferences;",
-                "using a private or incognito window, where nothing is kept once it is closed."
+                "withdrawing the permissions on the cookie page, which **immediately** deletes the data tied to each one",
+                "pressing the \"Clear\" button in the file list, which deletes the working session",
+                "deleting the site data from the browser settings, which also deletes the preferences",
+                "using a private or incognito window, where nothing is kept once it is closed"
               ]
             },
-            "After deletion, the tool returns to its initial state."
+            "After deletion, the tool returns to its initial state.",
+            "Changes apply on the spot and do not require reloading the page, so the result can be checked in the tool itself."
           ]
         },
         {
           "h": "Global counter",
           "p": [
-            "Squeezo shows on the About page the total number of images compressed by everyone who uses it. To keep that figure, and only if the user allows it in the cookie preferences, the browser sends a single piece of data to a server when a compression finishes: the number of images reduced.",
+            "Squeezo shows on the About page the total number of images compressed by everyone who uses it. To keep that figure, and only if the user allows it in the cookie preferences, the browser sends **a single piece of data** to a server when a compression finishes: the number of images reduced.",
             {
               "sub": "What is sent and what is stored"
             },
             {
               "ul": [
-                "only a whole number is sent;",
-                "only the accumulated total is stored, unrelated to any person or session;",
-                "no files, names, content or identifiers are sent."
+                "only a whole number is sent",
+                "only the accumulated total is stored, unrelated to any person or session",
+                "no files, names, content or identifiers are sent"
               ]
             },
             {
               "sub": "Protection against abuse"
             },
             "To prevent the figure from being falsified, the submissions that a single address can make in one minute are limited. For that purpose, the IP address is converted into a short fingerprint that is kept for one minute and then deleted.",
-            "The counter is stored on Upstash, a database service used through Vercel."
+            "The counter is stored on Upstash, a database service used through Vercel.",
+            "With this information it is not possible to know who used the tool, from where or with which files. The data is **not linked** to any other information in the browser."
           ]
         },
         {
           "h": "Personal data",
           "p": [
-            "There are no user accounts, tracking cookies, analytics or advertising. Squeezo does not collect names, email addresses or any other data that identifies the user.",
-            "Since no personal data is processed, there are no profiles, no statistics are drawn up per person and no automated decisions are made."
+            "**There are no user accounts**, tracking cookies, analytics or advertising. Squeezo does not collect names, email addresses or any other data that identifies the user.",
+            "Since no personal data is processed, there are no profiles, no statistics are drawn up per person and no automated decisions are made.",
+            "If a function that requires personal data is added in the future, **notice will be given first** in this policy and the corresponding consent will be requested."
           ]
         },
         {
           "h": "Cookies and similar technologies",
           "p": [
-            "Squeezo installs no tracking or advertising cookies. The only storage technologies it uses are local storage and the browser's database, and only for the operation described in this policy.",
-            "The person decides which of them are turned on through the notice shown on the first visit and the cookie policy page, where the decision can be changed at any time. None of them is used to identify or follow the user across sites."
+            "Squeezo **installs no tracking or advertising cookies**. The only storage technologies it uses are local storage and the browser's database, and only for the operation described in this policy.",
+            "The person decides which of them are turned on through the notice shown on the first visit and the cookie policy page, where the decision can be changed at any time. None of them is used to identify or follow the user across sites.",
+            "Declining the additional options does not reduce the compression functions: the difference is limited to the tool **not remembering** the work or the settings between visits."
           ]
         },
         {
@@ -568,41 +576,45 @@
             "Photographs often include hidden data, known as metadata, which can reveal personal information. Among it:",
             {
               "ul": [
-                "the model of the camera or phone;",
-                "the date and time the photo was taken;",
-                "the location where it was taken;",
-                "the color profile and other technical data."
+                "the model of the camera or phone",
+                "the date and time the photo was taken",
+                "the location where it was taken",
+                "the color profile and other technical data"
               ]
             },
-            "When a JPG or a PNG is compressed, that data is removed, unless the user turns on the option to keep it, in which case the location may still be included. If an image cannot be reduced, it is returned unchanged and with its original metadata."
+            "When a JPG or a PNG is compressed, **that data is removed**, unless the user turns on the option to keep it, in which case the location may still be included. If an image cannot be reduced, it is returned unchanged and with its original metadata.",
+            "Removing metadata is a useful privacy measure when images are going to be **published online**, because it avoids unknowingly spreading the location or the device they were taken with."
           ]
         },
         {
           "h": "Hosting and logs",
           "p": [
-            "The site is hosted on Vercel, which may log technical data about each visit, such as the IP address, the date and the type of browser, under its own privacy policy. Those logs do not include the images or their content.",
-            "This project has no access to those logs for the purpose of tracking people."
+            "The site is hosted on **Vercel**, which may log technical data about each visit, such as the IP address, the date and the type of browser, under its own privacy policy. Those logs do not include the images or their content.",
+            "This project has no access to those logs for the purpose of tracking people.",
+            "This is how any web service normally works, and it does not mean that the images are stored or processed there. The information the provider keeps is governed by its own **policies and retention periods**."
           ]
         },
         {
           "h": "Third-party services and resources",
           "p": [
-            "Squeezo includes no third-party scripts, fonts or resources: everything is served from the site itself. The external services involved are:",
+            "Squeezo **includes no third-party scripts**, fonts or resources: everything is served from the site itself. The external services involved are:",
             {
               "ul": [
-                "Vercel, for hosting the site and the counter function;",
-                "Upstash, for storing the counter total;",
-                "GitHub, where the source code is published."
+                "Vercel, for hosting the site and the counter function",
+                "Upstash, for storing the counter total",
+                "GitHub, where the source code is published"
               ]
             },
-            "The links to the repository on GitHub and to the libraries used lead to external sites, which are governed by their own privacy policies."
+            "The links to the repository on GitHub and to the libraries used lead to external sites, which are governed by their own privacy policies.",
+            "No fonts, analytics or libraries are loaded from outside servers, which prevents other companies from receiving information about the visits **without the person knowing**."
           ]
         },
         {
           "h": "Security",
           "p": [
-            "Squeezo examines the real content of every file, never runs anything that is added, rejects zips that pose a risk and removes scripts from SVG files.",
-            "The site is served with a restrictive content security policy, which prevents resources from other origins from loading and limits connections to its own domain. This reduces the possibility of foreign scripts being injected."
+            "Squeezo examines the real content of every file, **never runs anything** that is added, rejects zips that pose a risk and removes scripts from SVG files.",
+            "The site is served with a restrictive content security policy, which prevents resources from other origins from loading and limits connections to its own domain. This reduces the possibility of foreign scripts being injected.",
+            "Perfect security does not exist, but the design keeps to a minimum what could go wrong: since no server receives files, **there is nothing to leak** from the users' content."
           ]
         },
         {
@@ -611,32 +623,36 @@
             "How long data is kept depends on each item:",
             {
               "ul": [
-                "files and results saved in the browser remain until the user deletes them;",
-                "preferences remain until the site data is deleted;",
-                "the short fingerprint of the IP address is deleted after one minute;",
-                "the counter total is kept for as long as the service is active, and it is not tied to any person."
+                "files and results saved in the browser remain **until the user deletes them**",
+                "preferences remain until the site data is deleted",
+                "the short fingerprint of the IP address is deleted after one minute",
+                "the counter total is kept for as long as the service is active, and it is not tied to any person"
               ]
-            }
+            },
+            "No backup copies of the images or the results are kept, because they never reach a server at any point. Once the user deletes them from the browser, **they are gone completely**."
           ]
         },
         {
           "h": "User rights",
           "p": [
-            "Since Squeezo does not store personal data on its servers, there is no information to access, correct or delete there. The user keeps full control over what is saved in their own browser, and can delete it whenever they want, as explained above.",
-            "For the technical logs kept by the hosting provider, rights can be exercised under that provider's privacy policy."
+            "Since Squeezo does not store personal data on its servers, there is no information to access, correct or delete there. The user keeps **full control** over what is saved in their own browser, and can delete it whenever they want, as explained above.",
+            "For the technical logs kept by the hosting provider, rights can be exercised under that provider's privacy policy.",
+            "Anyone with doubts about how information is handled can raise them through an issue in the project repository."
           ]
         },
         {
           "h": "Minors",
           "p": [
-            "Squeezo does not collect personal data from anyone, including minors, and it is not aimed at a specific audience. Use by minors should be supervised by whoever has legal responsibility for them."
+            "Squeezo does not collect personal data from anyone, including minors, and it is not aimed at a specific audience. Use by minors should be **supervised** by whoever has legal responsibility for them.",
+            "Parents and guardians can use data deletion and the cookie preferences to review and clear what has been saved in the minor's browser."
           ]
         },
         {
           "h": "Changes to this policy",
           "p": [
             "This policy may be updated. The date of the latest update appears at the top of this page.",
-            "Any change to the data sent to a server will be reflected here before it is applied."
+            "Any change to the data sent to a server will be reflected here **before it is applied**.",
+            "Earlier versions of this policy can be consulted in the repository history, where every change is recorded with its date."
           ]
         }
       ]
@@ -647,32 +663,34 @@
         {
           "h": "Acceptance of the terms",
           "p": [
-            "Using Squeezo implies acceptance of these terms and conditions. Anyone who does not agree with them should refrain from using the tool.",
+            "Using Squeezo implies **acceptance of these terms and conditions**. Anyone who does not agree with them should refrain from using the tool.",
             "These terms apply to everything that is part of the service:",
             {
               "ul": [
-                "the website and its information pages;",
-                "the tool that compresses images, folders and zip files;",
-                "the function that keeps the global counter of compressed images;",
-                "the documentation and the source code published in the project repository."
+                "the website and its information pages",
+                "the tool that compresses images, folders and zip files",
+                "the function that keeps the global counter of compressed images",
+                "the documentation and the source code published in the project repository"
               ]
             },
-            "If the service is used on behalf of an organization, the person using it states that they have the authority to accept these terms on its behalf."
+            "If the service is used on behalf of an organization, the person using it states that they have the authority to accept these terms on its behalf.",
+            "These terms are read together with the **privacy policy** and the **cookie policy**, which form part of the same set of conditions and are published through the links in the footer of the site."
           ]
         },
         {
           "h": "Description of the service",
           "p": [
-            "Squeezo is a free, open source tool that reduces the weight of images, folders and zip files directly in the user's browser. It requires no registration or user account, and it includes no paid features.",
+            "Squeezo is a **free, open source tool** that reduces the weight of images, folders and zip files directly in the user's browser. It requires no registration or user account, and it includes no paid features.",
+            "Because all the work happens in the browser, **nothing needs to be installed**. It is enough to open the site, add the images and download the result. The same tool works on computers and on mobile devices, with the differences in performance that each device imposes.",
             {
               "sub": "What it offers"
             },
             {
               "ul": [
-                "compression of JPG, PNG, WebP, AVIF, GIF, SVG and BMP images, keeping the original dimensions unless the user chooses otherwise;",
-                "reading of folders and zip files, with a view of their contents before compressing;",
-                "a comparison between the original and the compressed image;",
-                "download of the results individually or in a zip file."
+                "compression of JPG, PNG, WebP, AVIF, GIF, SVG and BMP images, keeping the original dimensions unless the user chooses otherwise",
+                "reading of folders and zip files, with a view of their contents before compressing",
+                "a comparison between the original and the compressed image",
+                "download of the results individually or in a zip file"
               ]
             },
             {
@@ -680,9 +698,9 @@
             },
             {
               "ul": [
-                "storage of files on servers or backups of the user's work;",
-                "accounts, history across devices or synchronization;",
-                "editing, cropping or processing of videos or of files that are not images."
+                "storage of files on servers or backups of the user's work",
+                "accounts, history across devices or synchronization",
+                "editing, cropping or processing of videos or of files that are not images"
               ]
             }
           ]
@@ -693,36 +711,39 @@
             "The operation of Squeezo depends on the capabilities of the browser and the device it is used on. Proper use requires:",
             {
               "ul": [
-                "an up-to-date browser with JavaScript, WebAssembly and IndexedDB enabled;",
-                "enough available memory for the size and number of images being processed;",
-                "free space on the device to save the results."
+                "**an up-to-date browser** with JavaScript, WebAssembly and IndexedDB enabled",
+                "enough available memory for the size and number of images being processed",
+                "free space on the device to save the results"
               ]
             },
-            "Some formats, such as TIFF and HEIC, can only be processed in browsers that support them. On a device with limited resources, processing large batches may be slow or may be interrupted."
+            "Some formats, such as TIFF and HEIC, can only be processed in browsers that support them. On a device with limited resources, processing large batches may be slow or may be interrupted.",
+            "Speed depends mainly on the processor and the memory. A batch of large photographs may take noticeably longer on a phone than on a computer, and **closing other tabs** while it runs helps avoid interruptions."
           ]
         },
         {
           "h": "Permitted use",
           "p": [
-            "The tool must be used only with images over which the user has the right of use. Personal, educational, professional and commercial use is allowed, as long as these terms are respected.",
+            "The tool must be used only with images over which the user has the **right of use**. Personal, educational, professional and commercial use is allowed, as long as these terms are respected.",
             "The following is forbidden:",
             {
               "ul": [
-                "processing unlawful content or content that infringes the rights of third parties;",
-                "attempting to alter the operation of the service, bypass its limits or overload its resources;",
-                "sending automated or mass requests to the global counter in order to falsify the figure;",
-                "using the service for purposes that harm other people."
+                "processing unlawful content or content that infringes the rights of third parties",
+                "attempting to alter the operation of the service, bypass its limits or overload its resources",
+                "sending automated or mass requests to the global counter in order to falsify the figure",
+                "using the service for purposes that harm other people"
               ]
             },
-            "Failure to follow these rules may lead to access to the service being restricted."
+            "Failure to follow these rules may lead to access to the service being restricted.",
+            "Squeezo does not review the content of the files, so the responsibility for following these rules rests **entirely with the person who adds them**. The project may restrict access to the functions that depend on a server, such as the global counter, in the event of abusive use."
           ]
         },
         {
           "h": "User files",
           "p": [
             "Files remain the property of their owner. Squeezo does not receive them, does not store them on servers and does not share them, because all processing takes place in the browser itself.",
-            "The tool never modifies the originals: it creates compressed copies that are downloaded separately. When an image cannot be reduced without a noticeable loss, it is returned unchanged and this is indicated in the list.",
-            "The user states that they have the right to process the files they add and takes responsibility for their content."
+            "The tool **never modifies the originals**: it creates compressed copies that are downloaded separately. When an image cannot be reduced without a noticeable loss, it is returned unchanged and this is indicated in the list.",
+            "The user states that they have the right to process the files they add and takes responsibility for their content.",
+            "If the browser is closed or reloaded in the middle of a job, the files already added can only be recovered when the session permission exists. Without it, they have to be added again, which is why it is advisable to **download the results** before leaving."
           ]
         },
         {
@@ -731,43 +752,47 @@
             "Squeezo offers four levels, which can be changed in the settings before compressing:",
             {
               "ul": [
-                "Recommended: seeks the greatest weight reduction without the change being visible at a glance. It is the default level.",
+                "**Recommended**: seeks the greatest weight reduction without the change being visible at a glance. It is the default level.",
                 "High quality: requires differences that are imperceptible even when the image is enlarged, in exchange for a smaller reduction.",
                 "Maximum compression: prioritizes the lowest possible weight, and changes may be noticeable when the image is enlarged.",
                 "Custom: allows the quality of each image to be set manually."
               ]
             },
-            "The user can also choose the output format, limit the maximum dimensions and decide whether the metadata of JPG files is kept. GIF and SVG files always keep their format. The options chosen are the user's responsibility, and they can be reset at any time."
+            "The user can also choose the output format, limit the maximum dimensions and decide whether the metadata of JPG files is kept. GIF and SVG files always keep their format. The options chosen are the user's responsibility, and they can be reset at any time.",
+            "The Recommended level is the most suitable for most cases, such as photographs for a web page, an email or social media. The other levels are kept for specific situations, for example **High quality** for material that will be printed."
           ]
         },
         {
           "h": "Quality of the results",
           "p": [
-            "Squeezo aims for the difference between the original and the compressed image not to be perceptible at a glance, and it verifies each result before accepting it. However, no lossy compression guarantees a result identical to the original, and the effect may vary depending on the image and the chosen level.",
+            "Squeezo aims for the difference between the original and the compressed image **not to be perceptible at a glance**, and it verifies each result before accepting it. However, no lossy compression guarantees a result identical to the original, and the effect may vary depending on the image and the chosen level.",
             "Higher compression levels, format conversion and dimension reduction may produce visible differences. To check, it is recommended to:",
             {
               "ol": [
-                "review the results with the comparison view before downloading them;",
-                "use the High quality level for images that will be printed or enlarged;",
-                "always keep the original files."
+                "review the results with the comparison view before downloading them",
+                "use the High quality level for images that will be printed or enlarged",
+                "always keep the original files"
               ]
             },
-            "Images that were already highly optimized are left unchanged, so the weight of the resulting image never exceeds that of the original."
+            "Images that were already highly optimized are left unchanged, so the weight of the resulting image never exceeds that of the original.",
+            "Each image is compared with its original through a similarity measure, and the compressed version is kept only when it passes the threshold of the chosen level. When it does not, a somewhat higher quality is tried, until an acceptable point is found or **the original is kept**."
           ]
         },
         {
           "h": "Downloading the results",
           "p": [
-            "The results can be downloaded individually or in a single zip file. The zip respects the order of the list and the folder structure of the files added. When files are added, the list is sorted by modification date, from oldest to newest, and that order can be changed by dragging the images, and it keeps the modification date and time of each file.",
+            "The results can be downloaded individually or in a single zip file. The zip respects the **order of the list** and the folder structure of the files added, and it keeps the modification date and time of each file. When files are added, the list is sorted by modification date, from oldest to newest, and that order can be changed by dragging the images before compressing.",
             "In browsers that allow it, the zip can be saved directly to the location the user chooses. In the others, it is downloaded through the browser's download manager. Files downloaded one by one do not keep the original modification date, because the browser does not allow it.",
-            "Once downloaded, the files are under the exclusive control of the user, who is responsible for keeping them."
+            "Once downloaded, the files are under the exclusive control of the user, who is responsible for keeping them.",
+            "When downloading a zip with many images, it is advisable to wait until the browser finishes saving it before closing the tab, since closing early leaves the file **incomplete**."
           ]
         },
         {
           "h": "Storage in the browser",
           "p": [
             "To avoid losing progress, and provided the user allows it in the cookie preferences, the working session is saved in the browser storage, including the files added and the results obtained. That data stays on the device until the permission is withdrawn, \"Clear\" is pressed or the site data is deleted from the browser settings.",
-            "On shared or public devices it is recommended not to grant that permission or to clear the session when finished, since anyone with access to the same browser profile could see the saved files. The storage is local: it is not synchronized with other devices or with any server."
+            "On shared or public devices it is recommended **not to grant that permission** or to clear the session when finished, since anyone with access to the same browser profile could see the saved files. The storage is local: it is not synchronized with other devices or with any server.",
+            "The permission can be withdrawn at any time from the cookie page, and when that happens the saved data is **deleted immediately**. Without the permission the tool works just the same, with the only difference that the work does not survive a reload."
           ]
         },
         {
@@ -776,14 +801,15 @@
             "To protect the operation of the browser, the following limits apply:",
             {
               "ul": [
-                "up to 1000 images per zip and per load;",
-                "up to 50 megapixels per image;",
-                "up to 768 MB per file once decompressed;",
-                "up to 100,000 entries read from the directory of a zip;",
-                "up to 5 minutes of processing per image; if exceeded, it is discarded."
+                "up to **1000 images** per zip and per load",
+                "up to 50 megapixels per image",
+                "up to 768 MB per file once decompressed",
+                "up to 100,000 entries read from the directory of a zip",
+                "up to 5 minutes of processing per image, and if exceeded it is discarded"
               ]
             },
-            "Files that are not images, password-protected files, executables and files that pose a security risk are excluded from processing, and the list of what was left out is shown to the user. These limits may be adjusted in future versions."
+            "Files that are not images, password-protected files, executables and files that pose a security risk are excluded from processing, and the list of what was left out is shown to the user. These limits may be adjusted in future versions.",
+            "The limits exist so that the browser does not run out of memory or freeze on files of disproportionate size. When a file exceeds them, **it is skipped** and the reason is shown in the list, without affecting the rest of the batch."
           ]
         },
         {
@@ -792,87 +818,96 @@
             "Squeezo includes protections to reduce the risks of processing unknown files:",
             {
               "ul": [
-                "every file is identified by its content and not by its extension;",
-                "zip paths that try to leave the destination folder, encrypted files and files that, once decompressed, far exceed the size they declare are rejected;",
-                "scripts and external links are removed from SVG files, which are only displayed as images;",
-                "no added file is ever run."
+                "every file is identified **by its content** and not by its extension",
+                "zip paths that try to leave the destination folder, encrypted files and files that, once decompressed, far exceed the size they declare are rejected",
+                "scripts and external links are removed from SVG files, which are only displayed as images",
+                "no added file is ever run"
               ]
             },
-            "These measures reduce the risk but do not remove it entirely. Anyone using the tool should make sure the files come from trusted sources."
+            "These measures reduce the risk but do not remove it entirely. Anyone using the tool should make sure the files come from trusted sources.",
+            "No technical measure replaces the judgment of the person using the tool. Files of unknown origin should be treated with the same caution as when opening them in any other program."
           ]
         },
         {
           "h": "Global counter",
           "p": [
-            "Squeezo keeps a counter with the total number of images compressed by everyone who uses it, and the figure is shown on the About page. If the user allows it in the cookie preferences, when a compression finishes the browser sends only the number of images reduced.",
-            "The submission is voluntary and can be turned off at any time. The details of the data involved appear in the privacy policy."
+            "Squeezo keeps a counter with the total number of images compressed by everyone who uses it, and the figure is shown on the About page. If the user allows it in the cookie preferences, when a compression finishes the browser sends **only the number of images reduced**.",
+            "The submission is voluntary and can be turned off at any time. The details of the data involved appear in the privacy policy.",
+            "The figure is an indicator of use and has no contractual or statistical value. It **may not match** the real number of compressed images, for example when a person declines the counter permission or when submissions are limited because of too many requests."
           ]
         },
         {
           "h": "Availability and changes to the service",
           "p": [
-            "The service is provided as is, with no guarantee of availability or uninterrupted operation. Squeezo may be modified, updated or stop being available at any time, without prior notice.",
-            "Since processing takes place in the browser, a version that has already loaded may keep working even if the site is unavailable, but this is not guaranteed."
+            "The service is provided as is, with **no guarantee of availability** or uninterrupted operation. Squeezo may be modified, updated or stop being available at any time, without prior notice.",
+            "Since processing takes place in the browser, a version that has already loaded may keep working even if the site is unavailable, but this is not guaranteed.",
+            "Maintenance of the project depends on its author and on the people who contribute, and there is no commitment to **technical support** or to response times. The published versions can be consulted on the releases page of the repository."
           ]
         },
         {
           "h": "Disclaimer of warranties and liability",
           "p": [
-            "To the extent permitted by law, the project offers no warranties of any kind, express or implied, including those of merchantability, fitness for a particular purpose and absence of errors.",
+            "To the extent permitted by law, the project **offers no warranties of any kind**, express or implied, including those of merchantability, fitness for a particular purpose and absence of errors.",
             "Nor is it liable for losses, damages or harm arising from the use of the tool, including:",
             {
               "ul": [
-                "the loss or alteration of files;",
-                "the difference in quality between the original and the result;",
-                "the interruption of processing due to a lack of resources on the device;",
-                "the use that third parties make of the downloaded files."
+                "the loss or alteration of files",
+                "the difference in quality between the original and the result",
+                "the interruption of processing due to a lack of resources on the device",
+                "the use that third parties make of the downloaded files"
               ]
             },
-            "The user is responsible for keeping copies of the originals."
+            "The user is responsible for keeping copies of the originals.",
+            "Nothing in these terms limits the rights that the law grants to a person and that cannot be excluded by agreement. Outside that case, **use of the tool is voluntary** and takes place at the user's own responsibility."
           ]
         },
         {
           "h": "Intellectual property and license",
           "p": [
-            "The source code of Squeezo is distributed under the MIT license, which allows it to be used, copied, modified and distributed under its terms. The name and the logo belong to the project and are not covered by that license.",
+            "The source code of Squeezo is distributed under the **MIT license**, which allows it to be used, copied, modified and distributed under its terms. The name and the logo belong to the project and are not covered by that license.",
             "Squeezo relies on third-party libraries, which keep their own licenses:",
             {
               "ul": [
-                "jSquash, which brings together the MozJPEG, OxiPNG, WebP and AVIF encoders;",
-                "SVGO, for optimizing SVG files;",
-                "gifsicle, for GIF files;",
-                "UPNG, for palette reduction in PNG files;",
-                "fflate, for reading and creating zip files."
+                "jSquash, which brings together the MozJPEG, OxiPNG, WebP and AVIF encoders",
+                "SVGO, for optimizing SVG files",
+                "gifsicle, for GIF files",
+                "UPNG, for palette reduction in PNG files",
+                "fflate, for reading and creating zip files"
               ]
             },
-            "The sample images that accompany the site are used for illustrative purposes only."
+            "The sample images that accompany the site are used for illustrative purposes only.",
+            "The files that are processed and the ones that are downloaded **do not become the property of the project**, which claims no right over them or over the users' images."
           ]
         },
         {
           "h": "Open source and contributions",
           "p": [
-            "The project is open and its code can be consulted in the public repository. Anyone who submits a contribution accepts that it will be published under the same MIT license as the rest of the code.",
-            "Errors and suggestions for improvement can be reported through the issues of the repository."
+            "The project is open and its code can be consulted in the **public repository**. Anyone who submits a contribution accepts that it will be published under the same MIT license as the rest of the code.",
+            "Errors and suggestions for improvement can be reported through the issues of the repository.",
+            "Anyone can review how the processing works, copy the project and adapt it, as long as the license notice is kept. That transparency is how it can be **verified** that the files do not leave the device."
           ]
         },
         {
           "h": "Third-party services",
           "p": [
-            "The site is hosted on Vercel, the global counter is stored on Upstash and the code is published on GitHub. The use of those services is governed by their own conditions and policies, which are separate from this project.",
-            "Links to external sites are provided for reference, and the project is not responsible for their content or availability."
+            "The site is hosted on Vercel, the global counter is stored on Upstash and the code is published on GitHub. The use of those services is governed by **their own conditions and policies**, which are separate from this project.",
+            "Links to external sites are provided for reference, and the project is not responsible for their content or availability.",
+            "These providers are involved only in hosting the site, in the counter and in publishing the code. **None of them receives the images** of the users, which are always processed in the browser."
           ]
         },
         {
           "h": "Severability and interpretation",
           "p": [
-            "If any of these clauses were considered invalid or unenforceable, the rest will remain in force to the extent permitted by law. Section headings are informative and do not change the meaning of their content."
+            "If any of these clauses were considered invalid or unenforceable, **the rest will remain in force** to the extent permitted by law. Section headings are informative and do not change the meaning of their content.",
+            "These terms, together with the privacy and cookie policies, make up the complete agreement between the project and the person using the service, and replace any earlier version."
           ]
         },
         {
           "h": "Changes to these terms",
           "p": [
-            "These terms may be updated. The date of the latest update appears at the top of this page, and continuing to use the site after a change means accepting the current version.",
-            "It is recommended to review them periodically."
+            "These terms may be updated. The date of the latest update appears at the top of this page, and **continuing to use the site** after a change means accepting the current version.",
+            "It is recommended to review them periodically.",
+            "Substantive changes, such as a new function that handles data or an additional permission, will be **announced expressly** on the site before they take effect."
           ]
         }
       ]
@@ -884,7 +919,8 @@
           "h": "What cookies and local storage are",
           "p": [
             "Cookies are small files that a website saves in the browser to remember information between visits. Local storage and the browser's databases serve a similar purpose and are governed by the same principles.",
-            "Squeezo installs no tracking or advertising cookies. To remember certain data it uses only local storage and the browser's database, and for that reason this page lists everything that is saved and lets you decide about it."
+            "Squeezo installs no tracking or advertising cookies. To remember certain data it uses only **local storage** and the browser's database, and for that reason this page lists everything that is saved and lets you decide about it.",
+            "That is why, although this page is called a cookie policy, most of what it describes is local storage: it is treated like a cookie because it serves the same purpose of remembering data between visits."
           ]
         },
         {
@@ -895,7 +931,7 @@
             },
             {
               "ul": [
-                "The language and theme chosen, saved in local storage.",
+                "The **language and theme** chosen, saved in local storage.",
                 "The decision made about these preferences, also in local storage."
               ]
             },
@@ -909,7 +945,8 @@
                 "The submission of the number of compressed images to the global counter, which saves nothing in the browser."
               ]
             },
-            "None of the data in this list can identify the person using the tool."
+            "None of the data in this list can identify the person using the tool.",
+            "Until a decision has been made, only the necessary items apply."
           ]
         },
         {
@@ -919,16 +956,17 @@
               "ul": [
                 "The necessary ones keep the language and the theme from changing on every visit and avoid asking the cookie question again.",
                 "The compression settings avoid configuring the tool again every time it is used.",
-                "The working session avoids losing progress when the page is reloaded, when going back or when closing the tab.",
+                "The working session **avoids losing progress** when the page is reloaded, when going back or when closing the tab.",
                 "The global counter makes it possible to show how many images have been compressed by everyone who uses Squeezo."
               ]
-            }
+            },
+            "None of these purposes involves advertising, **profiles** or tracking across sites."
           ]
         },
         {
           "h": "What happens when you accept or reject",
           "p": [
-            "When you accept, the three optional permissions are turned on. When you reject, only the necessary ones remain active, and the tool keeps working normally.",
+            "When you accept, the three optional permissions are turned on. When you reject, **only the necessary ones remain active**, and the tool keeps working normally.",
             {
               "ul": [
                 "Without permission for the settings, they return to their initial values on every visit.",
@@ -936,39 +974,44 @@
                 "Without permission for the counter, no data is sent to the server when a compression finishes."
               ]
             },
-            "If a permission that had been granted is withdrawn, the data saved thanks to it is deleted at that moment."
+            "If a permission that had been granted is withdrawn, the data saved thanks to it is deleted at that moment.",
+            "The tool gives the same compression result with either decision. The only thing that changes is **how much it remembers** from one visit to the next."
           ]
         },
         {
           "h": "How to change your preferences",
           "p": [
-            "Preferences can be changed at any time in two ways:",
+            "Preferences can be changed **at any time** in two ways:",
             {
               "ol": [
                 "With the switches at the top of this page, whose changes apply immediately.",
                 "By deleting the site data from the browser settings, after which the notice will be shown again on the next visit."
               ]
             },
-            "The link to this page is always available in the footer."
+            "The link to this page is always available in the footer.",
+            "Anyone who switches browser or device will see the notice again, because the decision is stored **only in the browser** where it was made."
           ]
         },
         {
           "h": "How long the data is kept",
           "p": [
-            "The saved data stays in the browser until the person deletes it, whether from this page, with the \"Clear\" button in the file list or from the browser settings. Squeezo does not assign it an expiry date.",
-            "The decision about cookies is kept until it is changed, so the notice does not appear again after choosing."
+            "The saved data stays in the browser **until the person deletes it**, whether from this page, with the \"Clear\" button in the file list or from the browser settings. Squeezo does not assign it an expiry date.",
+            "The decision about cookies is kept until it is changed, so the notice does not appear again after choosing.",
+            "To delete everything at once it is enough to withdraw the three optional permissions, or to delete the site data, which also **resets** the language and the theme."
           ]
         },
         {
           "h": "Third-party cookies",
           "p": [
-            "Squeezo includes no third-party cookies or resources. The hosting provider may process technical data about each visit under its own policy, as explained in the privacy policy."
+            "Squeezo **includes no third-party cookies or resources**. The hosting provider may process technical data about each visit under its own policy, as explained in the privacy policy.",
+            "For this reason no list of advertising providers or options to manage them is shown: **there are none**."
           ]
         },
         {
           "h": "Changes to this policy",
           "p": [
-            "This policy may be updated. The date of the latest update appears at the top of this page, and any new permission that is added will be requested expressly."
+            "This policy may be updated. The date of the latest update appears at the top of this page, and any new permission that is added will be requested **expressly**.",
+            "If a new permission is added, it will be requested expressly and none will be turned on by default."
           ]
         }
       ]

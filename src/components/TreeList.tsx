@@ -1,5 +1,5 @@
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { useVirtualizer } from '@tanstack/react-virtual'
+import { defaultRangeExtractor, useVirtualizer } from '@tanstack/react-virtual'
 import { useShallow } from 'zustand/react/shallow'
 import { AlertCircle, ArrowRight, ChevronRight, Columns2, Download, Folder, FolderOpen, GripVertical, Loader2 } from 'lucide-react'
 import { Checkbox, type CheckState } from './Checkbox'
@@ -26,7 +26,8 @@ export function TreeList({ tree, onCompare }: { tree: TreeNode[]; onCompare: (id
   const moveItem = useWorkspace((s) => s.moveItem)
 
   // el arrastre para reordenar solo se permite entre archivos de una misma carpeta y mientras no se esté comprimiendo
-  const [drag, setDrag] = useState<{ id: string; over: string | null } | null>(null)
+  // top es la posición de la fila arrastrada dentro de la lista, para que siga al puntero mientras las demás se apartan
+  const [drag, setDrag] = useState<{ id: string; over: string | null; top: number } | null>(null)
   // permite soltar el arrastre si la lista desaparece antes de que termine
   const stopDrag = useRef<(() => void) | null>(null)
   useEffect(() => () => stopDrag.current?.(), [])
@@ -42,9 +43,18 @@ export function TreeList({ tree, onCompare }: { tree: TreeNode[]; onCompare: (id
         return path.slice(0, path.lastIndexOf('/') + 1)
       }
       const dir = dirOf(id)
+      const fromIdx = rowsRef.current.findIndex((r) => r.type === 'file' && r.id === id)
+      // la fila arrastrada solo puede recorrer el tramo que ocupan los archivos de su misma carpeta
+      const slots = rowsRef.current.flatMap((r, i) => (r.type === 'file' && dirOf(r.id) === dir ? [i] : []))
+      const minTop = slots[0] * ROW_H
+      const maxTop = slots[slots.length - 1] * ROW_H
+      const startTop = fromIdx * ROW_H
+      // se recuerda en qué punto de la fila se agarró, para que no salte hacia el puntero
+      const grab = e.clientY - host.getBoundingClientRect().top + host.scrollTop - startTop
       let over: string | null = null
+      let top = startTop
       let y = e.clientY
-      setDrag({ id, over })
+      setDrag({ id, over, top })
       document.body.style.cursor = 'grabbing'
 
       // en cada cuadro se mira qué fila hay bajo el puntero y se desplaza la lista si está en un borde
@@ -53,11 +63,17 @@ export function TreeList({ tree, onCompare }: { tree: TreeNode[]; onCompare: (id
         const rect = host.getBoundingClientRect()
         if (y < rect.top + 36) host.scrollTop -= 10
         else if (y > rect.bottom - 36) host.scrollTop += 10
-        const row = rowsRef.current[Math.floor((y - rect.top + host.scrollTop) / ROW_H)]
-        const next = row && row.type === 'file' && row.id !== id && dirOf(row.id) === dir ? row.id : null
-        if (next !== over) {
+        const nextTop = Math.round(Math.min(maxTop, Math.max(minTop, y - rect.top + host.scrollTop - grab)))
+        // la fila de destino es la que queda bajo el centro de la arrastrada
+        const idx = Math.floor((nextTop + ROW_H / 2) / ROW_H)
+        const row = rowsRef.current[idx]
+        let next = over
+        if (idx === fromIdx) next = null
+        else if (row && row.type === 'file' && dirOf(row.id) === dir) next = row.id
+        if (next !== over || nextTop !== top) {
           over = next
-          setDrag({ id, over })
+          top = nextTop
+          setDrag({ id, over, top })
         }
         frame = requestAnimationFrame(tick)
       }
@@ -99,18 +115,31 @@ export function TreeList({ tree, onCompare }: { tree: TreeNode[]; onCompare: (id
     [moveItem],
   )
 
-  // la marca de dónde caerá lo arrastrado queda debajo de la fila si baja y encima si sube
-  const order = useWorkspace((s) => s.order)
-  const dropSide = (id: string): 'above' | 'below' | null => {
-    if (!drag || drag.over !== id) return null
-    return order.indexOf(drag.id) < order.indexOf(id) ? 'below' : 'above'
+  // mientras se arrastra, cada fila ocupa el lugar que tendría si la soltaran ahora, y así las demás se apartan
+  const fromIdx = drag ? rows.findIndex((r) => r.type === 'file' && r.id === drag.id) : -1
+  const toIdx = drag?.over ? rows.findIndex((r) => r.type === 'file' && r.id === drag.over) : -1
+  const slotOf = (i: number) => {
+    if (fromIdx < 0 || toIdx < 0 || fromIdx === toIdx) return i
+    if (i === fromIdx) return toIdx
+    if (fromIdx < toIdx && i > fromIdx && i <= toIdx) return i - 1
+    if (fromIdx > toIdx && i >= toIdx && i < fromIdx) return i + 1
+    return i
   }
 
+  // la fila arrastrada no puede salir del render aunque su lugar original quede lejos de lo que se ve
+  const heldRef = useRef(-1)
+  heldRef.current = fromIdx
   const virt = useVirtualizer({
     count: rows.length,
     getScrollElement: () => parent.current,
     estimateSize: () => ROW_H,
     overscan: 10,
+    rangeExtractor: (range) => {
+      const base = defaultRangeExtractor(range)
+      const held = heldRef.current
+      if (held < 0 || base.includes(held)) return base
+      return [...base, held].sort((a, b) => a - b)
+    },
   })
 
   return (
@@ -118,16 +147,28 @@ export function TreeList({ tree, onCompare }: { tree: TreeNode[]; onCompare: (id
       <div style={{ height: virt.getTotalSize(), position: 'relative' }}>
         {virt.getVirtualItems().map((v) => {
           const row = rows[v.index]
+          const held = drag !== null && v.index === fromIdx
+          const y = held ? drag.top : slotOf(v.index) * ROW_H
           return (
             <div
               key={row.type === 'folder' ? `f:${row.path}` : row.id}
               className="transition-transform duration-300 ease-out"
-              style={{ position: 'absolute', top: 0, left: 0, right: 0, height: ROW_H, transform: `translateY(${v.start}px)` }}
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                height: ROW_H,
+                transform: `translateY(${y}px)`,
+                // la fila que se lleva en la mano sigue al puntero sin retraso y queda por encima de las demás
+                transition: held ? 'none' : undefined,
+                zIndex: held ? 20 : undefined,
+              }}
             >
               {row.type === 'folder' ? (
                 <FolderRow node={row} collapsed={!!collapsed[row.path]} />
               ) : (
-                <FileRow id={row.id} depth={row.depth} onCompare={onCompare} onGrip={startDrag} onNudge={nudge} locked={locked} dragging={drag?.id === row.id} drop={dropSide(row.id)} />
+                <FileRow id={row.id} depth={row.depth} onCompare={onCompare} onGrip={startDrag} onNudge={nudge} locked={locked} dragging={held} />
               )}
             </div>
           )
@@ -204,7 +245,6 @@ const FileRow = memo(function FileRow({
   onNudge,
   locked,
   dragging,
-  drop,
 }: {
   id: string
   depth: number
@@ -213,7 +253,6 @@ const FileRow = memo(function FileRow({
   onNudge: (id: string, step: -1 | 1) => void
   locked: boolean
   dragging: boolean
-  drop: 'above' | 'below' | null
 }) {
   const t = useT()
   const item = useWorkspace((s) => s.items[id])
@@ -224,11 +263,10 @@ const FileRow = memo(function FileRow({
     <div
       role="treeitem"
       onClick={() => item.status !== 'processing' && setSelected([item.id], !item.selected)}
-      className={`fade-in group relative flex h-full items-center gap-2.5 border-b border-line/70 pl-2 pr-3 transition-[background-color,opacity] duration-300 hover:bg-sunken/70 ${
-        dragging ? 'bg-sunken opacity-60' : item.selected ? '' : 'opacity-55'
+      className={`fade-in group relative flex h-full items-center gap-2.5 border-b border-line/70 pl-2 pr-3 transition-[background-color,opacity,box-shadow] duration-300 hover:bg-sunken/70 ${
+        dragging ? 'bg-surface shadow-card' : item.selected ? '' : 'opacity-55'
       }`}
     >
-      {drop && <span aria-hidden className={`pointer-events-none absolute inset-x-2 z-10 h-0.5 rounded-full bg-brand ${drop === 'above' ? '-top-px' : '-bottom-px'}`} />}
       <button
         type="button"
         disabled={locked}
