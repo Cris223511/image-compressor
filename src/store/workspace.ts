@@ -7,7 +7,7 @@ import { create } from 'zustand'
 import { CompressionPool } from '../lib/compress/pool'
 import type { ErrorCode, ResultNote, Source } from '../lib/compress/types'
 import { KIND_EXT, KIND_MIME, type ImageKind } from '../lib/formats'
-import { ingest, type Incoming, type NewSkip } from '../lib/intake'
+import { ingest, sortByModified, type Incoming, type NewSkip } from '../lib/intake'
 import { useSettings } from './settings'
 
 export type ItemStatus = 'pending' | 'processing' | 'done' | 'kept' | 'error'
@@ -110,7 +110,8 @@ export const useWorkspace = create<WorkspaceState>((set, get) => ({
       const res = await ingest(incoming, used)
       const items = { ...get().items }
       const order = [...get().order]
-      for (const n of res.items) {
+      // cada tanda se añade ordenada por fecha de modificación, y desde ahí el orden de la lista es el que manda
+      for (const n of sortByModified(res.items)) {
         const id = `i${++counter}`
         items[id] = { ...n, id, selected: true, status: 'pending' }
         order.push(id)

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { zipSync, strToU8 } from 'fflate'
-import { ingest } from '../src/lib/intake'
+import { ingest, sortByModified } from '../src/lib/intake'
 import { MAX_IMAGES } from '../src/config/limits'
 
 const PNG = new Uint8Array([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a, 0, 0, 0, 13, 0x49, 0x48, 0x44, 0x52, 0, 0, 0, 1, 0, 0, 0, 1])
@@ -63,5 +63,30 @@ describe('ingest', () => {
     const res = await run([{ file: file('PK\u0003\u0004 pero roto de sobra para no ser zip', 'roto.zip'), path: 'roto.zip' }])
     expect(res.items).toHaveLength(0)
     expect(res.skipped[0].category).toBe('invalid')
+  })
+})
+
+describe('sortByModified', () => {
+  const at = (name: string, mtime: number) => ({ name, mtime })
+
+  it('ordena de la fecha más antigua a la más reciente', () => {
+    const sorted = sortByModified([at('c', 300), at('a', 100), at('b', 200)])
+    expect(sorted.map((x) => x.name)).toEqual(['a', 'b', 'c'])
+  })
+
+  it('las de la misma fecha conservan el orden en que llegaron', () => {
+    const sorted = sortByModified([at('z', 100), at('y', 100), at('x', 100)])
+    expect(sorted.map((x) => x.name)).toEqual(['z', 'y', 'x'])
+  })
+
+  it('las que no traen fecha van al final y no se mezclan', () => {
+    const sorted = sortByModified([at('sin1', 0), at('nueva', 500), at('sin2', 0), at('vieja', 10)])
+    expect(sorted.map((x) => x.name)).toEqual(['vieja', 'nueva', 'sin1', 'sin2'])
+  })
+
+  it('no modifica la lista original', () => {
+    const original = [at('b', 2), at('a', 1)]
+    sortByModified(original)
+    expect(original.map((x) => x.name)).toEqual(['b', 'a'])
   })
 })

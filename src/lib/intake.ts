@@ -21,6 +21,18 @@ export interface NewItem {
   kind: ImageKind
 }
 
+/**
+ * ordena las imágenes recién añadidas por fecha de modificación, de la más antigua a la más reciente.
+ * las que no traen fecha van al final y las de la misma fecha conservan el orden en que llegaron.
+ */
+export function sortByModified<T extends { mtime: number }>(items: T[]): T[] {
+  const key = (n: T) => (n.mtime > 0 ? n.mtime : Infinity)
+  return items
+    .map((item, index) => ({ item, index }))
+    .sort((a, b) => (key(a.item) === key(b.item) ? a.index - b.index : key(a.item) < key(b.item) ? -1 : 1))
+    .map((x) => x.item)
+}
+
 export interface NewSkip {
   path: string
   size: number

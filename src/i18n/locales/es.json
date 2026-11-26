@@ -758,7 +758,7 @@
         {
           "h": "Descarga de los resultados",
           "p": [
-            "Los resultados pueden descargarse de forma individual o en un único archivo zip. El zip respeta el orden de entrada y la estructura de carpetas de los archivos añadidos, y conserva la fecha y la hora de modificación de cada archivo.",
+            "Los resultados pueden descargarse de forma individual o en un único archivo zip. El zip respeta el orden de la lista y la estructura de carpetas de los archivos añadidos. Al añadir archivos, la lista se ordena por fecha de modificación, del más antiguo al más reciente, y ese orden puede cambiarse arrastrando las imágenes, y conserva la fecha y la hora de modificación de cada archivo.",
             "En los navegadores que lo permiten, el zip puede guardarse directamente en la ubicación que el usuario elija. En los demás, se descarga mediante el gestor de descargas del navegador. Los archivos sueltos descargados de forma individual no conservan la fecha de modificación original, porque el navegador no lo permite.",
             "Una vez descargados, los archivos quedan bajo el control exclusivo del usuario, que es responsable de su conservación."
           ]

@@ -51,7 +51,7 @@ It is meant for anyone with a heavy folder of photos, screenshots or designs who
 - **.zip files and folders.** Up to 1000 images per zip, with folders and subfolders. Before compressing, the contents are shown as a tree with thumbnails and the size of each file, so you pick what goes in.
 - **Flags what is not an image.** Videos and other files inside the zip are skipped, and you are told how many and what kind.
 - **Optional settings.** Compression level, conversion to WebP, AVIF, JPG or PNG, keeping metadata and limiting the size. Everything is off by default.
-- **A list that fits you.** Every image or folder can be removed with a confirmation, and images are reordered by dragging the dotted handle. The order you choose is the one used when compressing and downloading.
+- **A list that fits you.** Every image or folder can be removed with a confirmation, and images are reordered by dragging the dotted handle. When added they are sorted by modification date, oldest first, and the order of the list is the one used when compressing and downloading.
 - **Before and after comparison** to check the result image by image.
 - **Flexible download.** One by one, or everything together in a .zip with the same folder structure.
 - **Your progress is not lost.** If you allow it in the cookie preferences, when you reload, go back or close the tab you pick up where you left off, even in the middle of a compression. Everything stays in your browser.

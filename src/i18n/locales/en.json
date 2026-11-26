@@ -758,7 +758,7 @@
         {
           "h": "Downloading the results",
           "p": [
-            "The results can be downloaded individually or in a single zip file. The zip respects the order of entry and the folder structure of the files added, and it keeps the modification date and time of each file.",
+            "The results can be downloaded individually or in a single zip file. The zip respects the order of the list and the folder structure of the files added. When files are added, the list is sorted by modification date, from oldest to newest, and that order can be changed by dragging the images, and it keeps the modification date and time of each file.",
             "In browsers that allow it, the zip can be saved directly to the location the user chooses. In the others, it is downloaded through the browser's download manager. Files downloaded one by one do not keep the original modification date, because the browser does not allow it.",
             "Once downloaded, the files are under the exclusive control of the user, who is responsible for keeping them."
           ]

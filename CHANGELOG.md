@@ -4,6 +4,10 @@ Este documento recoge los cambios importantes de Squeezo, de la versión más re
 
 El formato sigue la convención de [Keep a Changelog](https://keepachangelog.com/es/) y el versionado es [semántico](https://semver.org/lang/es/). El primer número marca los cambios mayores, el segundo las funciones nuevas y el tercero las correcciones.
 
+## 1.0.16 (2026-11-26)
+
+- **Orden por fecha de modificación.** Al añadir archivos, carpetas o zips, las imágenes se colocan de la más antigua a la más reciente según su fecha de modificación, y no en el orden que entregue el explorador de archivos. Cada tanda que se añade después se ordena igual y queda al final. Los archivos sin fecha van al final, y los que comparten fecha conservan su orden de llegada. Ese orden es el que se usa al comprimir y al descargar el zip, y se puede cambiar arrastrando las imágenes.
+
 ## 1.0.15 (2026-11-26)
 
 - **Descarga de una sola imagen.** Cuando el resultado es una única imagen, el botón principal dice «Descargar» y baja directamente esa imagen, sin crear un zip. Con varias imágenes sigue diciendo «Descargar todo (.zip)».
