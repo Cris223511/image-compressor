@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { ConsentPanel } from '../components/ConsentPanel'
+import { scrollToTarget } from '../lib/lenis'
 import { useDict } from '../i18n'
 
 /** cada bloque de texto de una sección puede ser un párrafo, un subtítulo, una lista con viñetas o una numerada */
@@ -38,17 +39,35 @@ export default function Legal({ which }: { which: 'privacy' | 'terms' | 'cookies
   const doc = pages[which]
   const [active, setActive] = useState(0)
 
+  // mientras la página se desliza hacia una sección elegida, el resaltado no salta por las que va pasando
+  const lockUntil = useRef(0)
+
+  // la sección activa es la última cuyo inicio ya pasó por debajo de la cabecera
   useEffect(() => {
     const els = doc.sections.map((_, i) => document.getElementById(`sec-${i}`)).filter(Boolean) as HTMLElement[]
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) if (e.isIntersecting) setActive(Number((e.target as HTMLElement).dataset.i))
-      },
-      { rootMargin: '-90px 0px -65% 0px' },
-    )
-    els.forEach((el) => io.observe(el))
-    return () => io.disconnect()
+    const update = () => {
+      if (performance.now() < lockUntil.current) return
+      const atEnd = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4
+      let current = 0
+      els.forEach((el, i) => {
+        if (el.getBoundingClientRect().top <= 140) current = i
+      })
+      setActive(atEnd ? els.length - 1 : current)
+    }
+    update()
+    window.addEventListener('scroll', update, { passive: true })
+    return () => window.removeEventListener('scroll', update)
   }, [doc])
+
+  const goTo = (e: React.MouseEvent, i: number) => {
+    e.preventDefault()
+    const target = document.getElementById(`sec-${i}`)
+    if (!target) return
+    lockUntil.current = performance.now() + 1400
+    setActive(i)
+    // se pasa la posición exacta, dejando 96 px libres bajo la cabecera, igual que el margen de cada sección
+    scrollToTarget(target.getBoundingClientRect().top + window.scrollY - 96)
+  }
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6 sm:py-16">
@@ -57,16 +76,17 @@ export default function Legal({ which }: { which: 'privacy' | 'terms' | 'cookies
         <p className="mt-3 text-sm text-muted">{pages.updated}</p>
       </header>
 
-      <div className="mt-12 grid gap-10 lg:grid-cols-[220px_1fr]">
+      <div className="mt-12 grid gap-10 lg:grid-cols-[250px_1fr]">
         <nav className="hidden lg:block" aria-label={pages.toc}>
-          <div data-lenis-prevent="" className="soft-scroll sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto pr-1">
+          <div data-lenis-prevent="" className="soft-scroll sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto pr-1">
             <p className="mb-3 text-xs font-bold uppercase tracking-[0.08em] text-muted">{pages.toc}</p>
-            <ul className="space-y-0.5 border-l border-line">
+            <ul className="border-l border-line">
               {doc.sections.map((s, i) => (
                 <li key={s.h}>
                   <a
                     href={`#sec-${i}`}
-                    className={`-ml-px block border-l-2 py-1.5 pl-4 text-sm transition-all duration-300 ${
+                    onClick={(e) => goTo(e, i)}
+                    className={`-ml-px block border-l-2 py-1 pl-4 text-[0.83rem] leading-snug transition-all duration-300 ${
                       active === i ? 'border-brand font-semibold text-brand' : 'border-transparent text-muted hover:text-ink'
                     }`}
                   >

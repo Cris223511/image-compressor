@@ -26,10 +26,10 @@ export function SettingsPanel({ open, onClose }: { open: boolean; onClose: () =>
       className="fixed inset-0 z-40"
       aria-hidden={!open}
       // al cerrar se espera a que termine la animación antes de ocultarlo del todo
-      style={{ visibility: open ? 'visible' : 'hidden', transition: open ? 'none' : 'visibility 0s linear 0.3s' }}
+      style={{ visibility: open ? 'visible' : 'hidden', transition: open ? 'none' : 'visibility 0s linear 0.45s' }}
     >
       <div
-        className={`absolute inset-0 bg-transparent backdrop-blur-md transition-opacity duration-300 ${open ? 'opacity-100' : 'opacity-0'}`}
+        className={`veil absolute inset-0 ${open ? 'on' : ''}`}
         onClick={onClose}
       />
       <div

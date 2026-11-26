@@ -46,8 +46,11 @@ export default function App() {
     // si el enlace trae un ancla, la página baja con suavidad hasta esa sección, y si no, parte siempre desde arriba
     const target = hash ? document.getElementById(hash.slice(1)) : null
     if (target) {
-      const id = window.setTimeout(() => scrollToTarget(target), 150)
-      return () => window.clearTimeout(id)
+      // la posición se calcula cuando la página ya se acomodó, porque antes las secciones de arriba aún no tienen su altura final
+      const go = () => scrollToTarget(target.getBoundingClientRect().top + window.scrollY - 96)
+      const check = () => Math.abs(target.getBoundingClientRect().top - 96) > 12 && go()
+      const ids = [window.setTimeout(go, 450), window.setTimeout(check, 2200)]
+      return () => ids.forEach((id) => window.clearTimeout(id))
     }
     scrollTopNow()
   }, [pathname, hash])

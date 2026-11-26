@@ -138,7 +138,11 @@
     "original": "Original",
     "compressed": "Comprimida",
     "close": "Cerrar",
-    "loading": "Cargando..."
+    "loading": "Cargando...",
+    "zoomIn": "Acercar",
+    "zoomOut": "Alejar",
+    "fit": "Ajustar a la ventana",
+    "actual": "Tamaño real (100 %). Con la rueda del ratón se acerca y con un doble clic también"
   },
   "settings": {
     "title": "Ajustes de compresión",

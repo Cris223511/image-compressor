@@ -7,10 +7,8 @@ export function DropOverlay({ show }: { show: boolean }) {
   return (
     <div
       aria-hidden={!show}
-      className={`pointer-events-none fixed inset-0 z-50 grid place-items-center bg-transparent p-6 backdrop-blur-md transition-opacity duration-300 ${
-        show ? 'opacity-100' : 'opacity-0'
-      }`}
-      style={{ visibility: show ? 'visible' : 'hidden', transition: `opacity 0.3s ease, visibility 0s linear ${show ? '0s' : '0.3s'}` }}
+      className={`veil pointer-events-none fixed inset-0 z-50 grid place-items-center p-6 ${show ? 'on' : ''}`}
+      style={{ visibility: show ? 'visible' : 'hidden', transitionProperty: 'background-color, backdrop-filter, -webkit-backdrop-filter, visibility', transitionDelay: show ? '0s' : '0s, 0s, 0s, 0.45s' }}
     >
       <div
         className={`flex w-full max-w-xl flex-col items-center gap-3 rounded-[28px] border-2 border-dashed border-brand bg-surface/95 px-8 py-14 text-center shadow-lift transition-all duration-300 ${

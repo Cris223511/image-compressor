@@ -20,7 +20,12 @@ function loop(time: number) {
 
 function wake() {
   idleSince = performance.now()
-  if (!raf) raf = requestAnimationFrame(loop)
+  if (!raf) {
+    // lenis mide el tiempo entre cuadros, así que tras estar parado el primer cuadro recibiría toda la pausa
+    // de golpe y cualquier desplazamiento animado terminaría al instante, por eso se reinicia su reloj
+    ;(lenis as unknown as { time: number }).time = 0
+    raf = requestAnimationFrame(loop)
+  }
 }
 
 export function startLenis() {
@@ -32,10 +37,13 @@ export function startLenis() {
   wake()
 }
 
+/** arranca y frena con suavidad, a diferencia del easing por defecto de lenis que sale muy rápido */
+const easeInOut = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2)
+
 /** baja o sube hasta un elemento (o una altura) deslizando, y sin lenis usa el scroll nativo */
 export function scrollToTarget(target: number | HTMLElement, offset = -88) {
   if (lenis) {
-    lenis.scrollTo(target, { offset: typeof target === 'number' ? 0 : offset, duration: 1.1 })
+    lenis.scrollTo(target, { offset: typeof target === 'number' ? 0 : offset, duration: 1.3, easing: easeInOut })
     wake()
   } else if (typeof target === 'number') {
     window.scrollTo({ top: target, behavior: 'smooth' })

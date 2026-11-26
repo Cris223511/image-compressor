@@ -138,7 +138,11 @@
     "original": "Original",
     "compressed": "Compressed",
     "close": "Close",
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "zoomIn": "Zoom in",
+    "zoomOut": "Zoom out",
+    "fit": "Fit to window",
+    "actual": "Actual size (100 %). The mouse wheel zooms and so does a double click"
   },
   "settings": {
     "title": "Compression settings",
