@@ -1,8 +1,7 @@
-import { useRef, useState } from 'react'
-import { FadeImg } from '../FadeImg'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { CheckCircle2 } from 'lucide-react'
-import { useScrollVar } from '../../lib/useScroll'
 import { useDict } from '../../i18n'
+import { Reveal } from './Reveal'
 
 // medición real de la foto de ejemplo (3000 × 2000): calidad, peso en KB y similitud con el original
 const DATA: readonly (readonly [number, number, number])[] = [
@@ -49,7 +48,7 @@ function interp(q: number): { kb: number; score: number } {
   return { kb: last[1], score: last[2] }
 }
 
-/** el recorrido del marcador según cuánto se ha avanzado: baja la calidad, se mide y se elige */
+/** el recorrido del marcador: baja la calidad, se mide y se elige */
 function markerQuality(p: number): number {
   if (p < 0.22) return Q_MAX
   if (p < 0.62) return Q_MAX - ((p - 0.22) / 0.4) * (Q_MAX - Q_MIN)
@@ -57,17 +56,25 @@ function markerQuality(p: number): number {
   return CHOSEN
 }
 
+/** el instante en que empieza cada paso, para saltar a él al hacer clic */
+const STARTS = [0, 0.22, 0.62, 0.84]
 const stepOf = (p: number) => (p < 0.22 ? 0 : p < 0.62 ? 1 : p < 0.84 ? 2 : 3)
 
+/** duración de una vuelta completa y pausa al final antes de repetir */
+const LOOP_MS = 12000
+const HOLD_MS = 1800
+
 /**
- * sección alta con un escenario fijo: al avanzar el scroll se ve cómo Squeezo lee la imagen,
- * mide distintas calidades, elige una y la verifica. los números salen de una medición real.
+ * recorrido por los cuatro pasos con que Squeezo decide la calidad. avanza solo mientras se ve
+ * (y se detiene al pasar el cursor), y cada paso se puede tocar para saltar a él. los números
+ * salen de una medición real.
  */
-export function ScrollStory() {
+export function QualityStory() {
   const { pages } = useDict()
   const s = pages.about.story
   const [active, setActive] = useState(0)
 
+  const root = useRef<HTMLElement>(null)
   const scan = useRef<HTMLDivElement>(null)
   const shade = useRef<HTMLDivElement>(null)
   const scanLayer = useRef<HTMLDivElement>(null)
@@ -80,74 +87,137 @@ export function ScrollStory() {
   const gauge = useRef<HTMLDivElement>(null)
   const verdict = useRef<HTMLSpanElement>(null)
 
-  const root = useScrollVar<HTMLElement>('sticky', (p) => {
-    const f = clamp(p / 0.2)
-    if (scan.current) scan.current.style.transform = `translateY(${(f - 1) * 100}%)`
-    if (shade.current) shade.current.style.transform = `translateY(${f * 100}%)`
+  const progress = useRef(0)
+  const paused = useRef(false)
+  const visible = useRef(false)
+  const waited = useRef(0)
 
-    const toChart = ease(clamp((p - 0.17) / 0.08))
-    if (scanLayer.current) scanLayer.current.style.opacity = String(1 - toChart)
-    if (chartLayer.current) chartLayer.current.style.opacity = String(toChart)
-    if (verify.current) verify.current.style.opacity = String(ease(clamp((p - 0.87) / 0.07)))
+  // pinta el estado del escenario para un avance dado, escribiendo directo en el documento
+  const apply = useCallback(
+    (p: number) => {
+      root.current?.style.setProperty('--p', p.toFixed(4))
+      const f = clamp(p / 0.2)
+      if (scan.current) scan.current.style.transform = `translateY(${(f - 1) * 100}%)`
+      if (shade.current) shade.current.style.transform = `translateY(${f * 100}%)`
 
-    const q = markerQuality(p)
-    const { kb, score } = interp(q)
-    if (marker.current) marker.current.style.transform = `translate(${x(q)}px, ${y(kb)}px)`
-    if (qOut.current) qOut.current.textContent = String(Math.round(q))
-    if (kbOut.current) kbOut.current.textContent = `${Math.round(kb).toLocaleString()} KB`
-    if (scoreOut.current) scoreOut.current.textContent = score.toFixed(3)
-    const ok = score >= TARGET
-    if (gauge.current) {
-      gauge.current.style.width = `${clamp((score - SCORE_MIN) / (1 - SCORE_MIN)) * 100}%`
-      gauge.current.style.backgroundColor = ok ? 'rgb(var(--good))' : 'rgb(var(--bad))'
+      const toChart = ease(clamp((p - 0.17) / 0.08))
+      if (scanLayer.current) scanLayer.current.style.opacity = String(1 - toChart)
+      if (chartLayer.current) chartLayer.current.style.opacity = String(toChart)
+      if (verify.current) verify.current.style.opacity = String(ease(clamp((p - 0.87) / 0.07)))
+
+      const q = markerQuality(p)
+      const { kb, score } = interp(q)
+      if (marker.current) marker.current.style.transform = `translate(${x(q)}px, ${y(kb)}px)`
+      if (qOut.current) qOut.current.textContent = String(Math.round(q))
+      if (kbOut.current) kbOut.current.textContent = `${Math.round(kb).toLocaleString()} KB`
+      if (scoreOut.current) scoreOut.current.textContent = score.toFixed(3)
+      const ok = score >= TARGET
+      if (gauge.current) {
+        gauge.current.style.width = `${clamp((score - SCORE_MIN) / (1 - SCORE_MIN)) * 100}%`
+        gauge.current.style.backgroundColor = ok ? 'rgb(var(--good))' : 'rgb(var(--bad))'
+      }
+      if (verdict.current) {
+        verdict.current.textContent = ok ? s.pass : s.fail
+        verdict.current.style.color = ok ? 'rgb(var(--good))' : 'rgb(var(--bad))'
+      }
+      const next = stepOf(p)
+      setActive((a) => (a === next ? a : next))
+    },
+    [s.pass, s.fail],
+  )
+
+  useEffect(() => {
+    const el = root.current
+    if (!el) return
+    const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const io = new IntersectionObserver(([e]) => (visible.current = e.isIntersecting), { threshold: 0.25 })
+    io.observe(el)
+
+    if (still) progress.current = 0.9
+    apply(progress.current)
+
+    let last = performance.now()
+    let raf = 0
+    const tick = (now: number) => {
+      const dt = now - last
+      last = now
+      if (!still && visible.current && !paused.current && !document.hidden) {
+        if (progress.current >= 1) {
+          // al terminar se queda un momento en el resultado y vuelve a empezar
+          waited.current += dt
+          if (waited.current > HOLD_MS) {
+            progress.current = 0
+            waited.current = 0
+          }
+        } else {
+          progress.current = Math.min(1, progress.current + dt / LOOP_MS)
+        }
+        apply(progress.current)
+      }
+      raf = requestAnimationFrame(tick)
     }
-    if (verdict.current) {
-      verdict.current.textContent = ok ? s.pass : s.fail
-      verdict.current.style.color = ok ? 'rgb(var(--good))' : 'rgb(var(--bad))'
+    raf = requestAnimationFrame(tick)
+    return () => {
+      io.disconnect()
+      cancelAnimationFrame(raf)
     }
-    const next = stepOf(p)
-    setActive((a) => (a === next ? a : next))
-  })
+  }, [apply])
+
+  const jump = (i: number) => {
+    progress.current = Math.min(0.999, STARTS[i] + 0.01)
+    waited.current = 0
+    apply(progress.current)
+  }
 
   const targetX = (clamp((TARGET - SCORE_MIN) / (1 - SCORE_MIN)) * 100).toFixed(2)
 
   return (
-    <section ref={root} className="relative" style={{ height: '430vh' }}>
-      <div className="sticky top-16 flex h-[calc(100vh-4rem)] items-center">
-        <div className="mx-auto grid w-full max-w-6xl items-center gap-8 px-4 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
-          {/* textos: el paso activo se ilumina y los demás se apagan */}
-          <div>
+    <section
+      id="calidad"
+      ref={root}
+      className="mx-auto w-full max-w-6xl scroll-mt-24 px-4 py-10 sm:px-6"
+      onMouseEnter={() => (paused.current = true)}
+      onMouseLeave={() => (paused.current = false)}
+    >
+      <div className="grid items-center gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
+        <div>
+          <Reveal>
             <h2 className="font-display text-3xl font-extrabold sm:text-4xl">{s.title}</h2>
-            <ol className="relative mt-8 space-y-5 pl-7">
-              <span aria-hidden className="absolute bottom-1 left-[7px] top-1 w-0.5 rounded-full bg-line" />
-              <span
-                aria-hidden
-                className="absolute left-[7px] top-1 w-0.5 origin-top rounded-full bg-brand"
-                style={{ height: 'calc(100% - 0.5rem)', transform: 'scaleY(var(--p, 0))' }}
-              />
-              {s.steps.map((st, i) => (
-                <li
-                  key={st.title}
-                  className={`relative transition-all duration-500 ease-out ${active === i ? 'block' : 'hidden lg:block'} ${
-                    active === i ? 'translate-x-0 opacity-100' : 'opacity-35 lg:-translate-x-1'
+          </Reveal>
+          <ol className="relative mt-8 space-y-3 pl-7">
+            <span aria-hidden className="absolute bottom-3 left-[7px] top-3 w-0.5 rounded-full bg-line" />
+            <span
+              aria-hidden
+              className="absolute left-[7px] top-3 w-0.5 origin-top rounded-full bg-brand"
+              style={{ height: 'calc(100% - 1.5rem)', transform: 'scaleY(var(--p, 0))' }}
+            />
+            {s.steps.map((st, i) => (
+              <li key={st.title} className="relative">
+                <span
+                  className={`absolute -left-7 top-5 h-3.5 w-3.5 rounded-full border-2 transition-all duration-500 ${
+                    active >= i ? 'border-brand bg-brand' : 'border-line bg-surface'
+                  } ${active === i ? 'scale-125' : ''}`}
+                />
+                <button
+                  onClick={() => jump(i)}
+                  aria-current={active === i}
+                  className={`w-full rounded-2xl p-3 text-left transition-all duration-500 ease-out hover:bg-surface hover:opacity-100 ${
+                    active === i ? 'bg-surface opacity-100 shadow-card' : 'opacity-45'
                   }`}
                 >
-                  <span
-                    className={`absolute -left-7 top-1.5 h-3.5 w-3.5 rounded-full border-2 transition-all duration-500 ${
-                      active >= i ? 'border-brand bg-brand' : 'border-line bg-surface'
-                    } ${active === i ? 'scale-125' : ''}`}
-                  />
                   <h3 className="font-display text-xl font-bold">{st.title}</h3>
                   <p className="mt-1 max-w-md text-[0.95rem] leading-relaxed text-muted">{st.text}</p>
-                </li>
-              ))}
-            </ol>
-          </div>
+                </button>
+              </li>
+            ))}
+          </ol>
+        </div>
 
-          {/* escenario: la imagen, la gráfica de calidad contra peso y la verificación final */}
+        {/* escenario: la imagen, la gráfica de calidad contra peso y la verificación final */}
+        <Reveal delay={120}>
           <div className="relative aspect-[4/3.1] w-full overflow-hidden rounded-[28px] border border-line bg-surface shadow-lift">
             <div ref={scanLayer} className="absolute inset-0">
-              <FadeImg src="/img/demo-original.jpg" alt="" className="h-full w-full object-cover" />
+              <img src="/img/demo-original.jpg" alt="" className="h-full w-full object-cover" />
               <div ref={shade} className="absolute inset-0 bg-black/45" />
               <div ref={scan} className="absolute inset-0">
                 <div className="absolute inset-x-0 bottom-0 h-20 border-b-2 border-brand bg-gradient-to-t from-brand/55 to-transparent" />
@@ -214,7 +284,7 @@ export function ScrollStory() {
               </div>
             </div>
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   )

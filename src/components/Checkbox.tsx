@@ -29,8 +29,16 @@ export function Checkbox({
         on ? 'border-brand bg-brand text-white' : 'border-muted/50 bg-surface hover:border-brand'
       } ${disabled ? 'opacity-50' : ''}`}
     >
-      {state === 'all' && <Check size={14} strokeWidth={3.2} />}
-      {state === 'some' && <Minus size={14} strokeWidth={3.2} />}
+      <Check
+        size={14}
+        strokeWidth={3.2}
+        className={`col-start-1 row-start-1 transition-all duration-200 ${state === 'all' ? 'scale-100 opacity-100' : 'scale-50 opacity-0'}`}
+      />
+      <Minus
+        size={14}
+        strokeWidth={3.2}
+        className={`col-start-1 row-start-1 transition-all duration-200 ${state === 'some' ? 'scale-100 opacity-100' : 'scale-50 opacity-0'}`}
+      />
     </button>
   )
 }

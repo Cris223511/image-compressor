@@ -12,7 +12,7 @@ export function Security() {
       {pages.about.security.items.map((it, i) => {
         const Icon = ICONS[i]
         return (
-          <Reveal key={it.title} delay={(i % 2) * 90}>
+          <Reveal key={it.title} delay={(i % 2) * 140}>
             <div className="group flex gap-4">
               <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-brand-soft text-brand transition-all duration-300 group-hover:-rotate-6 group-hover:scale-110 group-hover:bg-brand group-hover:text-white">
                 <Icon size={22} />

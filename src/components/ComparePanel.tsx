@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Loader2, Maximize2, MoveHorizontal, X } from 'lucide-react'
+import { FadeImg } from './FadeImg'
 import { useWorkspace } from '../store/workspace'
 import { originalBlob } from '../lib/download'
 import { formatBytes } from '../lib/format'
@@ -99,9 +100,9 @@ export function ComparePanel({ id, onClose: onClosed }: { id: string; onClose: (
           </div>
         </div>
 
-        <div className="soft-scroll min-h-0 flex-1 overflow-auto bg-sunken p-3 sm:p-5">
+        <div data-lenis-prevent="" className="soft-scroll min-h-0 flex-1 overflow-auto bg-sunken p-3 sm:p-5">
           {!urls ? (
-            <div className="grid h-60 place-items-center text-muted">
+            <div className="fade-in grid h-60 place-items-center text-muted">
               <span className="flex items-center gap-2">
                 <Loader2 size={18} className="spin" /> {t('compare.loading')}
               </span>
@@ -121,14 +122,14 @@ export function ComparePanel({ id, onClose: onClosed }: { id: string; onClose: (
               }}
               onPointerMove={(e) => e.buttons === 1 && move(e.clientX)}
             >
-              <img
+              <FadeImg
                 src={urls.b}
                 alt={t('compare.compressed')}
                 draggable={false}
                 className="absolute inset-0 h-full w-full object-fill"
                 onLoad={(e) => setRatio({ w: e.currentTarget.naturalWidth, h: e.currentTarget.naturalHeight })}
               />
-              <img
+              <FadeImg
                 src={urls.a}
                 alt={t('compare.original')}
                 draggable={false}

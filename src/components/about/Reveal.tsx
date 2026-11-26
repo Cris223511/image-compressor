@@ -7,17 +7,26 @@ export function useInView<T extends HTMLElement>(): [React.RefObject<T>, boolean
   useEffect(() => {
     const el = ref.current
     if (!el) return
-    const io = new IntersectionObserver(
-      ([e]) => {
-        if (e.isIntersecting) {
-          setSeen(true)
-          io.disconnect()
-        }
-      },
-      { threshold: 0.18 },
-    )
-    io.observe(el)
-    return () => io.disconnect()
+    let io: IntersectionObserver | undefined
+    const begin = () => {
+      io = new IntersectionObserver(
+        ([e]) => {
+          if (e.isIntersecting) {
+            setSeen(true)
+            io?.disconnect()
+          }
+        },
+        { threshold: 0.18 },
+      )
+      io.observe(el)
+    }
+    // si la página aún no es visible se espera un momento, para que la entrada no pase sin verse
+    const wait = document.documentElement.classList.contains('ready') ? 0 : 800
+    const id = window.setTimeout(begin, wait)
+    return () => {
+      window.clearTimeout(id)
+      io?.disconnect()
+    }
   }, [])
   return [ref, seen]
 }
@@ -51,7 +60,7 @@ export function Reveal({ children, className = '', delay = 0 }: { children: Reac
   return (
     <div
       ref={ref}
-      className={`${className} transition-all duration-700 ease-out ${seen ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'}`}
+      className={`${className} transition-all duration-700 ease-out ${seen ? 'translate-y-0 opacity-100' : '-translate-y-4 opacity-0'}`}
       style={{ transitionDelay: `${delay}ms` }}
     >
       {children}

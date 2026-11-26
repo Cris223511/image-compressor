@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import { CheckCircle2, Download, Loader2, RotateCcw, SlidersHorizontal } from 'lucide-react'
 import { useWorkspace } from '../store/workspace'
 import { downloadAllZip } from '../lib/download'
@@ -6,7 +6,7 @@ import { useCountUp } from '../lib/useCountUp'
 import { formatBytes, formatSaved } from '../lib/format'
 import { useLocale, useT } from '../i18n'
 
-export function ResultBanner({ onSettings }: { onSettings: () => void }) {
+export function ResultBanner({ open, onSettings }: { open: boolean; onSettings: () => void }) {
   const t = useT()
   const locale = useLocale()
   const items = useWorkspace((s) => s.items)
@@ -14,7 +14,7 @@ export function ResultBanner({ onSettings }: { onSettings: () => void }) {
   const redo = useWorkspace((s) => s.redo)
   const [zipping, setZipping] = useState<{ done: number; total: number } | null>(null)
 
-  const s = useMemo(() => {
+  const live = useMemo(() => {
     let before = 0
     let after = 0
     let done = 0
@@ -37,6 +37,10 @@ export function ResultBanner({ onSettings }: { onSettings: () => void }) {
     }
     return { before, after, done, kept, failed, downloadable }
   }, [items, order])
+  // al cerrarse (por ejemplo al repetir) se muestran las últimas cifras, no un resumen vacío
+  const frozen = useRef(live)
+  if (open) frozen.current = live
+  const s = frozen.current
 
   const saved = s.before > 0 ? 1 - s.after / s.before : 0
   const shown = useCountUp(Math.round(saved * 100))
@@ -52,7 +56,7 @@ export function ResultBanner({ onSettings }: { onSettings: () => void }) {
   }
 
   return (
-    <div className="rise mb-6 overflow-hidden rounded-3xl border border-line bg-surface shadow-card">
+    <div className="mb-6 overflow-hidden rounded-3xl border border-line bg-surface shadow-card">
       <div className="relative p-6 sm:p-8">
         <div
           aria-hidden

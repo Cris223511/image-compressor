@@ -3,6 +3,7 @@ import { ArrowRight, ArrowUp, ExternalLink, Lock } from 'lucide-react'
 import { Logo } from './Logo'
 import { Reveal } from './about/Reveal'
 import { REPO_URL } from '../config/site'
+import { scrollToTarget } from '../lib/lenis'
 import { useDict } from '../i18n'
 
 // destinos de cada enlace, en el mismo orden que las columnas del diccionario
@@ -42,7 +43,7 @@ export function Footer() {
 
           <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-4">
             {footer.cols.map((col, ci) => (
-              <Reveal key={col.title} delay={ci * 80}>
+              <Reveal key={col.title} delay={ci * 140}>
                 <h3 className="mb-4 text-xs font-bold uppercase tracking-[0.1em] text-ink">{col.title}</h3>
                 <ul className="space-y-3">
                   {col.links.map((label, li) => {
@@ -69,9 +70,20 @@ export function Footer() {
         </div>
 
         <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-line py-6 text-sm text-muted sm:flex-row">
-          <p>{footer.rights}</p>
+          <p className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 sm:justify-start">
+            <span>{footer.rights}</span>
+            <a
+              href={`${REPO_URL}/releases/tag/v${__APP_VERSION__}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              title={footer.version}
+              className="chip bg-brand-soft text-brand transition-all duration-300 hover:-translate-y-0.5 hover:shadow-card"
+            >
+              v{__APP_VERSION__}
+            </a>
+          </p>
           <button
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            onClick={() => scrollToTarget(0)}
             className="group inline-flex items-center gap-2 rounded-full border border-line px-4 py-2 font-medium transition-all duration-300 hover:border-brand/40 hover:bg-brand-soft hover:text-brand"
           >
             {footer.top} <ArrowUp size={15} className="transition-transform duration-300 group-hover:-translate-y-0.5" />

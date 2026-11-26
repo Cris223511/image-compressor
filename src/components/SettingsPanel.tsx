@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { RotateCcw, X } from 'lucide-react'
+import { Collapse } from './Collapse'
 import { useSettings } from '../store/settings'
 import type { OutputFormat, QualityMode } from '../lib/compress/types'
 import { useDict, useT } from '../i18n'
@@ -34,7 +35,7 @@ export function SettingsPanel({ open, onClose }: { open: boolean; onClose: () =>
       <aside
         role="dialog"
         aria-label={t('settings.title')}
-        className={`soft-scroll absolute right-0 top-0 h-full w-full max-w-md overflow-y-auto border-l border-line bg-surface p-6 shadow-lift transition-transform duration-300 ease-out ${
+        data-lenis-prevent="" className={`soft-scroll absolute right-0 top-0 h-full w-full max-w-md overflow-y-auto border-l border-line bg-surface p-6 shadow-lift transition-transform duration-300 ease-out ${
           open ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
@@ -66,7 +67,7 @@ export function SettingsPanel({ open, onClose }: { open: boolean; onClose: () =>
               )
             })}
           </div>
-          {settings.mode === 'custom' && (
+          <Collapse open={settings.mode === 'custom'}>
             <div className="mt-4 rounded-2xl bg-sunken p-4">
               <div className="mb-2 flex justify-between text-sm font-semibold">
                 <span>{t('settings.quality')}</span>
@@ -81,7 +82,7 @@ export function SettingsPanel({ open, onClose }: { open: boolean; onClose: () =>
                 className="w-full accent-[rgb(var(--brand))]"
               />
             </div>
-          )}
+          </Collapse>
           <p className="mt-3 text-xs text-muted">{t('settings.pngNote')}</p>
         </Section>
 

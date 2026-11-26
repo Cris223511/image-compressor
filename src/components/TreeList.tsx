@@ -28,13 +28,14 @@ export function TreeList({ tree, onCompare }: { tree: TreeNode[]; onCompare: (id
   })
 
   return (
-    <div ref={parent} className="soft-scroll max-h-[min(62vh,680px)] min-h-[120px] overflow-y-auto" role="tree">
+    <div ref={parent} data-lenis-prevent="" className="soft-scroll max-h-[min(62vh,680px)] min-h-[120px] overflow-y-auto" role="tree">
       <div style={{ height: virt.getTotalSize(), position: 'relative' }}>
         {virt.getVirtualItems().map((v) => {
           const row = rows[v.index]
           return (
             <div
               key={row.type === 'folder' ? `f:${row.path}` : row.id}
+              className="transition-transform duration-300 ease-out"
               style={{ position: 'absolute', top: 0, left: 0, right: 0, height: ROW_H, transform: `translateY(${v.start}px)` }}
             >
               {row.type === 'folder' ? (
@@ -100,7 +101,7 @@ const FolderRow = memo(function FolderRow({ node, collapsed }: { node: FolderNod
           {t('work.folderCount', { count: node.ids.length })} · {formatBytes(st.before, locale)}
         </p>
       </div>
-      {saved > 0.005 && <span className="chip bg-good-soft text-good">{t('status.saved', { percent: formatSaved(saved, locale) })}</span>}
+      {saved > 0.005 && <span className="fade-in chip bg-good-soft text-good">{t('status.saved', { percent: formatSaved(saved, locale) })}</span>}
     </div>
   )
 })
@@ -115,7 +116,7 @@ const FileRow = memo(function FileRow({ id, depth, onCompare }: { id: string; de
     <div
       role="treeitem"
       onClick={() => item.status !== 'processing' && setSelected([item.id], !item.selected)}
-      className={`fade-in group flex h-full items-center gap-2.5 border-b border-line/70 pr-4 transition-colors hover:bg-sunken/70 ${
+      className={`fade-in group flex h-full items-center gap-2.5 border-b border-line/70 pr-4 transition-[background-color,opacity] duration-300 hover:bg-sunken/70 ${
         item.selected ? '' : 'opacity-55'
       }`}
       style={{ paddingLeft: 14 + depth * INDENT + 22 }}
@@ -145,7 +146,7 @@ function FileInfo({ item }: { item: Item }) {
       </p>
       <p className="truncate text-xs text-muted">
         {KIND_LABEL[item.kind]}
-        {dims ? ` · ${dims}` : ''}
+        {dims && <span className="fade-in"> · {dims}</span>}
         {!item.result ? ` · ${formatBytes(item.size, locale)}` : ''}
       </p>
     </div>
@@ -218,5 +219,5 @@ function FileStatus({ item, onCompare }: { item: Item; onCompare: (id: string) =
       </div>
     )
   }
-  return <span className="text-xs text-muted">{formatBytes(item.size, locale)}</span>
+  return <span className="fade-in text-xs text-muted">{formatBytes(item.size, locale)}</span>
 }

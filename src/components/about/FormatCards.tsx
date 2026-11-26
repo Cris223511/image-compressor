@@ -11,7 +11,7 @@ export function FormatCards() {
   return (
     <Live className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {items.map((it, i) => (
-        <Reveal key={it.name} delay={(i % 3) * 90}>
+        <Reveal key={it.name} delay={(i % 3) * 140}>
           <article className="group h-full overflow-hidden rounded-3xl border border-line bg-surface shadow-card transition-transform duration-300 hover:-translate-y-1">
             <div className="grid h-36 place-items-center border-b border-line bg-sunken/60 px-5">{visuals[i]}</div>
             <div className="p-5">

@@ -5,10 +5,6 @@ export function useCountUp(target: number, ms = 900, active = true): number {
   const [v, setV] = useState(0)
   useEffect(() => {
     if (!active) return
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      setV(target)
-      return
-    }
     const start = performance.now()
     let raf = 0
     const tick = (now: number) => {

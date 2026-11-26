@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { useShallow } from 'zustand/react/shallow'
 import { ImagePlus, Loader2, SlidersHorizontal, Square, Trash2, TriangleAlert, Zap } from 'lucide-react'
 import { TreeList } from './TreeList'
+import { Collapse } from './Collapse'
 import { ResultBanner } from './ResultBanner'
 import { SkippedPanel } from './SkippedPanel'
 import { SettingsPanel } from './SettingsPanel'
@@ -67,14 +68,17 @@ export function Workspace({ pickers }: { pickers: ReturnType<typeof usePickers> 
 
   return (
     <section className="mx-auto max-w-5xl px-4 py-6 sm:px-6 sm:py-8">
-      {phase === 'done' && <ResultBanner onSettings={() => setSettingsOpen(true)} />}
+      {/* el resumen se abre y se cierra deslizando, y conserva sus cifras mientras se cierra */}
+      <Collapse open={phase === 'done'}>
+        <ResultBanner open={phase === 'done'} onSettings={() => setSettingsOpen(true)} />
+      </Collapse>
 
-      {limitHit && (
-        <div className="rise mb-4 flex items-start gap-3 rounded-2xl border border-warn/30 bg-warn-soft px-4 py-3 text-sm text-warn">
+      <Collapse open={limitHit}>
+        <div className="mb-4 flex items-start gap-3 rounded-2xl border border-warn/30 bg-warn-soft px-4 py-3 text-sm text-warn">
           <TriangleAlert size={18} className="mt-0.5 shrink-0" />
           <p>{t('work.limitHit', { max: MAX_IMAGES })}</p>
         </div>
-      )}
+      </Collapse>
 
       {/* cabecera con el resumen y las acciones generales */}
       <div className="rise flex flex-wrap items-center justify-between gap-3">
@@ -82,12 +86,12 @@ export function Workspace({ pickers }: { pickers: ReturnType<typeof usePickers> 
           <h2 className="font-display text-2xl font-bold">{t('work.treeTitle')}</h2>
           <p className="mt-0.5 flex flex-wrap items-center gap-x-2 text-sm text-muted">
             {scanning ? (
-              <span className="flex items-center gap-1.5 text-brand">
+              <span key="scan" className="fade-in flex items-center gap-1.5 text-brand">
                 <Loader2 size={14} className="spin" />
                 {t('work.scanning')}
               </span>
             ) : (
-              <>
+              <span key="stats" className="fade-in flex flex-wrap items-center gap-x-2">
                 <span>{t('work.images', { count: order.length })}</span>
                 <span aria-hidden>·</span>
                 <span>{t('work.selected', { count: stats.selected })}</span>
@@ -95,7 +99,7 @@ export function Workspace({ pickers }: { pickers: ReturnType<typeof usePickers> 
                 <span>
                   {t('work.totalWeight')}: <b className="text-ink">{formatBytes(stats.bytes, locale)}</b>
                 </span>
-              </>
+              </span>
             )}
           </p>
         </div>
@@ -122,7 +126,7 @@ export function Workspace({ pickers }: { pickers: ReturnType<typeof usePickers> 
               {t('work.selectNone')}
             </button>
             {folders.length > 0 && (
-              <>
+              <span className="fade-in inline-flex items-center gap-1">
                 <span className="mx-1 h-4 w-px bg-line" aria-hidden />
                 <button className={barBtn} onClick={() => setCollapsedAll(folders, false)}>
                   {t('work.expandAll')}
@@ -130,7 +134,7 @@ export function Workspace({ pickers }: { pickers: ReturnType<typeof usePickers> 
                 <button className={barBtn} onClick={() => setCollapsedAll(folders, true)}>
                   {t('work.collapseAll')}
                 </button>
-              </>
+              </span>
             )}
           </div>
           <TreeList tree={tree} onCompare={setCompareId} />
@@ -143,13 +147,18 @@ export function Workspace({ pickers }: { pickers: ReturnType<typeof usePickers> 
 
       {skipped.length > 0 && <SkippedPanel />}
 
-      <p className={`mt-6 text-center text-xs ${persistFailed ? 'text-warn' : 'text-muted'}`}>
+      <p key={persistFailed ? 'fail' : 'ok'} className={`fade-in mt-6 text-center text-xs ${persistFailed ? 'text-warn' : 'text-muted'}`}>
         {persistFailed ? t('work.saveFailed') : t('work.saved')}
       </p>
 
       {/* barra de acción fija abajo: botón de comprimir o el avance */}
-      {hasImages && phase !== 'done' && (
-        <div className="sticky bottom-4 z-20 mt-6">
+      {hasImages && (
+        <div
+          className={`sticky bottom-4 z-20 mt-6 transition-[opacity,transform] duration-500 ease-out ${
+            phase === 'done' ? 'pointer-events-none translate-y-6 opacity-0' : 'translate-y-0 opacity-100'
+          }`}
+          aria-hidden={phase === 'done'}
+        >
           <div key={running ? 'run' : 'idle'} className="fade-in mx-auto max-w-2xl rounded-3xl border border-line bg-surface p-3 shadow-lift">
             {running ? (
               <div className="flex items-center gap-4 px-2 py-1">

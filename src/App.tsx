@@ -5,6 +5,7 @@ import { Footer } from './components/Footer'
 import { DropOverlay } from './components/DropOverlay'
 import { useGlobalDrop } from './lib/useGlobalDrop'
 import { restoreSession, startPersisting } from './lib/persist'
+import { scrollToTarget, scrollTopNow, startLenis } from './lib/lenis'
 import { useT } from './i18n'
 import { useUi } from './store/ui'
 import Home from './pages/Home'
@@ -27,22 +28,23 @@ export default function App() {
   useEffect(() => {
     startPersisting()
     void restoreSession()
+    startLenis()
   }, [])
 
   useEffect(() => {
     // un enlace con # baja con suavidad hasta su sección; sin él, cada página parte desde arriba
     const target = hash ? document.getElementById(hash.slice(1)) : null
     if (target) {
-      const id = window.setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 150)
+      const id = window.setTimeout(() => scrollToTarget(target), 150)
       return () => window.clearTimeout(id)
     }
-    window.scrollTo({ top: 0 })
+    scrollTopNow()
   }, [pathname, hash])
 
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
-      <main key={pathname} className="fade-in flex-1">
+      <main key={pathname} className="flex-1">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/nosotros" element={<About />} />

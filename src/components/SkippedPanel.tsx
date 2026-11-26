@@ -69,7 +69,7 @@ export function SkippedPanel() {
           const Icon = ICONS[cat]
           const danger = DANGER.has(cat)
           return (
-            <span key={cat} className={`chip ${danger ? 'bg-warn-soft text-warn' : 'bg-sunken text-muted'}`}>
+            <span key={cat} className={`fade-in chip ${danger ? 'bg-warn-soft text-warn' : 'bg-sunken text-muted'}`}>
               <Icon size={13} /> {g.count} · {t(`skip.cat.${cat}`, { max: MAX_IMAGES })}
             </span>
           )
@@ -89,8 +89,8 @@ export function SkippedPanel() {
                 </span>
                 <span className="text-xs text-muted">{formatBytes(g.bytes, locale)}</span>
               </button>
-              {expanded === cat && (
-                <ul className="soft-scroll max-h-56 overflow-y-auto bg-sunken/50 px-5 py-2 text-xs text-muted">
+              <Collapse open={expanded === cat}>
+                <ul data-lenis-prevent="" className="soft-scroll max-h-56 overflow-y-auto bg-sunken/50 px-5 py-2 text-xs text-muted">
                   {g.paths.map((p) => (
                     <li key={p} className="truncate py-0.5">
                       {p}
@@ -98,7 +98,7 @@ export function SkippedPanel() {
                   ))}
                   {g.count > g.paths.length && <li className="py-0.5">… +{g.count - g.paths.length}</li>}
                 </ul>
-              )}
+              </Collapse>
             </div>
           ))}
         </div>

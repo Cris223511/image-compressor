@@ -72,7 +72,7 @@ export function HowItWorks() {
     timer.current = window.setTimeout(() => {
       setShown(n)
       setLeaving(false)
-    }, 240)
+    }, 380)
   }
   useEffect(() => () => window.clearTimeout(timer.current), [])
   const [selected, setSelected] = useState<Selection>(() => new Set(ALL))
@@ -128,7 +128,7 @@ export function HowItWorks() {
         <div className="relative min-h-[22rem] p-4 sm:p-6">
           <div
             key={shown}
-            className={`transition-all duration-300 ease-out ${leaving ? 'translate-y-2 opacity-0' : 'fade-in translate-y-0 opacity-100'}`}
+            className={`transition-all duration-[380ms] ease-out ${leaving ? 'translate-y-3 opacity-0' : 'rise translate-y-0 opacity-100'}`}
           >
             {shown === 0 && <StepDrop onNext={() => go(1)} />}
             {shown === 1 && <StepReview selected={selected} setSelected={setSelected} onNext={() => go(2)} />}

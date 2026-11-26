@@ -4,6 +4,16 @@ Este documento recoge los cambios importantes de Squeezo, de la versión más re
 
 El formato sigue la convención de [Keep a Changelog](https://keepachangelog.com/es/) y el versionado es [semántico](https://semver.org/lang/es/). El primer número marca los cambios mayores, el segundo las funciones nuevas y el tercero las correcciones.
 
+## 1.0.1 (2026-11-26)
+
+- **Entradas suaves de arriba hacia abajo.** Los bloques de cada página caen en cascada, uno tras otro, y la aplicación aparece con un fundido cuando las tipografías ya están listas, sin cambios de letra a mitad de camino.
+- **Hover suave en todo.** Ningún cambio al pasar el cursor dura menos de 300 ms, en botones, enlaces, tarjetas y filas.
+- **Scroll suave con Lenis,** moderado, que respeta las listas con desplazamiento propio y los enlaces a secciones.
+- **Transiciones en lo que se abre y se cierra.** Las preguntas frecuentes, las pestañas de la demostración, los avisos, el resumen de resultados, el selector de calidad personalizada y los omitidos se abren y se cierran deslizando. Las casillas, las miniaturas y los estados de cada imagen cambian con un fundido, igual que los diálogos, que además desenfocan el fondo.
+- **Versión visible en el pie de página,** con enlace a las notas de esa versión.
+- **Página Nosotros renovada.** El recorrido de calidad avanza solo mientras se ve, se detiene al pasar el cursor y cada paso se puede tocar, sin atar el desplazamiento de la página. Se retira la sección ilustrada de privacidad y se reescriben con frases más claras los textos de Nosotros, Privacidad y Términos.
+- **Movimiento reducido.** Con esa preferencia del sistema solo se detienen las repeticiones decorativas, y lo que está cerrado deja de recibir foco con el teclado.
+
 ## 1.0.0 (2026-11-26)
 
 - **Compresión sin que se note.** Por defecto se busca el menor peso cuya diferencia no se ve a simple vista, con las mismas dimensiones. Hay tres niveles, recomendado, calidad alta y máxima compresión, y uno personalizado.

@@ -1,5 +1,6 @@
 @import '@fontsource-variable/bricolage-grotesque/wdth.css';
 @import '@fontsource-variable/instrument-sans/index.css';
+@import 'lenis/dist/lenis.css';
 
 @tailwind base;
 @tailwind components;
@@ -133,15 +134,16 @@
 @keyframes rise {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(-14px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
+/* entra cayendo de arriba hacia abajo; sin relleno al final para no dejar una transformación puesta */
 .rise {
-  animation: rise 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
 }
 
 @keyframes spin {
@@ -336,13 +338,12 @@
 }
 
 /* con movimiento reducido todo queda en su estado final y sin repetirse */
+/* aunque el sistema pida menos movimiento, las entradas y los fundidos se mantienen: solo se detienen las repeticiones decorativas */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
+  *:not(.spin):not(.sheen),
+  *:not(.spin):not(.sheen)::before,
+  *:not(.spin):not(.sheen)::after {
     animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
   }
 }
 
@@ -396,7 +397,7 @@
   }
 }
 .fade-in {
-  animation: fade-in 0.4s ease-out both;
+  animation: fade-in 0.6s ease-out backwards;
 }
 
 /* todo lo que se toca cambia con suavidad, sin saltos de color ni de sombra */
@@ -410,7 +411,7 @@
   input,
   summary {
     transition-property: color, background-color, border-color, box-shadow, opacity, transform;
-    transition-duration: 220ms;
+    transition-duration: 300ms;
     transition-timing-function: cubic-bezier(0.2, 0.7, 0.2, 1);
   }
 }
@@ -420,15 +421,10 @@ html.theme-fade,
 html.theme-fade *,
 html.theme-fade *::before,
 html.theme-fade *::after {
-  transition: background-color 0.45s ease, color 0.45s ease, border-color 0.45s ease, fill 0.45s ease, stroke 0.45s ease !important;
+  transition-property: background-color, color, border-color, fill, stroke, box-shadow, opacity, transform !important;
+  transition-duration: 0.45s !important;
 }
 
-/* los saltos a una sección y a lo más alto de la página se deslizan en lugar de teletransportar */
-@media (prefers-reduced-motion: no-preference) {
-  html {
-    scroll-behavior: smooth;
-  }
-}
 
 /* nada se ve hasta que las tipografías cargaron: así el texto no cambia de letra de golpe */
 #root {
@@ -436,11 +432,28 @@ html.theme-fade *::after {
 }
 html.ready #root {
   opacity: 1;
-  transition: opacity 0.7s ease-out;
+  transition: opacity 0.25s ease-out;
 }
 
 /* las animaciones de entrada esperan a que la página sea visible, para que se vean enteras */
 html:not(.ready) .rise,
 html:not(.ready) .fade-in {
   animation-play-state: paused;
+}
+
+/* los colores de cualquier elemento cambian con suavidad, también en los hover que no usan clases de transición */
+*,
+*::before,
+*::after {
+  transition-property: color, background-color, border-color, box-shadow, fill, stroke;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/* y lo que mueve, escala o aclara al pasar el cursor también se desliza */
+[class*='hover:'],
+[class*='group-hover:'] {
+  transition-property: color, background-color, border-color, box-shadow, fill, stroke, opacity, transform;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.2, 0.7, 0.2, 1);
 }

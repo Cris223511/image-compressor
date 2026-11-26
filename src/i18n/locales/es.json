@@ -25,7 +25,7 @@
     "points": [
       {
         "title": "Mismas dimensiones, misma nitidez",
-        "text": "Solo se quita lo que el ojo no nota."
+        "text": "Quita solo lo que el ojo no nota."
       },
       {
         "title": "Zips con vista previa",
@@ -33,7 +33,7 @@
       },
       {
         "title": "Nada sale de tu equipo",
-        "text": "Sin subir archivos y sin crear cuenta."
+        "text": "No subes nada ni creas una cuenta."
       }
     ]
   },
@@ -97,7 +97,7 @@
   "skip": {
     "title_one": "{count} archivo omitido",
     "title_other": "{count} archivos omitidos",
-    "hint": "No son imágenes o no se pueden procesar de forma segura.",
+    "hint": "No son imágenes, o no es seguro procesarlas.",
     "show": "Ver detalle",
     "hide": "Ocultar",
     "cat": {
@@ -225,7 +225,8 @@
           "Gifsicle"
         ]
       }
-    ]
+    ],
+    "version": "Ver las notas de esta versión"
   },
   "notFound": {
     "title": "Esta página no existe",
@@ -276,36 +277,29 @@
         "items": [
           {
             "name": "JPG, WebP y AVIF",
-            "text": "Se queda la calidad más baja que no se nota."
+            "text": "Baja la calidad hasta el punto justo en que la diferencia deja de notarse."
           },
           {
             "name": "PNG",
-            "text": "Se reduce a una paleta de colores sin que se note."
+            "text": "Reduce la paleta de colores cuando no se nota. En calidad alta no pierde ni un píxel."
           },
           {
             "name": "GIF",
-            "text": "Conserva la animación."
+            "text": "Mantiene la animación y le quita peso por dentro."
           },
           {
             "name": "SVG",
-            "text": "Se limpia de scripts."
+            "text": "Borra los scripts ocultos y el código que sobra, y se ve igual de nítido."
           },
           {
             "name": "ZIP",
-            "text": "Se explora sin descomprimirlo."
+            "text": "Lo abre por partes, así que un zip enorme se explora al instante."
           },
           {
             "name": "Videos y otros",
-            "text": "Se omiten y se avisa."
+            "text": "No los toca: te avisa cuáles se quedaron fuera."
           }
         ]
-      },
-      "privacy": {
-        "title": "Nada sale de tu equipo",
-        "you": "Tu equipo",
-        "server": "Servidor",
-        "zero": "0 bytes subidos",
-        "nothing": "No recibe nada"
       },
       "stats": [
         {
@@ -338,25 +332,25 @@
         "steps": [
           {
             "title": "Lee",
-            "text": "La imagen se abre en tu navegador. Se valida su contenido real, sus dimensiones y su formato antes de tocarla."
+            "text": "Abre la imagen en tu navegador y comprueba qué es de verdad: su contenido, sus dimensiones y su formato."
           },
           {
             "title": "Mide",
-            "text": "Se comprime a distintas calidades y cada resultado se compara con el original, en luminancia y en color."
+            "text": "La comprime a distintas calidades y compara cada resultado con el original, en luminosidad y en color."
           },
           {
             "title": "Elige",
-            "text": "Se queda la versión más liviana que supera el umbral del nivel elegido. Si ninguna mejora el peso, se conserva el original."
+            "text": "Se queda con la versión más liviana que pasa el umbral del nivel elegido. Si ninguna pesa menos, deja el original."
           },
           {
             "title": "Verifica",
-            "text": "El resultado final se mide sobre la imagen completa, no solo sobre una muestra, y recién entonces se entrega."
+            "text": "Antes de entregarla, mide el resultado sobre la imagen completa y no solo sobre una muestra."
           }
         ]
       },
       "band": {
         "title": "Mil imágenes en una sola pestaña.",
-        "text": "Squeezo reparte el trabajo entre los núcleos de tu procesador y lee los zips por partes, sin cargarlos enteros en memoria. Así un zip grande se explora al instante y solo se descomprime lo que vas a procesar.",
+        "text": "Squeezo reparte el trabajo entre los núcleos de tu procesador y abre los zips por partes, sin cargarlos enteros en memoria. Por eso un zip grande se explora al instante.",
         "facts": [
           {
             "value": "0,1 s",
@@ -376,20 +370,20 @@
         "title": "Seguridad sin letra chica",
         "items": [
           {
-            "title": "Contenido real",
-            "text": "Cada archivo se identifica por su firma binaria, no por su extensión. Un .jpg que en realidad es texto se rechaza."
+            "title": "Mira dentro del archivo",
+            "text": "Cada archivo se identifica por su contenido, no por su extensión. Un .jpg que en realidad es texto se rechaza."
           },
           {
-            "title": "Zips sin sorpresas",
-            "text": "Se descartan rutas con .., entradas cifradas y archivos que se inflan más de lo que declaran, antes de que ocupen memoria."
+            "title": "Zips que no pueden hacer daño",
+            "text": "Se rechazan las rutas que intentan salir de la carpeta, los archivos con contraseña y los que se inflan muchísimo más de lo que dicen pesar."
           },
           {
-            "title": "SVG limpios",
-            "text": "Se eliminan scripts, eventos y referencias externas. Los SVG solo se muestran como imagen, nunca como documento."
+            "title": "SVG sin scripts",
+            "text": "Se borran los scripts y los enlaces externos de los SVG, y solo se muestran como imagen, nunca como página."
           },
           {
-            "title": "Sin rastro",
-            "text": "Se quitan los datos ocultos de los JPG y PNG, como la cámara y la ubicación, salvo que pidas conservarlos."
+            "title": "Sin datos personales",
+            "text": "Los JPG y PNG pierden los datos ocultos, como el modelo de la cámara y la ubicación, salvo que pidas conservarlos."
           }
         ]
       },
@@ -398,15 +392,15 @@
         "items": [
           {
             "q": "¿Se pierde calidad?",
-            "a": "Por defecto solo se acepta una versión que no se note a simple vista. «Calidad alta» exige diferencias imperceptibles incluso al ampliar."
+            "a": "A simple vista no. Squeezo compara cada resultado con el original y solo lo acepta si la diferencia no se nota. Si quieres la máxima fidelidad, elige «Calidad alta»."
           },
           {
             "q": "¿Cambian las dimensiones?",
-            "a": "No. El ancho y el alto se mantienen, salvo que actives limitar las dimensiones en los ajustes."
+            "a": "No. El ancho y el alto se quedan igual, a menos que actives el límite de dimensiones en los ajustes."
           },
           {
             "q": "¿Qué pasa con los videos de un zip?",
-            "a": "Se omiten y se te avisa cuántos eran. Squeezo solo comprime imágenes."
+            "a": "Se dejan fuera y te avisamos cuántos eran. Squeezo solo comprime imágenes."
           },
           {
             "q": "¿Hay un límite?",
@@ -414,7 +408,7 @@
           },
           {
             "q": "¿Y si recargo la página?",
-            "a": "Tu progreso se guarda en el navegador y sigues donde lo dejaste, incluso a mitad de una compresión."
+            "a": "Sigues donde estabas. Tu progreso se guarda en el navegador, incluso si estaba a mitad de una compresión."
           }
         ]
       },
@@ -426,7 +420,7 @@
         {
           "h": "Tus archivos",
           "p": [
-            "Las imágenes, carpetas y zips se procesan en tu navegador y no se suben a ningún servidor. Para que no pierdas tu progreso se guardan en el almacenamiento de tu navegador hasta que pulses «Vaciar»."
+            "Tus imágenes, carpetas y zips se procesan en tu navegador y nunca se suben a un servidor. Para que no pierdas tu progreso, se guardan en el almacenamiento de tu navegador hasta que pulses «Vaciar»."
           ]
         },
         {
@@ -438,25 +432,25 @@
         {
           "h": "Preferencias",
           "p": [
-            "Se guardan en tu navegador el idioma, el tema y los ajustes de compresión."
+            "Tu navegador recuerda el idioma, el tema y los ajustes de compresión."
           ]
         },
         {
           "h": "Metadatos",
           "p": [
-            "Al comprimir un JPG o un PNG se eliminan los datos ocultos, como la cámara o la ubicación, salvo que actives conservarlos. Una imagen que no se puede reducir se devuelve tal cual."
+            "Al comprimir un JPG o un PNG se borran los datos ocultos, como la cámara o la ubicación, salvo que pidas conservarlos. Si una imagen no se puede reducir, se devuelve tal cual."
           ]
         },
         {
           "h": "Alojamiento",
           "p": [
-            "El sitio está en Vercel, que puede registrar datos técnicos de la visita, como la IP. Nunca incluyen tus imágenes."
+            "El sitio está en Vercel, que puede registrar datos técnicos de la visita, como la dirección IP. Nunca incluyen tus imágenes."
           ]
         },
         {
           "h": "Seguridad",
           "p": [
-            "Se valida el contenido real de cada archivo, no se ejecuta nada de lo que subes y los SVG se limpian de scripts."
+            "Squeezo mira el contenido real de cada archivo, no ejecuta nada de lo que subes y limpia los SVG de scripts."
           ]
         }
       ]
@@ -473,19 +467,19 @@
         {
           "h": "Tus archivos",
           "p": [
-            "Siguen siendo tuyos. Squeezo no modifica tus originales: genera copias que descargas aparte."
+            "Siguen siendo tuyos. Squeezo nunca modifica tus originales: crea copias que descargas aparte."
           ]
         },
         {
           "h": "Resultados",
           "p": [
-            "Se busca que la diferencia no se note, pero ninguna compresión con pérdida garantiza un resultado idéntico. Conserva siempre tus originales."
+            "Squeezo busca que la diferencia no se note, pero ninguna compresión con pérdida garantiza un resultado idéntico. Conserva siempre tus originales."
           ]
         },
         {
           "h": "Límites",
           "p": [
-            "Hasta 1000 imágenes por zip. Los archivos que no son imágenes o parecen peligrosos se omiten."
+            "Hasta 1000 imágenes por zip. Lo que no sea una imagen, o parezca peligroso, se deja fuera."
           ]
         },
         {

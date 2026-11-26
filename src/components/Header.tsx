@@ -36,7 +36,7 @@ export function Header() {
   )
 
   return (
-    <header className="sticky top-0 z-30 border-b border-line bg-surface">
+    <header className="rise sticky top-0 z-30 border-b border-line bg-surface">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
         <Logo />
 

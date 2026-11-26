@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { Eye, FileArchive, Folder, ImagePlus, Layers, Loader2, Lock } from 'lucide-react'
 import { usePickers } from '../components/usePickers'
 import { Workspace } from '../components/Workspace'
@@ -11,7 +12,22 @@ export default function Home() {
   const hydrating = useWorkspace((s) => s.hydrating)
   const t = useT()
   const pickers = usePickers()
-  // mientras se recupera la sesión guardada no se muestra la portada, para que no parpadee
+
+  // al pasar de la portada al espacio de trabajo (y al revés) la vista anterior se desvanece antes de que entre la nueva
+  const view = phase === 'empty' ? 'hero' : 'work'
+  const [shown, setShown] = useState(view)
+  const [leaving, setLeaving] = useState(false)
+  useEffect(() => {
+    if (view === shown) return
+    setLeaving(true)
+    const id = window.setTimeout(() => {
+      setShown(view)
+      setLeaving(false)
+    }, 350)
+    return () => window.clearTimeout(id)
+  }, [view, shown])
+
+  // mientras se recupera la sesión guardada no se muestra nada a menos que tarde
   if (hydrating) {
     return (
       <div className="grid min-h-[50vh] place-items-center text-muted">
@@ -23,8 +39,8 @@ export default function Home() {
   }
   return (
     <>
-      <div key={phase === 'empty' ? 'hero' : 'work'} className="fade-in">
-        {phase === 'empty' ? <Hero pickers={pickers} /> : <Workspace pickers={pickers} />}
+      <div key={shown} className={`transition-opacity duration-300 ease-out ${leaving ? 'opacity-0' : 'opacity-100'}`}>
+        {shown === 'hero' ? <Hero pickers={pickers} /> : <Workspace pickers={pickers} />}
       </div>
       {pickers.inputs}
     </>
@@ -48,17 +64,19 @@ function Hero({ pickers }: { pickers: ReturnType<typeof usePickers> }) {
         }}
       />
       <div className="relative mx-auto max-w-3xl px-4 pb-16 pt-14 text-center sm:px-6 sm:pt-20">
-        <h1 className="rise font-display text-[2.9rem] font-extrabold leading-[1.02] sm:text-[4.6rem]">
-          {t('hero.titleA')}{' '}
-          <span className="squeeze text-brand">{t('hero.titleSqueeze')}</span>
-          <br />
-          {t('hero.titleB')}
+        <h1 className="font-display text-[2.9rem] font-extrabold leading-[1.02] sm:text-[4.6rem]">
+          <span className="rise block" style={{ animationDelay: '250ms' }}>
+            {t('hero.titleA')} <span className="squeeze text-brand">{t('hero.titleSqueeze')}</span>
+          </span>
+          <span className="rise block" style={{ animationDelay: '390ms' }}>
+            {t('hero.titleB')}
+          </span>
         </h1>
-        <p className="rise mx-auto mt-6 max-w-xl text-lg leading-relaxed text-muted" style={{ animationDelay: '60ms' }}>
+        <p className="rise mx-auto mt-6 max-w-xl text-lg leading-relaxed text-muted" style={{ animationDelay: '530ms' }}>
           {t('hero.subtitle')}
         </p>
 
-        <div className="rise mt-10 flex items-center justify-center gap-3" style={{ animationDelay: '120ms' }}>
+        <div className="rise mt-10 flex items-center justify-center gap-3" style={{ animationDelay: '670ms' }}>
           <button
             onClick={pickers.openFiles}
             disabled={scanning}
@@ -77,14 +95,14 @@ function Hero({ pickers }: { pickers: ReturnType<typeof usePickers> }) {
           </div>
         </div>
 
-        <p className="rise mt-5 text-sm text-muted" style={{ animationDelay: '180ms' }}>
+        <p className="rise mt-5 text-sm text-muted" style={{ animationDelay: '810ms' }}>
           {t('hero.dropHint')}
         </p>
         <button
           onClick={pickers.loadSample}
           disabled={scanning}
           className="rise mt-3 text-sm font-semibold text-brand underline decoration-brand/30 underline-offset-4 transition-colors hover:decoration-brand"
-          style={{ animationDelay: '220ms' }}
+          style={{ animationDelay: '950ms' }}
         >
           {t('hero.sample')}
         </button>
@@ -96,7 +114,7 @@ function Hero({ pickers }: { pickers: ReturnType<typeof usePickers> }) {
               <li
                 key={p.title}
                 className="rise rounded-2xl border border-line bg-surface p-5 shadow-card"
-                style={{ animationDelay: `${280 + i * 70}ms` }}
+                style={{ animationDelay: `${1090 + i * 140}ms` }}
               >
                 <span className="grid h-10 w-10 place-items-center rounded-xl bg-brand-soft text-brand">
                   <Icon size={20} />

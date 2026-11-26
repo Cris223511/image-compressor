@@ -3,14 +3,12 @@ import { ArrowRight, Code2 } from 'lucide-react'
 import { CompareDemo } from '../components/about/CompareDemo'
 import { HowItWorks } from '../components/about/HowItWorks'
 import { FormatCards } from '../components/about/FormatCards'
-import { PrivacyDiagram } from '../components/about/PrivacyDiagram'
-import { ScrollStory } from '../components/about/ScrollStory'
+import { QualityStory } from '../components/about/QualityStory'
 import { ParallaxBand } from '../components/about/ParallaxBand'
 import { Security } from '../components/about/Security'
 import { Faq } from '../components/about/Faq'
-import { PageProgress } from '../components/about/PageProgress'
 import { Stats } from '../components/about/Stats'
-import { Live, Reveal } from '../components/about/Reveal'
+import { Reveal } from '../components/about/Reveal'
 import { REPO_URL } from '../config/site'
 import { useDict, useT } from '../i18n'
 
@@ -23,8 +21,6 @@ export default function About() {
 
   return (
     <article className="overflow-x-clip">
-      <PageProgress />
-
       {/* portada: la misma foto antes y después, con el ahorro real a la vista */}
       <header className="relative">
         <div
@@ -38,10 +34,10 @@ export default function About() {
         <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-4 pb-20 pt-14 sm:px-6 sm:pt-20 lg:grid-cols-[0.9fr_1.1fr]">
           <div>
             <h1 className="rise font-display text-5xl font-extrabold leading-[1.02] sm:text-6xl">{a.title}</h1>
-            <p className="rise mt-5 max-w-md text-lg leading-relaxed text-muted" style={{ animationDelay: '90ms' }}>
+            <p className="rise mt-5 max-w-md text-lg leading-relaxed text-muted" style={{ animationDelay: '140ms' }}>
               {a.lead}
             </p>
-            <div className="rise mt-8 flex flex-wrap gap-3" style={{ animationDelay: '180ms' }}>
+            <div className="rise mt-8 flex flex-wrap gap-3" style={{ animationDelay: '280ms' }}>
               <Link to="/" className="btn-primary h-12 px-6">
                 {a.cta} <ArrowRight size={18} />
               </Link>
@@ -50,7 +46,7 @@ export default function About() {
               </a>
             </div>
           </div>
-          <div className="rise" style={{ animationDelay: '150ms' }}>
+          <div className="rise" style={{ animationDelay: '420ms' }}>
             <CompareDemo />
             <p className="mt-9 text-center text-xs text-muted">{a.compare.drag}</p>
           </div>
@@ -63,7 +59,7 @@ export default function About() {
         </Reveal>
       </div>
 
-      <ScrollStory />
+      <QualityStory />
 
       <div className="mx-auto max-w-6xl space-y-28 px-4 pb-8 pt-10 sm:px-6">
         <section id="como-funciona" className="scroll-mt-24">
@@ -71,7 +67,7 @@ export default function About() {
             <h2 className={h2}>{a.how.title}</h2>
             <p className="mt-3 max-w-xl text-muted">{a.how.hint}</p>
           </Reveal>
-          <Reveal className="mt-8" delay={80}>
+          <Reveal className="mt-8" delay={160}>
             <HowItWorks />
           </Reveal>
         </section>
@@ -98,22 +94,11 @@ export default function About() {
           </div>
         </section>
 
-        <section id="privacidad" className="scroll-mt-24">
-          <Reveal>
-            <h2 className={h2}>{a.privacy.title}</h2>
-          </Reveal>
-          <Reveal className="mt-8" delay={80}>
-            <Live>
-              <PrivacyDiagram />
-            </Live>
-          </Reveal>
-        </section>
-
         <section id="faq" className="mx-auto max-w-3xl scroll-mt-24">
           <Reveal>
             <h2 className={h2}>{a.faq.title}</h2>
           </Reveal>
-          <Reveal className="mt-8" delay={80}>
+          <Reveal className="mt-8" delay={160}>
             <Faq />
           </Reveal>
         </section>

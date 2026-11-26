@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { ChevronDown } from 'lucide-react'
 import { Collapse } from '../Collapse'
+import { Reveal } from './Reveal'
 import { useDict } from '../../i18n'
 
 /** preguntas que se abren deslizando; solo una a la vez para que la página no crezca sin control */
@@ -12,7 +13,7 @@ export function Faq() {
       {pages.about.faq.items.map((it, i) => {
         const on = open === i
         return (
-          <div key={it.q}>
+          <Reveal key={it.q} delay={i * 120}>
             <button
               onClick={() => setOpen(on ? null : i)}
               aria-expanded={on}
@@ -24,7 +25,7 @@ export function Faq() {
             <Collapse open={on}>
               <p className="px-5 pb-5 leading-relaxed text-muted sm:px-6">{it.a}</p>
             </Collapse>
-          </div>
+          </Reveal>
         )
       })}
     </div>

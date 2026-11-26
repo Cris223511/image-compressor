@@ -4,6 +4,8 @@ export default {
   darkMode: ['class', '[data-theme="dark"]'],
   theme: {
     extend: {
+      // ningún cambio al pasar el cursor dura menos de 300 ms
+      transitionDuration: { DEFAULT: '300ms', 150: '300ms', 200: '300ms' },
       colors: {
         bg: 'rgb(var(--bg) / <alpha-value>)',
         surface: 'rgb(var(--surface) / <alpha-value>)',

@@ -119,8 +119,10 @@ export const Thumb = memo(function Thumb({ item }: { item: Item }) {
 
   return (
     <span className="checker relative grid h-10 w-10 shrink-0 place-items-center overflow-hidden rounded-lg border border-line">
-      {state === 'fail' && <FileImage size={18} className="text-muted" />}
-      {state === 'loading' && <span className="h-full w-full animate-pulse bg-sunken" />}
+      {state === 'fail' && <FileImage size={18} className="fade-in text-muted" />}
+      <span
+        className={`absolute inset-0 animate-pulse bg-sunken transition-opacity duration-500 ${state === 'loading' ? 'opacity-100' : 'opacity-0'}`}
+      />
       <canvas
         ref={canvas}
         className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${state === 'ready' ? 'opacity-100' : 'opacity-0'}`}
