@@ -2,6 +2,7 @@
 // compresión y qué resultado dio cada una. la sesión se guarda en el navegador (ver
 // lib/persist.ts) para que recargar, retroceder o cerrar la pestaña no pierda nada.
 
+import { reportCompressed } from '../lib/stats'
 import { create } from 'zustand'
 import { CompressionPool } from '../lib/compress/pool'
 import type { ErrorCode, ResultNote, Source } from '../lib/compress/types'
@@ -235,6 +236,8 @@ export const useWorkspace = create<WorkspaceState>((set, get) => ({
     // un carril de más mantiene ocupados a los workers mientras otro espera a gifsicle
     await Promise.all(Array.from({ length: p.lanes }, lane))
     if (abort === ctl) abort = null
+    // al terminar o cancelar se suma al contador global lo que realmente se redujo
+    reportCompressed(todo.filter((id) => get().items[id]?.status === 'done').length)
     // si se vació la sesión mientras corría, no se pisa ese estado; al cancelar queda lista para seguir
     if (get().phase === 'running') set({ phase: ctl.signal.aborted ? 'ready' : 'done' })
   },

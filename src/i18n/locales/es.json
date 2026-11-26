@@ -307,7 +307,8 @@
         },
         {
           "value": "0",
-          "label": "archivos subidos"
+          "label": "imágenes comprimidas",
+          "live": true
         },
         {
           "value": "7",
@@ -415,7 +416,7 @@
           },
           {
             "q": "¿Se envían mis archivos a algún servidor?",
-            "a": "No. Todo el procesamiento se realiza en tu propio navegador. Ningún archivo se envía a un servidor y no se necesita una cuenta."
+            "a": "No. Todo el procesamiento se realiza en tu propio navegador. Ningún archivo se envía a un servidor y no se necesita una cuenta. Lo único que se envía, al terminar una compresión, es la cantidad de imágenes reducidas, para el contador global de la página Nosotros."
           },
           {
             "q": "¿Qué ocurre si recargo la página o cierro la pestaña?",
@@ -447,6 +448,12 @@
           "h": "Almacenamiento en el navegador",
           "p": [
             "Squeezo utiliza el almacenamiento del navegador para guardar la sesión de trabajo, las preferencias elegidas (idioma, tema y ajustes de compresión). Estos datos no salen del equipo, no se asocian a ninguna identidad y pueden eliminarse en cualquier momento con el botón «Vaciar» o desde la configuración del navegador."
+          ]
+        },
+        {
+          "h": "Contador global",
+          "p": [
+            "Squeezo mantiene un contador con el total de imágenes comprimidas por todas las personas que lo usan, y la cifra se muestra en la página Nosotros. Al terminar una compresión, el navegador envía únicamente la cantidad de imágenes reducidas, sin archivos, nombres ni contenido. Para evitar abusos, la dirección IP se convierte en una huella abreviada que se conserva durante un minuto y después se elimina. El contador se almacena en Upstash, un servicio de bases de datos que se utiliza a través de Vercel."
           ]
         },
         {

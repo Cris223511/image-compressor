@@ -52,7 +52,7 @@ It is meant for anyone with a heavy folder of photos, screenshots or designs who
 
 ## Security and privacy
 
-> **Your images are processed entirely on your computer.** Nothing is uploaded to any server. There are no accounts, no tracking and no analytics.
+> **Your images are processed entirely on your computer.** Nothing is uploaded to any server. There are no accounts, no tracking and no analytics. The only thing sent, when a compression finishes, is the number of images reduced, for the global counter on the About page.
 
 Since the site accepts any file, these measures are in place:
 
@@ -73,7 +73,7 @@ Since the site accepts any file, these measures are in place:
 | Compression | [jSquash](https://github.com/jamsinclair/jSquash) (MozJPEG, OxiPNG, WebP, AVIF), [SVGO](https://svgo.dev/) and [Gifsicle](https://www.lcdf.org/gifsicle/) | The codecs, compiled to WebAssembly |
 | Parallelism | Web Workers | Compress several images at once without freezing the page |
 | Zip files | [fflate](https://github.com/101arrowz/fflate) | Read and create zips without loading them fully into memory |
-| Deployment | [Vercel](https://vercel.com/) | Static site, no server of its own |
+| Deployment | [Vercel](https://vercel.com/) | Static site with one function for the global counter (Upstash Redis) |
 
 ## Run locally
 

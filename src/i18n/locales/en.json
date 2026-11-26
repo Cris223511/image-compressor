@@ -307,7 +307,8 @@
         },
         {
           "value": "0",
-          "label": "files uploaded"
+          "label": "images compressed",
+          "live": true
         },
         {
           "value": "7",
@@ -415,7 +416,7 @@
           },
           {
             "q": "Are my files sent to any server?",
-            "a": "No. All processing takes place in your own browser. No file is sent to a server and no account is needed."
+            "a": "No. All processing takes place in your own browser. No file is sent to a server and no account is needed. The only thing sent, when a compression finishes, is the number of images reduced, for the global counter on the About page."
           },
           {
             "q": "What happens if I reload the page or close the tab?",
@@ -447,6 +448,12 @@
           "h": "Storage in the browser",
           "p": [
             "Squeezo uses the browser's storage to save the working session, the chosen preferences (language, theme and compression settings). This data does not leave the device, is not tied to any identity and can be deleted at any time with the \"Clear\" button or from the browser settings."
+          ]
+        },
+        {
+          "h": "Global counter",
+          "p": [
+            "Squeezo keeps a counter with the total number of images compressed by everyone who uses it, and the figure is shown on the About page. When a compression finishes, the browser sends only the number of images reduced, with no files, names or content. To prevent abuse, the IP address is converted into a short fingerprint that is kept for one minute and then deleted. The counter is stored in Upstash, a database service used through Vercel."
           ]
         },
         {

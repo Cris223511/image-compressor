@@ -52,7 +52,7 @@ Sirve para quien tiene una carpeta pesada de fotos, capturas o diseños y necesi
 
 ## Seguridad y privacidad
 
-> **Tus imágenes se procesan por completo en tu equipo.** Nada se sube a ningún servidor. No hay cuentas, ni seguimiento, ni analítica.
+> **Tus imágenes se procesan por completo en tu equipo.** Nada se sube a ningún servidor. No hay cuentas, ni seguimiento, ni analítica. Lo único que se envía, al terminar una compresión, es la cantidad de imágenes reducidas, para el contador global de la página Nosotros.
 
 Al ser un sitio abierto a cualquier archivo, se toman estas medidas:
 
@@ -73,7 +73,7 @@ Al ser un sitio abierto a cualquier archivo, se toman estas medidas:
 | Compresión | [jSquash](https://github.com/jamsinclair/jSquash) (MozJPEG, OxiPNG, WebP, AVIF), [SVGO](https://svgo.dev/) y [Gifsicle](https://www.lcdf.org/gifsicle/) | Los códecs, compilados a WebAssembly |
 | Paralelismo | Web Workers | Comprimir varias imágenes a la vez sin congelar la página |
 | Archivos zip | [fflate](https://github.com/101arrowz/fflate) | Leer y crear zips sin cargarlos enteros en memoria |
-| Despliegue | [Vercel](https://vercel.com/) | Sitio estático, sin servidor propio |
+| Despliegue | [Vercel](https://vercel.com/) | Sitio estático con una función para el contador global (Upstash Redis) |
 
 ## Ejecutar en local
 
