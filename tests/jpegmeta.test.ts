@@ -12,7 +12,7 @@ function exif(orientation: number): Uint8Array {
   return bytes(0xff, 0xe1, len >> 8, len & 255, ...body)
 }
 
-/** un jpg diminuto: SOI, JFIF, los segmentos pedidos, una tabla y el inicio del escaneo */
+/** un jpg diminuto que lleva SOI, JFIF, los segmentos pedidos, una tabla y el inicio del escaneo */
 function jpeg(...segments: Uint8Array[]): Uint8Array {
   const jfif = bytes(0xff, 0xe0, 0, 6, 0, 0, 0, 0)
   const tail = bytes(0xff, 0xdb, 0, 4, 0, 1, 0xff, 0xda, 0, 4, 1, 2, 9, 9, 0xff, 0xd9)
@@ -36,7 +36,7 @@ describe('stripJpegMetaLossless', () => {
     const input = jpeg(exif(1), comment)
     const out = stripJpegMetaLossless(input)!
     expect(out.length).toBeLessThan(input.length)
-    // sigue siendo un jpg: empieza con SOI, conserva el jfif y termina con EOI
+    // sigue siendo un jpg, ya que empieza con SOI, conserva el jfif y termina con EOI
     expect([...out.slice(0, 4)]).toEqual([0xff, 0xd8, 0xff, 0xe0])
     expect([...out.slice(-2)]).toEqual([0xff, 0xd9])
     // y ya no queda ningún segmento APP1 ni comentario

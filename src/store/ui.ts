@@ -8,9 +8,9 @@ function readTheme(): Theme {
     const t = localStorage.getItem('squeezo-theme')
     if (t === 'light' || t === 'dark') return t
   } catch {
-    /* sin almacenamiento, se usa la preferencia del sistema */
+    /* sin almacenamiento se usa el tema claro */
   }
-  return matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+  return 'light'
 }
 
 function readLang(): Lang {

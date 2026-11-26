@@ -40,7 +40,7 @@ describe('similarity', () => {
 })
 
 describe('searchQuality', () => {
-  // la similitud sube con la calidad: se espera la calidad mínima que alcance el objetivo
+  // la similitud sube con la calidad, así que se espera la calidad mínima que alcance el objetivo
   const score = (q: number) => 0.5 + q / 200
 
   it('encuentra la calidad mínima que cumple el umbral en pocas pruebas', async () => {

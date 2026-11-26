@@ -1,6 +1,6 @@
 // motor de compresión. corre dentro de un web worker, así que nunca toca el DOM.
-// la regla de oro: el resultado nunca puede ser peor que el original. si no se logra reducir
-// el peso sin que se note, el archivo original se conserva tal cual.
+// la regla de oro es que el resultado nunca sea peor que el original, de modo que si no se logra
+// reducir el peso sin que se note, el archivo original se conserva tal cual.
 
 import { MAX_PIXELS } from '../../config/limits'
 import {
@@ -116,7 +116,7 @@ async function decodeBitmap(
       premultiplyAlpha: 'none',
     })
   } catch {
-    // tiff y heic no los decodifica todo navegador: se avisa con claridad en vez de fallar a ciegas
+    // tiff y heic no los decodifica todo navegador, así que se avisa con claridad en vez de fallar a ciegas
     const kind = sniffKind(bytes)
     throw kind === 'tiff' || kind === 'heic' ? new JobError('unsupported', kind) : new JobError('decode')
   }
@@ -135,7 +135,7 @@ async function decodeBitmap(
   const ctx = canvas.getContext('2d', { willReadFrequently: true })!
   ctx.imageSmoothingQuality = 'high'
   if (opts.flatten) {
-    // el jpg no tiene transparencia: se rellena de blanco para que no quede negro
+    // el jpg no admite transparencia, por eso se rellena de blanco para que no quede negro
     ctx.fillStyle = '#ffffff'
     ctx.fillRect(0, 0, w, h)
   }
@@ -199,7 +199,7 @@ function buildMosaic(src: ImageData): ImageData {
   }
   if (cells.length === 0) return src
 
-  // dos recortes con mucho detalle y dos de detalle medio: lo difícil y lo típico
+  // dos recortes con mucho detalle y dos de detalle medio, para cubrir tanto lo difícil como lo típico
   cells.sort((a, b) => b.v - a.v)
   const pick = new Set<number>([0, Math.min(1, cells.length - 1)])
   const mid = Math.floor(cells.length / 2)
@@ -222,9 +222,9 @@ function buildMosaic(src: ImageData): ImageData {
 }
 
 /**
- * busca la calidad más baja que sigue superando la similitud exigida. la similitud sube de
- * forma casi lineal con la calidad, así que se interpola entre un punto que pasa y uno que
- * falla en lugar de partir siempre por la mitad: suele bastar con tres o cuatro pruebas.
+ * busca la calidad más baja que sigue superando la similitud exigida. como la similitud sube de
+ * forma casi lineal con la calidad, se interpola entre un punto que pasa y uno que falla en lugar
+ * de partir siempre por la mitad, y así suelen bastar tres o cuatro pruebas.
  */
 export async function searchQuality(
   probe: (q: number) => Promise<number>,
@@ -307,7 +307,7 @@ async function encodeToTarget(
   range: { lo: number; hi: number; start: number; iters: number },
 ): Promise<Candidate | null> {
   const mosaic = buildMosaic(src)
-  // en imágenes pequeñas el mosaico es la imagen entera: lo medido en la búsqueda ya vale
+  // en imágenes pequeñas el mosaico es la imagen entera, así que lo medido en la búsqueda ya vale
   const whole = mosaic === src
   const tried = new Map<number, Candidate>()
   const probe = async (q: number) => {
@@ -318,7 +318,7 @@ async function encodeToTarget(
   let q = await searchQuality(probe, target, range.lo, range.hi, range.start, range.iters)
   if (q === null) return null
 
-  // la imagen completa manda: si el mosaico fue demasiado optimista se sube la calidad de a poco
+  // la imagen completa manda, por eso si el mosaico fue demasiado optimista se sube la calidad de a poco
   for (let attempt = 0; attempt < 3; attempt++) {
     const cand = tried.get(q) ?? (await measure(src, mime, enc, q))
     if (cand.score >= target - 0.002) return cand
@@ -329,7 +329,7 @@ async function encodeToTarget(
 }
 
 // ---------------------------------------------------------------------------------------
-// metadatos jpg: se copian exif y perfil de color del original cuando el usuario lo pide
+// metadatos de los jpg, que se copian del original cuando el usuario pide conservar el exif y el perfil de color
 
 function extractJpegMeta(b: Uint8Array): Uint8Array[] {
   const segs: Uint8Array[] = []
@@ -364,7 +364,7 @@ export function exifOrientation(seg: Uint8Array): number {
 /**
  * quita de un jpg el exif, los datos de iptc y los comentarios sin recomprimir (los píxeles
  * quedan idénticos). si la foto depende de la orientación del exif para verse derecha no se
- * toca, porque quitarla la giraría; devuelve null en ese caso.
+ * toca porque quitarla la giraría, y en ese caso devuelve null.
  */
 export function stripJpegMetaLossless(b: Uint8Array): Uint8Array | null {
   const parts: Uint8Array[] = [b.subarray(0, 2)]
@@ -416,7 +416,7 @@ function injectJpegMeta(out: Uint8Array, meta: Uint8Array[]): Uint8Array {
 }
 
 // ---------------------------------------------------------------------------------------
-// imágenes de píxeles: jpg, png, webp, avif y los formatos que se convierten
+// imágenes de píxeles, que incluyen jpg, png, webp, avif y los formatos que se convierten
 
 /** quita de un png los bloques que guardan texto, fecha y datos exif (la ubicación suele ir ahí) */
 function stripPngChunks(b: Uint8Array): Uint8Array {
@@ -447,7 +447,7 @@ function stripPngChunks(b: Uint8Array): Uint8Array {
 async function quantizePng(bytes: Uint8Array, dims: Dimensions | null, s: Settings): Promise<Uint8Array | null> {
   if (!dims || dims.width * dims.height > 16_000_000) return null
   const src = await decodeBitmap(bytes, 'image/png', { maxSide: 0, flatten: false, keepOrientation: false })
-  // una paleta se juzga con un umbral propio: es la reducción que hacen todos los compresores de png
+  // una paleta se juzga con un umbral propio, ya que es la reducción que hacen todos los compresores de png
   const target = s.mode === 'max' ? 0.86 : 0.9
   const UPNG = (await import('upng-js')).default
   const png = new Uint8Array(UPNG.encode([src.data.buffer as ArrayBuffer], src.width, src.height, s.mode === 'max' ? 128 : 256))
@@ -455,11 +455,38 @@ async function quantizePng(bytes: Uint8Array, dims: Dimensions | null, s: Settin
   return optimisePng(toArrayBuffer(png), s)
 }
 
-/** optimiza un png sin tocar píxeles; los modos más fuertes prueban más combinaciones */
-async function optimisePng(buf: ArrayBuffer, s: Settings): Promise<Uint8Array> {
+/** optimiza un png sin tocar píxeles, y los modos más fuertes prueban más combinaciones */
+export async function optimisePng(buf: ArrayBuffer, s: Settings): Promise<Uint8Array> {
   const { optimise } = await import('@jsquash/oxipng')
   const level = s.mode === 'max' ? 5 : s.mode === 'recommended' ? 3 : 2
   return new Uint8Array(await optimise(buf, { level, interlace: false, optimiseAlpha: true }))
+}
+
+/**
+ * optimiza el png en un worker aparte para aprovechar otro núcleo. si no se puede crear el worker
+ * o falla, se hace en este mismo hilo y el resultado no cambia.
+ */
+function optimisePngAside(buf: ArrayBuffer, s: Settings): Promise<Uint8Array> {
+  const here = () => optimisePng(buf, s)
+  if (typeof Worker === 'undefined' || (navigator.hardwareConcurrency || 1) < 4) return here()
+  return new Promise<Uint8Array>((resolve) => {
+    let worker: Worker
+    try {
+      worker = new Worker(new URL('./pngWorker.ts', import.meta.url), { type: 'module' })
+    } catch {
+      resolve(here())
+      return
+    }
+    worker.onmessage = (e: MessageEvent<ArrayBuffer>) => {
+      worker.terminate()
+      resolve(new Uint8Array(e.data))
+    }
+    worker.onerror = () => {
+      worker.terminate()
+      resolve(here())
+    }
+    worker.postMessage({ buf: buf.slice(0), settings: s }, [])
+  })
 }
 
 async function compressRaster(
@@ -474,9 +501,14 @@ async function compressRaster(
 
   // un png que sigue siendo png sin cambiar de tamaño se optimiza sin tocar un solo píxel
   if (kind === 'png' && out === 'png' && !resizing) {
-    const lossless = await optimisePng(toArrayBuffer(stripPngChunks(bytes)), s)
+    const stripped = toArrayBuffer(stripPngChunks(bytes))
+    // antes las dos pasadas iban una tras otra, y se deja a mano por si hay que volver a ese orden
+    // const lossless = await optimisePng(stripped, s)
+    // la pasada sin pérdida corre en un worker auxiliar mientras aquí se prepara la paleta, y el resultado es el mismo
+    const losslessJob = optimisePngAside(stripped, s)
     // salvo en calidad alta, un png con muchos colores se reduce a una paleta si no se nota la diferencia
     const reduced = s.mode === 'high' ? null : await quantizePng(bytes, dims, s)
+    const lossless = await losslessJob
     const best = reduced && reduced.length < lossless.length ? reduced : lossless
     return finish(bytes, kind, 'png', best, dims, { converted: false })
   }
@@ -588,7 +620,7 @@ function finish(
 }
 
 // ---------------------------------------------------------------------------------------
-// svg: se optimiza como texto y de paso se limpia de todo lo que pueda ejecutar código
+// los svg se optimizan como texto y de paso se limpian de todo lo que pueda ejecutar código
 
 async function compressSvg(bytes: Uint8Array, s: Settings): Promise<Omit<Ok, 'id'>> {
   const { optimize } = await import('svgo/browser')

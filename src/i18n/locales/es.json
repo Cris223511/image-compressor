@@ -76,7 +76,9 @@
     "remove": "Eliminar",
     "removeFolder": "Eliminar carpeta",
     "confirm": "Confirmar",
-    "reorder": "Arrastrar para cambiar el orden"
+    "reorder": "Arrastrar para cambiar el orden",
+    "notSaved": "Tu progreso no se guarda al recargar la página.",
+    "notSavedLink": "Cambiar preferencias"
   },
   "status": {
     "processing": "Comprimiendo",
@@ -206,6 +208,7 @@
         "links": [
           "Privacidad",
           "Términos",
+          "Cookies",
           "Licencia MIT"
         ]
       },
@@ -420,11 +423,11 @@
           },
           {
             "q": "¿Se envían mis archivos a algún servidor?",
-            "a": "No. Todo el procesamiento se realiza en tu propio navegador. Ningún archivo se envía a un servidor y no se necesita una cuenta. Lo único que se envía, al terminar una compresión, es la cantidad de imágenes reducidas, para el contador global de la página Nosotros."
+            "a": "No. Todo el procesamiento se realiza en tu propio navegador. Ningún archivo se envía a un servidor y no se necesita una cuenta. Lo único que puede enviarse, y solo si lo permites en las preferencias de cookies, es la cantidad de imágenes reducidas al terminar una compresión, para el contador global de la página Nosotros."
           },
           {
             "q": "¿Qué ocurre si recargo la página o cierro la pestaña?",
-            "a": "El progreso se conserva. La sesión se guarda en el navegador y, al volver, se recupera tal como estaba, incluso si había una compresión a medias, que se retoma automáticamente. El botón «Vaciar» elimina esos datos."
+            "a": "Depende de las preferencias de cookies. Si permites guardar la sesión de trabajo, el progreso se conserva y, al volver, se recupera tal como estaba, incluso si había una compresión a medias, que se retoma automáticamente. Si no lo permites, los archivos y los resultados se pierden al recargar. El botón «Vaciar» elimina los datos guardados en cualquier caso."
           },
           {
             "q": "¿Se conservan los datos de la cámara y la ubicación?",
@@ -495,12 +498,12 @@
         {
           "h": "Almacenamiento en el navegador",
           "p": [
-            "Squeezo utiliza el almacenamiento del propio navegador para que el trabajo no se pierda al recargar la página. Concretamente, se guarda:",
+            "Squeezo utiliza el almacenamiento del propio navegador para que el trabajo no se pierda al recargar la página. Lo que se guarda depende de los permisos que la persona conceda en las preferencias de cookies:",
             {
               "ul": [
-                "la sesión de trabajo, es decir, los archivos añadidos y los resultados, en la base de datos del navegador (IndexedDB);",
-                "las preferencias de idioma y de tema, en el almacenamiento local;",
-                "los ajustes de compresión elegidos, también en el almacenamiento local."
+                "siempre, el idioma, el tema y la decisión sobre las cookies, en el almacenamiento local;",
+                "solo con permiso, los ajustes de compresión, en el almacenamiento local;",
+                "solo con permiso, la sesión de trabajo, es decir, los archivos añadidos y los resultados, en la base de datos del navegador (IndexedDB)."
               ]
             },
             "Estos datos no salen del equipo, no se asocian a ninguna identidad y no se comparten con ningún servidor."
@@ -509,9 +512,10 @@
         {
           "h": "Cómo eliminar los datos guardados",
           "p": [
-            "El usuario puede borrar en cualquier momento lo que Squeezo guarda en su navegador, de tres maneras:",
+            "El usuario puede borrar en cualquier momento lo que Squeezo guarda en su navegador, de cuatro maneras:",
             {
               "ol": [
+                "retirando los permisos en la página de cookies, lo que elimina de inmediato los datos asociados a cada uno;",
                 "pulsando el botón «Vaciar» en la lista de archivos, que elimina la sesión de trabajo;",
                 "borrando los datos del sitio desde la configuración del navegador, que elimina además las preferencias;",
                 "utilizando una ventana privada o de incógnito, en la que nada se conserva al cerrarla."
@@ -523,7 +527,7 @@
         {
           "h": "Contador global",
           "p": [
-            "Squeezo muestra en la página Nosotros el total de imágenes comprimidas por todas las personas que lo utilizan. Para mantener esa cifra, al terminar una compresión el navegador envía a un servidor un único dato: la cantidad de imágenes reducidas.",
+            "Squeezo muestra en la página Nosotros el total de imágenes comprimidas por todas las personas que lo utilizan. Para mantener esa cifra, y solo si el usuario lo permite en las preferencias de cookies, el navegador envía a un servidor un único dato al terminar una compresión: la cantidad de imágenes reducidas.",
             {
               "sub": "Qué se envía y qué se guarda"
             },
@@ -551,8 +555,8 @@
         {
           "h": "Cookies y tecnologías similares",
           "p": [
-            "Squeezo no instala cookies. Las únicas tecnologías de almacenamiento que utiliza son el almacenamiento local y la base de datos del navegador, y solo para el funcionamiento descrito en esta política: recordar el trabajo en curso y las preferencias del usuario.",
-            "Ninguna de ellas se emplea para identificar ni para seguir al usuario entre sitios."
+            "Squeezo no instala cookies de seguimiento ni de publicidad. Las únicas tecnologías de almacenamiento que utiliza son el almacenamiento local y la base de datos del navegador, y solo para el funcionamiento descrito en esta política.",
+            "La persona decide cuáles de ellas se activan mediante el aviso que aparece en la primera visita y la página de política de cookies, donde puede cambiar su decisión en cualquier momento. Ninguna se emplea para identificar ni para seguir al usuario entre sitios."
           ]
         },
         {
@@ -759,8 +763,8 @@
         {
           "h": "Almacenamiento en el navegador",
           "p": [
-            "Para evitar la pérdida del progreso, la sesión de trabajo se guarda en el almacenamiento del navegador del usuario, incluidos los archivos añadidos y los resultados obtenidos. Esos datos permanecen en el equipo hasta que se pulse «Vaciar» o se borren los datos del sitio desde la configuración del navegador.",
-            "En equipos compartidos o públicos se recomienda vaciar la sesión al terminar, ya que cualquier persona con acceso al mismo perfil del navegador podría ver los archivos guardados. El almacenamiento es local: no se sincroniza con otros dispositivos ni con ningún servidor."
+            "Para evitar la pérdida del progreso, y siempre que el usuario lo permita en las preferencias de cookies, la sesión de trabajo se guarda en el almacenamiento del navegador, incluidos los archivos añadidos y los resultados obtenidos. Esos datos permanecen en el equipo hasta que se retire el permiso, se pulse «Vaciar» o se borren los datos del sitio desde la configuración del navegador.",
+            "En equipos compartidos o públicos se recomienda no conceder ese permiso o vaciar la sesión al terminar, ya que cualquier persona con acceso al mismo perfil del navegador podría ver los archivos guardados. El almacenamiento es local: no se sincroniza con otros dispositivos ni con ningún servidor."
           ]
         },
         {
@@ -797,8 +801,8 @@
         {
           "h": "Contador global",
           "p": [
-            "Squeezo mantiene un contador con el total de imágenes comprimidas por todas las personas que lo utilizan, y la cifra se muestra en la página Nosotros. Al terminar una compresión, el navegador envía únicamente la cantidad de imágenes reducidas.",
-            "Al utilizar la herramienta, el usuario acepta ese envío. El detalle de los datos que intervienen figura en la política de privacidad."
+            "Squeezo mantiene un contador con el total de imágenes comprimidas por todas las personas que lo utilizan, y la cifra se muestra en la página Nosotros. Si el usuario lo permite en las preferencias de cookies, al terminar una compresión el navegador envía únicamente la cantidad de imágenes reducidas.",
+            "El envío es voluntario y puede desactivarse en cualquier momento. El detalle de los datos que intervienen figura en la política de privacidad."
           ]
         },
         {
@@ -869,6 +873,131 @@
           ]
         }
       ]
+    },
+    "cookies": {
+      "title": "Política de cookies",
+      "sections": [
+        {
+          "h": "Qué son las cookies y el almacenamiento local",
+          "p": [
+            "Las cookies son pequeños archivos que un sitio web guarda en el navegador para recordar información entre visitas. El almacenamiento local y las bases de datos del navegador cumplen una función parecida y se rigen por los mismos principios.",
+            "Squeezo no instala cookies de seguimiento ni de publicidad. Para recordar determinados datos utiliza únicamente el almacenamiento local y la base de datos del navegador, y por esa razón esta página recoge todo lo que se guarda y permite decidir sobre ello."
+          ]
+        },
+        {
+          "h": "Qué utiliza Squeezo",
+          "p": [
+            {
+              "sub": "Necesario para el funcionamiento"
+            },
+            {
+              "ul": [
+                "El idioma y el tema elegidos, que se guardan en el almacenamiento local.",
+                "La decisión que se toma sobre estas preferencias, también en el almacenamiento local."
+              ]
+            },
+            {
+              "sub": "Opcional, solo con permiso"
+            },
+            {
+              "ul": [
+                "Los ajustes de compresión, guardados en el almacenamiento local.",
+                "La sesión de trabajo, es decir, los archivos añadidos y los resultados, guardada en la base de datos del navegador (IndexedDB).",
+                "El envío de la cantidad de imágenes comprimidas al contador global, que no guarda nada en el navegador."
+              ]
+            },
+            "Ningún dato de esta lista permite identificar a la persona que utiliza la herramienta."
+          ]
+        },
+        {
+          "h": "Para qué se usa cada categoría",
+          "p": [
+            {
+              "ul": [
+                "Las necesarias evitan que el idioma y el tema cambien en cada visita y permiten no repetir la pregunta sobre las cookies.",
+                "Los ajustes de compresión evitan volver a configurar la herramienta cada vez que se usa.",
+                "La sesión de trabajo evita perder el progreso al recargar la página, al retroceder o al cerrar la pestaña.",
+                "El contador global permite mostrar cuántas imágenes se han comprimido entre todas las personas que usan Squeezo."
+              ]
+            }
+          ]
+        },
+        {
+          "h": "Qué ocurre al aceptar o rechazar",
+          "p": [
+            "Al aceptar, se activan los tres permisos opcionales. Al rechazar, solo permanecen activas las necesarias, y la herramienta sigue funcionando con normalidad.",
+            {
+              "ul": [
+                "Sin permiso para los ajustes, estos vuelven a sus valores iniciales en cada visita.",
+                "Sin permiso para la sesión, los archivos y los resultados se pierden al recargar la página.",
+                "Sin permiso para el contador, no se envía ningún dato al servidor al terminar una compresión."
+              ]
+            },
+            "Si se retira un permiso que ya se había concedido, los datos que se guardaron gracias a él se eliminan en ese momento."
+          ]
+        },
+        {
+          "h": "Cómo cambiar tus preferencias",
+          "p": [
+            "Las preferencias pueden modificarse en cualquier momento de dos maneras:",
+            {
+              "ol": [
+                "Con los interruptores que aparecen al inicio de esta página, cuyos cambios se aplican de inmediato.",
+                "Borrando los datos del sitio desde la configuración del navegador, tras lo cual el aviso volverá a mostrarse en la siguiente visita."
+              ]
+            },
+            "El enlace a esta página está siempre disponible en el pie de página."
+          ]
+        },
+        {
+          "h": "Cuánto tiempo se conservan los datos",
+          "p": [
+            "Los datos guardados permanecen en el navegador hasta que la persona los elimine, ya sea desde esta página, con el botón «Vaciar» de la lista de archivos o desde la configuración del navegador. Squeezo no les asigna una fecha de caducidad.",
+            "La decisión sobre las cookies se conserva hasta que se cambie, de modo que el aviso no vuelve a aparecer después de elegir."
+          ]
+        },
+        {
+          "h": "Cookies de terceros",
+          "p": [
+            "Squeezo no incorpora cookies ni recursos de terceros. El proveedor de alojamiento puede tratar datos técnicos de cada visita conforme a su propia política, tal como se explica en la política de privacidad."
+          ]
+        },
+        {
+          "h": "Modificación de esta política",
+          "p": [
+            "Esta política puede actualizarse. La fecha de la última actualización figura al inicio de esta página, y cualquier permiso nuevo que se incorpore se pedirá de forma expresa."
+          ]
+        }
+      ]
     }
+  },
+  "cookies": {
+    "bannerTitle": "Cookies y almacenamiento",
+    "bannerText": "Squeezo no usa cookies de seguimiento ni publicidad. Guarda en tu navegador el idioma y el tema y, si lo permites, tus ajustes, tu trabajo en curso y un contador anónimo de imágenes comprimidas.",
+    "accept": "Aceptar",
+    "reject": "Rechazar",
+    "customize": "Personalizar preferencias",
+    "panelTitle": "Tus preferencias",
+    "undecided": "Todavía no has elegido. Mientras tanto, solo se guarda lo necesario.",
+    "decided": "Puedes cambiar cualquiera de estos permisos en cualquier momento. Los cambios se aplican de inmediato.",
+    "necessary": {
+      "title": "Necesarias",
+      "text": "Recuerdan el idioma, el tema y esta misma decisión. Siempre están activas."
+    },
+    "settings": {
+      "title": "Ajustes de compresión",
+      "text": "Recuerdan el nivel, el formato de salida y las demás opciones que elijas."
+    },
+    "session": {
+      "title": "Sesión de trabajo",
+      "text": "Conserva los archivos añadidos y los resultados cuando recargas la página o cierras la pestaña."
+    },
+    "counter": {
+      "title": "Contador global",
+      "text": "Suma la cantidad de imágenes que comprimes al total que se muestra en la página Nosotros."
+    },
+    "acceptAll": "Aceptar todo",
+    "rejectAll": "Rechazar opcionales",
+    "savedNote": "Preferencias guardadas"
   }
 }

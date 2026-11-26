@@ -2,7 +2,7 @@ import { FadeImg } from '../FadeImg'
 import { Reveal } from './Reveal'
 import { useDict } from '../../i18n'
 
-/** una banda con foto y datos reales encima; la foto se acerca despacio al pasar el cursor */
+/** una banda con foto y datos reales encima, donde la foto se acerca despacio al pasar el cursor */
 export function ParallaxBand() {
   const { pages } = useDict()
   const b = pages.about.band

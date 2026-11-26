@@ -7,7 +7,7 @@ import { formatBytes, formatSaved } from '../../lib/format'
 import { useCountUp } from '../../lib/useCountUp'
 import { useDict, useLocale, useT } from '../../i18n'
 
-// archivos de la demo con pesos reales: salen de comprimir estas mismas imágenes con el motor
+// archivos de la demo con pesos reales, que salen de comprimir estas mismas imágenes con el motor
 interface Demo {
   id: string
   name: string
@@ -112,7 +112,7 @@ export function HowItWorks() {
         })}
       </ol>
 
-      {/* ventana de la app: todo lo de adentro responde al cursor y al toque */}
+      {/* ventana de la app, cuyo contenido responde al cursor y al toque */}
       <div ref={stage} className="relative overflow-hidden rounded-[26px] border border-line bg-surface shadow-lift">
         <div
           aria-hidden
@@ -141,7 +141,7 @@ export function HowItWorks() {
 }
 
 // ---------------------------------------------------------------------------------------
-// paso 1: los archivos se arrastran hasta el recuadro
+// primer paso, donde los archivos se arrastran hasta el recuadro
 
 const TRAY = [
   { id: 'zip', name: 'vacaciones.zip', icon: FileArchive },
@@ -262,13 +262,13 @@ function DragChip({
         aria-label={chip.name}
         onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && absorb()}
         className="rise flex w-36 cursor-grab touch-none select-none items-center gap-2 rounded-xl border border-line bg-surface px-3 py-2.5 text-xs font-semibold shadow-card hover:shadow-lift active:cursor-grabbing"
-        // la animación de entrada solo rellena hacia atrás: si mantuviera su transformación final, pisaría la del arrastre
+        // la animación de entrada solo rellena hacia atrás, porque si mantuviera su transformación final pisaría la del arrastre
         style={{ animationDelay: `${index * 90}ms`, animationFillMode: 'backwards', willChange: 'transform' }}
         onPointerDown={(e) => {
           if (busy.current) return
           origin.current = { x: e.clientX, y: e.clientY }
           e.currentTarget.setPointerCapture(e.pointerId)
-          // mientras se arrastra no hay transición: la pieza va pegada al cursor
+          // mientras se arrastra no hay transición y la pieza va pegada al cursor
           e.currentTarget.style.transition = 'box-shadow 0.2s'
           e.currentTarget.style.zIndex = '30'
         }}
@@ -301,7 +301,7 @@ function DragChip({
 }
 
 // ---------------------------------------------------------------------------------------
-// paso 2: el árbol se marca, se pliega y se revisa de verdad
+// segundo paso, donde el árbol se marca, se pliega y se revisa de verdad
 
 function StepReview({
   selected,
@@ -419,7 +419,7 @@ function Row({ depth, dim, onClick, children }: { depth: number; dim?: boolean; 
 }
 
 // ---------------------------------------------------------------------------------------
-// paso 3: se comprime lo que quedó marcado
+// tercer paso, donde se comprime lo que quedó marcado
 
 function StepCompress({ selected }: { selected: Selection }) {
   const t = useT()

@@ -38,7 +38,7 @@ export function failure(id: string, e: unknown): Extract<JobResult, { ok: false 
   return { id, ok: false, error: 'decode', detail: e instanceof Error ? e.message : String(e) }
 }
 
-/** el buffer de una vista; solo se copia cuando la vista no abarca el buffer completo */
+/** el buffer de una vista, que solo se copia cuando no abarca el buffer completo */
 export function toArrayBuffer(u8: Uint8Array): ArrayBuffer {
   if (u8.byteOffset === 0 && u8.byteLength === u8.buffer.byteLength) return u8.buffer as ArrayBuffer
   return u8.buffer.slice(u8.byteOffset, u8.byteOffset + u8.byteLength) as ArrayBuffer

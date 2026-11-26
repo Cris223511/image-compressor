@@ -60,7 +60,7 @@ function PngVisual() {
   )
 }
 
-/** una pelota que rebota: la animación del gif se conserva */
+/** una pelota que rebota, porque la animación del gif se conserva */
 function GifVisual() {
   return (
     <div className="relative h-20 w-44 overflow-hidden rounded-xl border border-line bg-surface">

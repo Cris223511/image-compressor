@@ -5,7 +5,7 @@ import { sourceBlob } from '../lib/compress/source'
 import { readDimensions, sniffKind } from '../lib/formats'
 import type { Item } from '../store/workspace'
 
-// miniaturas perezosas: se generan solo para las filas que se ven y se guardan en una caché
+// las miniaturas se generan solo para las filas que se ven y luego se guardan en una caché
 // pequeña. las de zips obligan a descomprimir la entrada, por eso se hacen de a pocas.
 
 const SIZE = 72
@@ -32,7 +32,7 @@ async function makeThumb(item: Item): Promise<ImageBitmap | 'fail'> {
   try {
     if (item.source.kind === 'zip' && item.source.entry.size > THUMB_MAX_BYTES) return 'fail'
     const blob = await sourceBlob(item.source)
-    // el tamaño se lee de la cabecera antes de decodificar: una imagen diminuta en disco puede pedir gigas
+    // el tamaño se lee de la cabecera antes de decodificar, ya que una imagen diminuta en disco puede pedir gigas
     const head = new Uint8Array(await blob.slice(0, 131072).arrayBuffer())
     const kind = sniffKind(head)
     const dims = kind ? readDimensions(head, kind) : null

@@ -22,7 +22,7 @@ export function buildTree(entries: { id: string; path: string }[]): TreeNode[] {
   const roots: TreeNode[] = []
   const folders = new Map<string, FolderNode>()
 
-  // el orden es el de llegada: nada se reordena por nombre ni se agrupan las carpetas primero
+  // el orden es el de llegada, sin reordenar por nombre ni agrupar las carpetas primero
   for (const { id, path } of entries) {
     const parts = path.split('/')
     let siblings = roots

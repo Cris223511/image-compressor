@@ -4,6 +4,15 @@ Este documento recoge los cambios importantes de Squeezo, de la versión más re
 
 El formato sigue la convención de [Keep a Changelog](https://keepachangelog.com/es/) y el versionado es [semántico](https://semver.org/lang/es/). El primer número marca los cambios mayores, el segundo las funciones nuevas y el tercero las correcciones.
 
+## 1.0.7 (2026-11-26)
+
+- **Cookies y almacenamiento.** Un aviso sube desde la parte inferior en la primera visita, con los botones Aceptar, Rechazar y Personalizar preferencias. Lo único que siempre se guarda es el idioma, el tema y la decisión tomada. Los ajustes de compresión, la sesión de trabajo y el envío al contador global solo se activan con permiso, y al retirar un permiso se borran los datos que dependían de él.
+- **Política de cookies.** Nueva página con los interruptores de cada permiso y el detalle de lo que se guarda, para qué sirve y cuánto tiempo permanece. Tiene enlace en el pie de página, y la privacidad, los términos y las preguntas frecuentes se actualizan en consecuencia.
+- **Tema claro por defecto.** La web se abre siempre en modo claro, sin tomar el del sistema, y recuerda el modo oscuro cuando se elige.
+- **Compresión más rápida.** Se aprovechan hasta 8 núcleos en lugar de 4, los PNG ejecutan en paralelo sus dos optimizaciones y los codificadores se cargan mientras se revisa la lista. En una tanda de 24 imágenes el tiempo baja de unos 20 a unos 12 segundos, y un PNG suelto pasa de 7,3 a 4,4 segundos, con exactamente los mismos pesos de resultado.
+- **Desplazamiento.** La rueda del ratón desplaza el índice lateral de las páginas legales, y todas las barras de desplazamiento adoptan el azul de la marca.
+- **Código.** Los comentarios se reescriben con un estilo más natural y directo.
+
 ## 1.0.6 (2026-11-26)
 
 - **Términos y condiciones.** Pasan de 12 a 19 secciones, con listas, subtítulos y una lista numerada. Se añaden requisitos de uso, niveles de compresión, descarga de los resultados, medidas de seguridad, contador global, código abierto y contribuciones, y divisibilidad e interpretación.

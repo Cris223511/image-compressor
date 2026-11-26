@@ -13,7 +13,7 @@ export function formatBytes(n: number, locale: string): string {
   return `${v.toLocaleString(locale, { minimumFractionDigits: digits, maximumFractionDigits: digits })} ${units[i]}`
 }
 
-/** porcentaje ahorrado para mostrar en etiquetas: nunca marca 0% si hubo algo de ahorro */
+/** porcentaje ahorrado para etiquetas, que nunca marca 0% si hubo algo de ahorro */
 export function formatSaved(fraction: number, locale: string): string {
   return `${Math.max(1, Math.round(fraction * 100)).toLocaleString(locale)}%`
 }

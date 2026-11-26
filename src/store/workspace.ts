@@ -1,6 +1,6 @@
-// estado central de la sesión de trabajo: qué imágenes hay, cuáles están marcadas, cómo va la
-// compresión y qué resultado dio cada una. la sesión se guarda en el navegador (ver
-// lib/persist.ts) para que recargar, retroceder o cerrar la pestaña no pierda nada.
+// estado central de la sesión de trabajo, con las imágenes que hay, cuáles están marcadas, cómo va
+// la compresión y qué resultado dio cada una. la sesión se guarda en el navegador desde persist.ts
+// para que recargar, retroceder o cerrar la pestaña no haga perder nada.
 
 import { reportCompressed } from '../lib/stats'
 import { create } from 'zustand'
@@ -57,7 +57,7 @@ interface WorkspaceState {
 
   addIncoming: (incoming: Incoming[]) => Promise<void>
   setSelected: (ids: string[], value: boolean) => void
-  /** quita imágenes de la lista; las que se están comprimiendo en ese momento se respetan */
+  /** quita imágenes de la lista, pero respeta las que se están comprimiendo en ese momento */
   removeItems: (ids: string[]) => void
   /** coloca una imagen en el lugar de otra, para cambiar el orden en que se procesa y se descarga */
   moveItem: (id: string, targetId: string) => void
@@ -119,6 +119,8 @@ export const useWorkspace = create<WorkspaceState>((set, get) => ({
       // al sumar archivos nuevos tras terminar, la sesión vuelve a estar lista para comprimir
       const next: Phase = !hasAny ? 'empty' : phase === 'empty' || (phase === 'done' && res.items.length > 0) ? 'ready' : phase
       set({ items, order, skipped, phase: next })
+      // mientras se revisa la lista, los workers ya van cargando los codificadores
+      if (res.items.length) getPool().warm(res.items.length)
     } finally {
       set({ scanning: false })
     }
@@ -210,7 +212,7 @@ export const useWorkspace = create<WorkspaceState>((set, get) => ({
       set((s) => (s.items[id] ? { items: { ...s.items, [id]: { ...s.items[id], ...change } } } : s))
 
     // los trabajos arrancan en el orden en que se añadieron y pueden avanzar varios a la vez, pero sus
-    // resultados se aplican siempre en ese mismo orden: el que termina antes de tiempo espera su turno
+    // resultados se aplican siempre en ese mismo orden, de modo que el que termina antes de tiempo espera su turno
     const finished = new Map<number, () => void>()
     let nextToApply = 0
     const applyInOrder = () => {
@@ -265,10 +267,10 @@ export const useWorkspace = create<WorkspaceState>((set, get) => ({
     if (abort === ctl) abort = null
     // al terminar o cancelar se suma al contador global lo que realmente se redujo
     reportCompressed(todo.filter((id) => get().items[id]?.status === 'done').length)
-    // si se vació la sesión mientras corría, no se pisa ese estado; al cancelar queda lista para seguir
+    // si se vació la sesión mientras corría no se pisa ese estado, y al cancelar la sesión queda lista para seguir
     if (get().phase === 'running') set({ phase: ctl.signal.aborted ? 'ready' : 'done' })
   },
 }))
 
-// solo en desarrollo: deja el estado a mano en la consola para depurar y probar
+// solo en desarrollo, para dejar el estado a mano en la consola y poder depurar y probar
 if (import.meta.env.DEV) (window as unknown as { __ws: typeof useWorkspace }).__ws = useWorkspace

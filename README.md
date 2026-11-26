@@ -52,7 +52,7 @@ Sirve para quien tiene una carpeta pesada de fotos, capturas o diseños y necesi
 
 ## Seguridad y privacidad
 
-> **Tus imágenes se procesan por completo en tu equipo.** Nada se sube a ningún servidor. No hay cuentas, ni seguimiento, ni analítica. Lo único que se envía, al terminar una compresión, es la cantidad de imágenes reducidas, para el contador global de la página Nosotros.
+> **Tus imágenes se procesan por completo en tu equipo.** Nada se sube a ningún servidor. No hay cuentas, ni seguimiento, ni analítica. Lo único que puede enviarse, y solo si lo permites en las preferencias de cookies, es la cantidad de imágenes reducidas al terminar una compresión, para el contador global de la página Nosotros.
 
 Al ser un sitio abierto a cualquier archivo, se toman estas medidas:
 

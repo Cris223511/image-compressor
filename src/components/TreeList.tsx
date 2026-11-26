@@ -25,7 +25,7 @@ export function TreeList({ tree, onCompare }: { tree: TreeNode[]; onCompare: (id
   const locked = useWorkspace((s) => s.phase === 'running')
   const moveItem = useWorkspace((s) => s.moveItem)
 
-  // arrastre para reordenar: solo entre archivos de una misma carpeta, y mientras no se esté comprimiendo
+  // el arrastre para reordenar solo se permite entre archivos de una misma carpeta y mientras no se esté comprimiendo
   const [drag, setDrag] = useState<{ id: string; over: string | null } | null>(null)
   const startDrag = useCallback(
     (e: React.PointerEvent, id: string) => {
@@ -82,7 +82,7 @@ export function TreeList({ tree, onCompare }: { tree: TreeNode[]; onCompare: (id
     [moveItem],
   )
 
-  // dónde se marca que caerá lo arrastrado: debajo de la fila si baja, encima si sube
+  // la marca de dónde caerá lo arrastrado queda debajo de la fila si baja y encima si sube
   const order = useWorkspace((s) => s.order)
   const dropSide = (id: string): 'above' | 'below' | null => {
     if (!drag || drag.over !== id) return null

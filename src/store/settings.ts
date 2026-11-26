@@ -1,5 +1,6 @@
 import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
+import { createJSONStorage, persist } from 'zustand/middleware'
+import { useConsent } from './consent'
 import { DEFAULT_SETTINGS, type Settings } from '../lib/compress/types'
 
 interface SettingsState {
@@ -8,7 +9,15 @@ interface SettingsState {
   reset: () => void
 }
 
-// los ajustes se recuerdan entre visitas; todo parte apagado salvo la compresión sin pérdida visible
+// los ajustes se recuerdan entre visitas solo si la persona lo permitió en las preferencias de cookies
+const gatedStorage = {
+  getItem: (key: string) => localStorage.getItem(key),
+  setItem: (key: string, value: string) => {
+    if (useConsent.getState().settings) localStorage.setItem(key, value)
+  },
+  removeItem: (key: string) => localStorage.removeItem(key),
+}
+
 export const useSettings = create<SettingsState>()(
   persist(
     (set) => ({
@@ -18,7 +27,8 @@ export const useSettings = create<SettingsState>()(
     }),
     {
       name: 'squeezo-settings',
-      // la versión 2 renombró los niveles de compresión: lo guardado antes vuelve al valor por defecto
+      storage: createJSONStorage(() => gatedStorage),
+      // la versión 2 renombró los niveles de compresión, por eso lo guardado antes vuelve al valor por defecto
       version: 2,
       migrate: () => ({ settings: DEFAULT_SETTINGS }) as never,
     },

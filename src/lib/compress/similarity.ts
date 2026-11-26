@@ -1,12 +1,12 @@
 // mide cuánto se parece una imagen comprimida a su original con ssim calculado por bloques de
 // 8x8 sobre luminancia y los dos canales de color. no es una métrica perfecta, pero se mueve
-// parecido a lo que ve el ojo: ruido en zonas lisas, bordes borrosos y bandas de color.
+// parecido a lo que ve el ojo, como el ruido en zonas lisas, los bordes borrosos y las bandas de color.
 
 const C1 = (0.01 * 255) ** 2
 const C2 = (0.03 * 255) ** 2
 const BLOCK = 8
 
-/** tope de bloques que se evalúan; en fotos enormes se muestrea una rejilla uniforme */
+/** tope de bloques que se evalúan, y en fotos enormes se muestrea una rejilla uniforme */
 const MAX_BLOCKS = 90_000
 
 export function similarity(a: ImageData, b: ImageData): number {
@@ -30,7 +30,7 @@ export function similarity(a: ImageData, b: ImageData): number {
 
   for (let by = 0; by < bh; by += step) {
     for (let bx = 0; bx < bw; bx += step) {
-      // acumuladores de las tres bandas: media, varianza y covarianza por bloque
+      // acumuladores de media, varianza y covarianza por bloque para las tres bandas
       let ay = 0, by_ = 0, ayy = 0, byy = 0, aby = 0
       let acb = 0, bcb = 0, acbcb = 0, bcbcb = 0, abcb = 0
       let acr = 0, bcr = 0, acrcr = 0, bcrcr = 0, abcr = 0
@@ -66,7 +66,7 @@ export function similarity(a: ImageData, b: ImageData): number {
 
   const mean = (0.7 * sumY + 0.15 * sumCb + 0.15 * sumCr) / count
 
-  // la media sola esconde defectos locales: se mezcla con el peor 2% de los bloques
+  // la media sola esconde defectos locales, por eso se mezcla con el peor 2% de los bloques
   const sorted = lows.subarray(0, count).sort()
   const worstN = Math.max(1, Math.floor(count * 0.02))
   let worst = 0

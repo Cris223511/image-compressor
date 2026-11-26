@@ -1,4 +1,4 @@
-// entrada de archivos: arrastrar y soltar (con carpetas), selector de archivos y selector de
+// entrada de archivos por arrastrar y soltar (con carpetas), selector de archivos y selector de
 // carpetas. todo termina como una lista plana de archivos con su ruta relativa.
 
 import { MAX_IMAGES, MAX_SKIPPED } from '../config/limits'
@@ -63,7 +63,7 @@ export function entriesFromDataTransfer(dt: DataTransfer): { entries: FsEntry[];
 export async function walkEntries(entries: FsEntry[], files: File[]): Promise<Incoming[]> {
   let count = 0
 
-  // cada carpeta devuelve sus archivos en el orden en que el sistema los lista; las lecturas pueden
+  // cada carpeta devuelve sus archivos en el orden en que el sistema los lista, y las lecturas pueden
   // ir en paralelo, pero el resultado se arma siempre en ese mismo orden
   async function walk(entry: FsEntry, prefix: string): Promise<Incoming[]> {
     if (count > MAX_WALK) return []
@@ -75,7 +75,7 @@ export async function walkEntries(entries: FsEntry[], files: File[]): Promise<In
     if (entry.isDirectory && entry.createReader) {
       const reader = entry.createReader()
       const out: Incoming[] = []
-      // readEntries devuelve de a lotes, se repite hasta que venga vacío
+      // readEntries devuelve de a lotes, así que se repite hasta que venga vacío
       for (;;) {
         const batch = await new Promise<FsEntry[]>((ok, err) => reader.readEntries(ok, err))
         if (!batch.length) break
@@ -135,7 +135,7 @@ export async function ingest(incoming: Incoming[], usedPaths: Set<string>): Prom
     }
   }
 
-  // las cabeceras se leen por lotes en paralelo: leerlas de a una espera mil veces al disco
+  // las cabeceras se leen por lotes en paralelo, porque leerlas de a una espera mil veces al disco
   const heads: Uint8Array[] = []
   for (let i = 0; i < incoming.length; i += 24) {
     const batch = incoming.slice(i, i + 24)

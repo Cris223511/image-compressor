@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Check, Trash2, X } from 'lucide-react'
 import { useT } from '../i18n'
 
-/** botón de eliminar que pide confirmar en la misma fila: un clic pregunta y el siguiente elimina */
+/** botón de eliminar que pide confirmar en la misma fila, así un clic pregunta y el siguiente elimina */
 export function RemoveButton({ label, onConfirm, disabled }: { label: string; onConfirm: () => void; disabled?: boolean }) {
   const t = useT()
   const [asking, setAsking] = useState(false)

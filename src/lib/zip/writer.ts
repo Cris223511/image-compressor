@@ -25,7 +25,7 @@ type PickerWindow = Window & {
   }) => Promise<{ createWritable(): Promise<FsWritable> }>
 }
 
-/** abre el selector de guardado. se llama directo desde el clic para no perder el permiso */
+/** abre el selector de guardado, y se llama directo desde el clic para no perder el permiso */
 export async function openDiskTarget(suggestedName: string): Promise<FsWritable | null> {
   const w = window as PickerWindow
   if (!w.showSaveFilePicker) return null

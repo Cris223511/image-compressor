@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom'
 import App from './App'
 import './index.css'
 
-// la página aparece con un fundido cuando las tipografías están listas; si tardan demasiado se muestra igual
+// la página aparece con un fundido cuando las tipografías están listas, pero si tardan demasiado se muestra igual
 const reveal = () => document.documentElement.classList.add('ready')
 const sample = 'Menos peso. La misma imagen. áéíóúñ ¿?'
 Promise.race([

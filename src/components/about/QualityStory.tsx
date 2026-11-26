@@ -3,7 +3,7 @@ import { CheckCircle2 } from 'lucide-react'
 import { useDict } from '../../i18n'
 import { Reveal } from './Reveal'
 
-// medición real de la foto de ejemplo (3000 × 2000): calidad, peso en KB y similitud con el original
+// medición real de la foto de ejemplo (3000 × 2000) con la calidad, el peso en KB y la similitud con el original
 const DATA: readonly (readonly [number, number, number])[] = [
   [60, 570, 0.8868],
   [70, 705, 0.9092],
@@ -48,7 +48,7 @@ function interp(q: number): { kb: number; score: number } {
   return { kb: last[1], score: last[2] }
 }
 
-/** el recorrido del marcador: baja la calidad, se mide y se elige */
+/** el recorrido del marcador, donde baja la calidad, se mide y se elige */
 function markerQuality(p: number): number {
   if (p < 0.22) return Q_MAX
   if (p < 0.62) return Q_MAX - ((p - 0.22) / 0.4) * (Q_MAX - Q_MIN)
@@ -130,7 +130,7 @@ export function QualityStory() {
     const el = root.current
     if (!el) return
     const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    // cuenta como visto cuando ocupa buena parte de la pantalla; al llegar de nuevo desde fuera, vuelve a empezar
+    // cuenta como visto cuando ocupa buena parte de la pantalla, y al llegar de nuevo desde fuera vuelve a empezar
     const io = new IntersectionObserver(
       ([e]) => {
         const seen = e.intersectionRatio >= 0.55 || e.intersectionRect.height >= window.innerHeight * 0.6
@@ -228,7 +228,7 @@ export function QualityStory() {
           </ol>
         </div>
 
-        {/* escenario: la imagen, la gráfica de calidad contra peso y la verificación final */}
+        {/* escenario con la imagen, la gráfica de calidad contra peso y la verificación final */}
         <Reveal delay={120}>
           <div className="relative aspect-[4/3.1] w-full overflow-hidden rounded-[28px] border border-line bg-surface shadow-lift">
             <div ref={scanLayer} className="absolute inset-0">

@@ -43,7 +43,7 @@ export function useGlobalDrop(): boolean {
       depth = 0
       setDragging(false)
       if (!home) return
-      // las entradas de carpeta solo existen mientras dura el evento, se leen ya
+      // las entradas de carpeta solo existen mientras dura el evento, por eso se leen ya
       const { entries, files } = entriesFromDataTransfer(e.dataTransfer!)
       walkEntries(entries, files).then((incoming) => useWorkspace.getState().addIncoming(incoming))
     }

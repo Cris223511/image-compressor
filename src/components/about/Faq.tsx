@@ -3,7 +3,7 @@ import { ChevronDown } from 'lucide-react'
 import { Collapse } from '../Collapse'
 import { useDict } from '../../i18n'
 
-/** preguntas que se abren deslizando; solo una a la vez para que la página no crezca sin control */
+/** preguntas que se abren deslizando, y solo una a la vez para que la página no crezca sin control */
 export function Faq() {
   const { pages } = useDict()
   const [open, setOpen] = useState<number | null>(0)

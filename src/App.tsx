@@ -2,8 +2,10 @@ import { useEffect } from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import { Header } from './components/Header'
 import { Footer } from './components/Footer'
+import { CookieBanner } from './components/CookieBanner'
 import { DropOverlay } from './components/DropOverlay'
 import { useGlobalDrop } from './lib/useGlobalDrop'
+import { startConsentEffects } from './lib/consentEffects'
 import { restoreSession, startPersisting } from './lib/persist'
 import { scrollToTarget, scrollTopNow, startLenis } from './lib/lenis'
 import { useT } from './i18n'
@@ -26,13 +28,14 @@ export default function App() {
   }, [lang, t])
 
   useEffect(() => {
+    startConsentEffects()
     startPersisting()
     void restoreSession()
     startLenis()
   }, [])
 
   useEffect(() => {
-    // un enlace con # baja con suavidad hasta su sección; sin él, cada página parte desde arriba
+    // si el enlace trae un ancla, la página baja con suavidad hasta esa sección, y si no, parte siempre desde arriba
     const target = hash ? document.getElementById(hash.slice(1)) : null
     if (target) {
       const id = window.setTimeout(() => scrollToTarget(target), 150)
@@ -50,11 +53,13 @@ export default function App() {
           <Route path="/nosotros" element={<About />} />
           <Route path="/privacidad" element={<Legal which="privacy" />} />
           <Route path="/terminos" element={<Legal which="terms" />} />
+          <Route path="/cookies" element={<Legal which="cookies" />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
       <Footer />
       <DropOverlay show={dragging} />
+      <CookieBanner />
     </div>
   )
 }

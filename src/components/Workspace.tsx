@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useShallow } from 'zustand/react/shallow'
 import { ImagePlus, Loader2, SlidersHorizontal, Square, Trash2, TriangleAlert, Zap } from 'lucide-react'
 import { TreeList } from './TreeList'
@@ -8,6 +9,7 @@ import { SkippedPanel } from './SkippedPanel'
 import { SettingsPanel } from './SettingsPanel'
 import { ComparePanel } from './ComparePanel'
 import type { usePickers } from './usePickers'
+import { useConsent } from '../store/consent'
 import { useWorkspace } from '../store/workspace'
 import { buildTree, folderPaths } from '../lib/tree'
 import { formatBytes } from '../lib/format'
@@ -24,6 +26,7 @@ export function Workspace({ pickers }: { pickers: ReturnType<typeof usePickers> 
   const scanning = useWorkspace((s) => s.scanning)
   const skipped = useWorkspace((s) => s.skipped)
   const persistFailed = useWorkspace((s) => s.persistFailed)
+  const keepsSession = useConsent((s) => s.session)
   const run = useWorkspace((s) => s.run)
   const cancel = useWorkspace((s) => s.cancel)
   const clear = useWorkspace((s) => s.clear)
@@ -35,7 +38,7 @@ export function Workspace({ pickers }: { pickers: ReturnType<typeof usePickers> 
 
   const limitHit = skipped.some((x) => x.category === 'limit')
 
-  // los contadores se calculan en el selector: el componente solo se vuelve a pintar si cambian
+  // los contadores se calculan en el selector, así que el componente solo se vuelve a pintar cuando cambian
   const stats = useWorkspace(
     useShallow((s) => {
       let selected = 0
@@ -145,7 +148,7 @@ export function Workspace({ pickers }: { pickers: ReturnType<typeof usePickers> 
         )
       )}
 
-      {/* acción principal justo debajo de la lista: el botón de comprimir o el avance, uno sobre el otro en el mismo sitio */}
+      {/* justo debajo de la lista van el botón de comprimir y el avance, uno sobre el otro en el mismo sitio */}
       <Collapse open={hasImages && phase !== 'done'}>
         <div className="mt-5 grid pb-6" aria-live="polite">
           <div
@@ -188,8 +191,16 @@ export function Workspace({ pickers }: { pickers: ReturnType<typeof usePickers> 
 
       {skipped.length > 0 && <SkippedPanel />}
 
-      <p key={persistFailed ? 'fail' : 'ok'} className={`fade-in mt-6 text-center text-xs ${persistFailed ? 'text-warn' : 'text-muted'}`}>
-        {persistFailed ? t('work.saveFailed') : t('work.saved')}
+      <p key={persistFailed ? 'fail' : keepsSession ? 'ok' : 'off'} className={`fade-in mt-6 text-center text-xs ${persistFailed ? 'text-warn' : 'text-muted'}`}>
+        {persistFailed ? t('work.saveFailed') : keepsSession ? t('work.saved') : t('work.notSaved')}
+        {!persistFailed && !keepsSession && (
+          <>
+            {' '}
+            <Link to="/cookies" className="font-semibold text-brand underline decoration-brand/30 underline-offset-4 transition-colors hover:decoration-brand">
+              {t('work.notSavedLink')}
+            </Link>
+          </>
+        )}
       </p>
 
       <SettingsPanel open={settingsOpen} onClose={() => setSettingsOpen(false)} />

@@ -1,4 +1,4 @@
-// descargas: una imagen suelta o todo el resultado dentro de un zip con la misma estructura.
+// descarga de una imagen suelta o de todo el resultado dentro de un zip con la misma estructura.
 
 import { sourceBlob } from './compress/source'
 import { downloadBlob, openDiskTarget, writeZip, type ZipFileInput } from './zip/writer'

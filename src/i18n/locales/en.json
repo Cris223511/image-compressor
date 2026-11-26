@@ -76,7 +76,9 @@
     "remove": "Remove",
     "removeFolder": "Remove folder",
     "confirm": "Confirm",
-    "reorder": "Drag to change the order"
+    "reorder": "Drag to change the order",
+    "notSaved": "Your progress is not saved when the page is reloaded.",
+    "notSavedLink": "Change preferences"
   },
   "status": {
     "processing": "Compressing",
@@ -206,6 +208,7 @@
         "links": [
           "Privacy",
           "Terms",
+          "Cookies",
           "MIT license"
         ]
       },
@@ -420,11 +423,11 @@
           },
           {
             "q": "Are my files sent to any server?",
-            "a": "No. All processing takes place in your own browser. No file is sent to a server and no account is needed. The only thing sent, when a compression finishes, is the number of images reduced, for the global counter on the About page."
+            "a": "No. All processing takes place in your own browser. No file is sent to a server and no account is needed. The only thing that may be sent, and only if you allow it in the cookie preferences, is the number of images reduced when a compression finishes, for the global counter on the About page."
           },
           {
             "q": "What happens if I reload the page or close the tab?",
-            "a": "Your progress is kept. The session is saved in the browser and, when you return, it is restored exactly as it was, even if a compression was halfway through, which resumes automatically. The \"Clear\" button deletes that data."
+            "a": "It depends on the cookie preferences. If you allow the working session to be saved, your progress is kept and, when you return, it is restored exactly as it was, even if a compression was halfway through, which resumes automatically. If you do not allow it, the files and the results are lost when the page is reloaded. The \"Clear\" button deletes the saved data in any case."
           },
           {
             "q": "Are the camera data and the location kept?",
@@ -495,12 +498,12 @@
         {
           "h": "Storage in the browser",
           "p": [
-            "Squeezo uses the browser's own storage so that work is not lost when the page is reloaded. Specifically, it saves:",
+            "Squeezo uses the browser's own storage so that work is not lost when the page is reloaded. What is saved depends on the permissions the person grants in the cookie preferences:",
             {
               "ul": [
-                "the working session, that is, the files added and the results, in the browser's database (IndexedDB);",
-                "the language and theme preferences, in local storage;",
-                "the compression settings chosen, also in local storage."
+                "always, the language, the theme and the decision about cookies, in local storage;",
+                "only with permission, the compression settings, in local storage;",
+                "only with permission, the working session, that is, the files added and the results, in the browser's database (IndexedDB)."
               ]
             },
             "This data does not leave the device, is not tied to any identity and is not shared with any server."
@@ -509,9 +512,10 @@
         {
           "h": "How to delete the saved data",
           "p": [
-            "The user can delete what Squeezo saves in their browser at any time, in three ways:",
+            "The user can delete what Squeezo saves in their browser at any time, in four ways:",
             {
               "ol": [
+                "withdrawing the permissions on the cookie page, which immediately deletes the data tied to each one;",
                 "pressing the \"Clear\" button in the file list, which deletes the working session;",
                 "deleting the site data from the browser settings, which also deletes the preferences;",
                 "using a private or incognito window, where nothing is kept once it is closed."
@@ -523,7 +527,7 @@
         {
           "h": "Global counter",
           "p": [
-            "Squeezo shows on the About page the total number of images compressed by everyone who uses it. To keep that figure, when a compression finishes the browser sends a single piece of data to a server: the number of images reduced.",
+            "Squeezo shows on the About page the total number of images compressed by everyone who uses it. To keep that figure, and only if the user allows it in the cookie preferences, the browser sends a single piece of data to a server when a compression finishes: the number of images reduced.",
             {
               "sub": "What is sent and what is stored"
             },
@@ -551,8 +555,8 @@
         {
           "h": "Cookies and similar technologies",
           "p": [
-            "Squeezo does not install cookies. The only storage technologies it uses are local storage and the browser's database, and only for the operation described in this policy: remembering the work in progress and the user's preferences.",
-            "None of them is used to identify or follow the user across sites."
+            "Squeezo installs no tracking or advertising cookies. The only storage technologies it uses are local storage and the browser's database, and only for the operation described in this policy.",
+            "The person decides which of them are turned on through the notice shown on the first visit and the cookie policy page, where the decision can be changed at any time. None of them is used to identify or follow the user across sites."
           ]
         },
         {
@@ -759,8 +763,8 @@
         {
           "h": "Storage in the browser",
           "p": [
-            "To avoid losing progress, the working session is saved in the user's browser storage, including the files added and the results obtained. That data stays on the device until \"Clear\" is pressed or the site data is deleted from the browser settings.",
-            "On shared or public devices it is recommended to clear the session when finished, since anyone with access to the same browser profile could see the saved files. The storage is local: it is not synchronized with other devices or with any server."
+            "To avoid losing progress, and provided the user allows it in the cookie preferences, the working session is saved in the browser storage, including the files added and the results obtained. That data stays on the device until the permission is withdrawn, \"Clear\" is pressed or the site data is deleted from the browser settings.",
+            "On shared or public devices it is recommended not to grant that permission or to clear the session when finished, since anyone with access to the same browser profile could see the saved files. The storage is local: it is not synchronized with other devices or with any server."
           ]
         },
         {
@@ -797,8 +801,8 @@
         {
           "h": "Global counter",
           "p": [
-            "Squeezo keeps a counter with the total number of images compressed by everyone who uses it, and the figure is shown on the About page. When a compression finishes, the browser sends only the number of images reduced.",
-            "By using the tool, the user accepts that submission. The details of the data involved appear in the privacy policy."
+            "Squeezo keeps a counter with the total number of images compressed by everyone who uses it, and the figure is shown on the About page. If the user allows it in the cookie preferences, when a compression finishes the browser sends only the number of images reduced.",
+            "The submission is voluntary and can be turned off at any time. The details of the data involved appear in the privacy policy."
           ]
         },
         {
@@ -869,6 +873,131 @@
           ]
         }
       ]
+    },
+    "cookies": {
+      "title": "Cookie policy",
+      "sections": [
+        {
+          "h": "What cookies and local storage are",
+          "p": [
+            "Cookies are small files that a website saves in the browser to remember information between visits. Local storage and the browser's databases serve a similar purpose and are governed by the same principles.",
+            "Squeezo installs no tracking or advertising cookies. To remember certain data it uses only local storage and the browser's database, and for that reason this page lists everything that is saved and lets you decide about it."
+          ]
+        },
+        {
+          "h": "What Squeezo uses",
+          "p": [
+            {
+              "sub": "Necessary for it to work"
+            },
+            {
+              "ul": [
+                "The language and theme chosen, saved in local storage.",
+                "The decision made about these preferences, also in local storage."
+              ]
+            },
+            {
+              "sub": "Optional, only with permission"
+            },
+            {
+              "ul": [
+                "The compression settings, saved in local storage.",
+                "The working session, that is, the files added and the results, saved in the browser's database (IndexedDB).",
+                "The submission of the number of compressed images to the global counter, which saves nothing in the browser."
+              ]
+            },
+            "None of the data in this list can identify the person using the tool."
+          ]
+        },
+        {
+          "h": "What each category is used for",
+          "p": [
+            {
+              "ul": [
+                "The necessary ones keep the language and the theme from changing on every visit and avoid asking the cookie question again.",
+                "The compression settings avoid configuring the tool again every time it is used.",
+                "The working session avoids losing progress when the page is reloaded, when going back or when closing the tab.",
+                "The global counter makes it possible to show how many images have been compressed by everyone who uses Squeezo."
+              ]
+            }
+          ]
+        },
+        {
+          "h": "What happens when you accept or reject",
+          "p": [
+            "When you accept, the three optional permissions are turned on. When you reject, only the necessary ones remain active, and the tool keeps working normally.",
+            {
+              "ul": [
+                "Without permission for the settings, they return to their initial values on every visit.",
+                "Without permission for the session, the files and the results are lost when the page is reloaded.",
+                "Without permission for the counter, no data is sent to the server when a compression finishes."
+              ]
+            },
+            "If a permission that had been granted is withdrawn, the data saved thanks to it is deleted at that moment."
+          ]
+        },
+        {
+          "h": "How to change your preferences",
+          "p": [
+            "Preferences can be changed at any time in two ways:",
+            {
+              "ol": [
+                "With the switches at the top of this page, whose changes apply immediately.",
+                "By deleting the site data from the browser settings, after which the notice will be shown again on the next visit."
+              ]
+            },
+            "The link to this page is always available in the footer."
+          ]
+        },
+        {
+          "h": "How long the data is kept",
+          "p": [
+            "The saved data stays in the browser until the person deletes it, whether from this page, with the \"Clear\" button in the file list or from the browser settings. Squeezo does not assign it an expiry date.",
+            "The decision about cookies is kept until it is changed, so the notice does not appear again after choosing."
+          ]
+        },
+        {
+          "h": "Third-party cookies",
+          "p": [
+            "Squeezo includes no third-party cookies or resources. The hosting provider may process technical data about each visit under its own policy, as explained in the privacy policy."
+          ]
+        },
+        {
+          "h": "Changes to this policy",
+          "p": [
+            "This policy may be updated. The date of the latest update appears at the top of this page, and any new permission that is added will be requested expressly."
+          ]
+        }
+      ]
     }
+  },
+  "cookies": {
+    "bannerTitle": "Cookies and storage",
+    "bannerText": "Squeezo uses no tracking or advertising cookies. It saves your language and theme in your browser and, if you allow it, your settings, your work in progress and an anonymous counter of compressed images.",
+    "accept": "Accept",
+    "reject": "Reject",
+    "customize": "Customize preferences",
+    "panelTitle": "Your preferences",
+    "undecided": "You have not chosen yet. In the meantime, only what is necessary is saved.",
+    "decided": "You can change any of these permissions at any time. Changes apply immediately.",
+    "necessary": {
+      "title": "Necessary",
+      "text": "They remember the language, the theme and this very decision. They are always on."
+    },
+    "settings": {
+      "title": "Compression settings",
+      "text": "They remember the level, the output format and the other options you choose."
+    },
+    "session": {
+      "title": "Working session",
+      "text": "It keeps the added files and the results when you reload the page or close the tab."
+    },
+    "counter": {
+      "title": "Global counter",
+      "text": "It adds the number of images you compress to the total shown on the About page."
+    },
+    "acceptAll": "Accept all",
+    "rejectAll": "Reject optional",
+    "savedNote": "Preferences saved"
   }
 }

@@ -1,11 +1,11 @@
 import Lenis from 'lenis'
 
-// scroll suave con lenis, pero a medias: se nota el deslizar sin que la página se sienta lenta
+// scroll suave con lenis, pero a medias, para que se note el deslizar sin que la página se sienta lenta
 let lenis: Lenis | null = null
 let raf = 0
 let idleSince = 0
 
-// el bucle solo corre mientras hay desplazamiento y se detiene un instante después: dejarlo siempre
+// el bucle solo corre mientras hay desplazamiento y se detiene un instante después, porque dejarlo siempre
 // activo mantendría al navegador redibujando fotogramas sin necesidad
 function loop(time: number) {
   if (!lenis) return
@@ -32,7 +32,7 @@ export function startLenis() {
   wake()
 }
 
-/** baja o sube hasta un elemento (o una altura) deslizando; sin lenis usa el scroll nativo */
+/** baja o sube hasta un elemento (o una altura) deslizando, y sin lenis usa el scroll nativo */
 export function scrollToTarget(target: number | HTMLElement, offset = -88) {
   if (lenis) {
     lenis.scrollTo(target, { offset: typeof target === 'number' ? 0 : offset, duration: 1.1 })

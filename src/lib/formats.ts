@@ -1,4 +1,4 @@
-// reconocimiento de formatos: se mira el contenido real del archivo (su firma binaria) y no
+// el reconocimiento de formatos mira el contenido real del archivo (su firma binaria) y no
 // solo la extensión, porque la extensión la puede poner cualquiera.
 
 export type ImageKind = 'jpeg' | 'png' | 'webp' | 'avif' | 'gif' | 'svg' | 'bmp' | 'ico' | 'tiff' | 'heic'
@@ -108,7 +108,7 @@ export function sniffKind(b: Uint8Array): ImageKind | null {
     if (compat.includes('heic') || compat.includes('heix')) return 'heic'
     return null
   }
-  // un svg es texto: se busca la etiqueta <svg dentro del inicio, tolerando bom, xml y comentarios
+  // un svg es texto, así que se busca la etiqueta <svg dentro del inicio, tolerando bom, xml y comentarios
   const text = ascii(b, 0, Math.min(b.length, 2048)).replace(/^﻿/, '')
   if (/^\s*(<\?xml[^>]*\?>\s*)?(<!--[\s\S]*?-->\s*)*(<!DOCTYPE[^>]*>\s*)?<svg[\s>]/i.test(text)) return 'svg'
   return null
@@ -175,7 +175,7 @@ export function readDimensions(b: Uint8Array, kind: ImageKind): Dimensions | nul
       }
       case 'avif':
       case 'heic': {
-        // la caja ispe guarda el ancho y el alto; un archivo puede traer varias, así que se toma la mayor
+        // la caja ispe guarda el ancho y el alto, y como un archivo puede traer varias se toma la mayor
         const limit = Math.min(b.length - 16, 1 << 20)
         let best: Dimensions | null = null
         for (let i = 4; i < limit; i++) {

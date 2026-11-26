@@ -18,6 +18,8 @@ interface Task {
   weight: number
 }
 
+/** máximo de workers en paralelo */
+const MAX_WORKERS = 8
 /** tope de píxeles que se decodifican a la vez entre todos los workers */
 const PIXEL_BUDGET = 120_000_000
 /** lo que se supone de una imagen cuya cabecera no se puede leer, como las entradas de un zip */
@@ -31,7 +33,17 @@ export class CompressionPool {
 
   constructor() {
     const cores = navigator.hardwareConcurrency || 4
-    this.size = Math.max(1, Math.min(4, cores - 1))
+    // antes el tope era 4 sin importar los núcleos del equipo, y se deja a mano por si hay que volver a él
+    // this.size = Math.max(1, Math.min(4, cores - 1))
+    // ahora se aprovechan hasta 8 núcleos, y el presupuesto de píxeles sigue limitando la memoria
+    this.size = Math.max(1, Math.min(MAX_WORKERS, cores - 1))
+  }
+
+  /** prepara workers y codificadores mientras la persona revisa la lista, para que comprimir arranque sin esperas */
+  warm(count: number) {
+    while (this.slots.length < Math.min(count, this.size)) {
+      this.spawn().worker.postMessage({ warm: true })
+    }
   }
 
   /** cuántas imágenes conviene tener en vuelo a la vez, con uno de margen para los gif */
@@ -40,10 +52,10 @@ export class CompressionPool {
   }
 
   submit(req: JobRequest): Promise<JobResult> {
-    // gifsicle corre en el hilo principal y es lento: no debe ocupar un worker mientras tanto
+    // gifsicle gestiona su propio worker y es lento, por eso no debe ocupar uno del grupo mientras trabaja
     if (req.kind === 'gif') return runGifJob(req)
     return new Promise((resolve) => {
-      // entra a la cola de inmediato, para respetar el orden de llegada; su peso se completa más tarde
+      // entra a la cola de inmediato para respetar el orden de llegada, y su peso se completa más tarde
       const task: Task = { req, resolve, weight: DEFAULT_WEIGHT }
       this.queue.push(task)
       void this.weigh(req).then((w) => {
@@ -53,7 +65,7 @@ export class CompressionPool {
     })
   }
 
-  /** lee la cabecera del archivo para saber cuántos píxeles tendrá, sin decodificar nada */
+  /** lee la cabecera del archivo para saber cuántos píxeles tendrá */
   private async weigh(req: JobRequest): Promise<number> {
     const s = req.source
     if (s.kind === 'file') {

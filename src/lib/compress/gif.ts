@@ -1,5 +1,5 @@
 // los gif se comprimen con gifsicle compilado a wasm. corre en el hilo principal porque
-// gestiona su propio worker por dentro; por eso se hacen de uno en uno.
+// gestiona su propio worker por dentro, por eso se hacen de uno en uno.
 
 import { MAX_PIXELS } from '../../config/limits'
 import { readDimensions, sniffKind } from '../formats'
@@ -46,7 +46,7 @@ function compressGif(bytes: Uint8Array, s: Settings): Promise<GifOutcome> {
 }
 
 async function doCompress(bytes: Uint8Array, s: Settings): Promise<GifOutcome> {
-  // sin pérdida solo reordena y optimiza cuadros; los demás modos reducen colores en saltos suaves
+  // sin pérdida solo reordena y optimiza cuadros, mientras que los demás modos reducen colores en saltos suaves
   const lossy = s.mode === 'high' ? 0 : s.mode === 'recommended' ? 20 : s.mode === 'max' ? 60 : Math.round((100 - s.customQuality) * 1.4)
   const flags = ['-O3', '--no-comments', '--no-names']
   if (lossy > 0) flags.push(`--lossy=${lossy}`)
@@ -64,7 +64,7 @@ async function doCompress(bytes: Uint8Array, s: Settings): Promise<GifOutcome> {
   return { bytes: out, note: s.maxSide > 0 ? 'resized' : undefined }
 }
 
-/** gifsicle a veces no responde si algo lo bloquea; se corta para no dejar la cola colgada */
+/** gifsicle a veces no responde si algo lo bloquea, así que se corta para no dejar la cola colgada */
 function withTimeout<T>(p: Promise<T>, ms: number): Promise<T> {
   return new Promise((resolve, reject) => {
     const timer = setTimeout(() => reject(new Error('gif timeout')), ms)

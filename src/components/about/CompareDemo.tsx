@@ -4,14 +4,14 @@ import { MoveHorizontal } from 'lucide-react'
 import { formatBytes, formatSaved } from '../../lib/format'
 import { useDict, useLocale } from '../../i18n'
 
-// pareja real: la misma foto antes y después de pasar por el motor de Squeezo en modo
-// "sin pérdida visible". los pesos son los de los dos archivos de public/img.
+// la misma foto antes y después de pasar por el motor de Squeezo en modo
+// "sin pérdida visible". los pesos son los de los dos archivos reales.
 const ORIGINAL = { src: '/img/demo-original.jpg', bytes: 815_863 }
 const RESULT = { src: '/img/demo-squeezo.jpg', bytes: 277_259 }
 
 /**
  * comparador que se mueve solo hasta que el visitante lo toma. para que arrastrar sea fluido
- * no pasa por react: cada cuadro solo cambia tres transformaciones, que el navegador resuelve
+ * no pasa por react y cada cuadro solo cambia tres transformaciones, que el navegador resuelve
  * en la tarjeta gráfica sin volver a pintar ninguna de las dos imágenes.
  */
 export function CompareDemo() {
@@ -84,7 +84,7 @@ export function CompareDemo() {
   const move = (clientX: number) => {
     pending.current = clientX
     if (frame.current) return
-    // varios eventos de puntero caben en un cuadro: solo se pinta el último
+    // varios eventos de puntero caben en un cuadro, así que solo se pinta el último
     frame.current = requestAnimationFrame(() => {
       frame.current = 0
       const r = box.current?.getBoundingClientRect()
@@ -137,7 +137,7 @@ export function CompareDemo() {
   )
 }
 
-// las etiquetas llevan fondo sólido: un desenfoque de fondo se recalcularía en cada movimiento
+// las etiquetas llevan fondo sólido porque un desenfoque de fondo se recalcularía en cada movimiento
 function Tag({ side, label, value, accent }: { side: 'left' | 'right'; label: string; value: string; accent?: boolean }) {
   return (
     <span

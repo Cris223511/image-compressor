@@ -89,7 +89,7 @@ describe('extractZipEntry', () => {
 
   it('corta una entrada que al abrirse pesa más de lo que declara', async () => {
     const zip = zipSync({ 'bomba.bin': [new Uint8Array(100_000), { level: 9 }] })
-    // la cabecera miente: dice pesar mucho menos de lo real
+    // la cabecera miente al decir que pesa mucho menos de lo real
     const at = centralOffset(zip, 'bomba.bin')
     new DataView(zip.buffer).setUint32(at + 24, 500, true)
     const file = asFile(zip)

@@ -6,7 +6,7 @@ import { originalBlob } from '../lib/download'
 import { formatBytes } from '../lib/format'
 import { useLocale, useT } from '../i18n'
 
-/** comparador con deslizador: original a la izquierda, comprimida a la derecha */
+/** comparador con deslizador que muestra el original a la izquierda y la comprimida a la derecha */
 export function ComparePanel({ id, onClose: onClosed }: { id: string; onClose: () => void }) {
   const [shown, setShown] = useState(false)
   // se abre en el cuadro siguiente para que la transición arranque desde el estado cerrado
@@ -45,7 +45,7 @@ export function ComparePanel({ id, onClose: onClosed }: { id: string; onClose: (
       if (a) URL.revokeObjectURL(a)
       if (b) URL.revokeObjectURL(b)
     }
-    // solo importa al abrir: el resultado no cambia mientras se mira
+    // solo importa al abrir, ya que el resultado no cambia mientras se mira
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id])
 

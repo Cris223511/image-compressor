@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
+import { ConsentPanel } from '../components/ConsentPanel'
 import { useDict } from '../i18n'
 
-/** un bloque de texto de una sección: párrafo, subtítulo, lista con viñetas o lista numerada */
+/** cada bloque de texto de una sección puede ser un párrafo, un subtítulo, una lista con viñetas o una numerada */
 type Block = string | { sub: string } | { ul: string[] } | { ol: string[] }
 
 function Blocks({ blocks }: { blocks: Block[] }) {
@@ -31,8 +32,8 @@ function Blocks({ blocks }: { blocks: Block[] }) {
   )
 }
 
-/** páginas de términos y privacidad: texto largo con índice lateral que sigue la lectura */
-export default function Legal({ which }: { which: 'privacy' | 'terms' }) {
+/** páginas de textos largos, con un índice lateral que acompaña la lectura */
+export default function Legal({ which }: { which: 'privacy' | 'terms' | 'cookies' }) {
   const { pages } = useDict()
   const doc = pages[which]
   const [active, setActive] = useState(0)
@@ -58,7 +59,7 @@ export default function Legal({ which }: { which: 'privacy' | 'terms' }) {
 
       <div className="mt-12 grid gap-10 lg:grid-cols-[220px_1fr]">
         <nav className="hidden lg:block" aria-label={pages.toc}>
-          <div className="sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto pr-2">
+          <div data-lenis-prevent="" className="soft-scroll sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto pr-1">
             <p className="mb-3 text-xs font-bold uppercase tracking-[0.08em] text-muted">{pages.toc}</p>
             <ul className="space-y-0.5 border-l border-line">
               {doc.sections.map((s, i) => (
@@ -78,6 +79,7 @@ export default function Legal({ which }: { which: 'privacy' | 'terms' }) {
         </nav>
 
         <div className="max-w-2xl space-y-10">
+          {which === 'cookies' && <ConsentPanel />}
           {doc.sections.map((s, i) => (
             <div key={s.h}>
               <section id={`sec-${i}`} data-i={i} className="scroll-mt-24">

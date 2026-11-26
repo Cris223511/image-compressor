@@ -11,7 +11,7 @@ export interface Settings {
   output: OutputFormat
   /** conserva exif y perfil de color en los jpg */
   keepMetadata: boolean
-  /** lado largo máximo en píxeles; 0 deja el tamaño original */
+  /** lado largo máximo en píxeles, y con 0 se deja el tamaño original */
   maxSide: number
 }
 
@@ -23,7 +23,7 @@ export const DEFAULT_SETTINGS: Settings = {
   maxSide: 0,
 }
 
-/** de dónde sale el archivo: suelto en disco o dentro de un zip */
+/** origen del archivo, ya sea suelto en disco o dentro de un zip */
 export type Source =
   | { kind: 'file'; file: File }
   | { kind: 'zip'; file: File; entry: ZipEntry }
@@ -32,7 +32,7 @@ export interface JobRequest {
   id: string
   source: Source
   settings: Settings
-  /** lo que se sabe del tipo al añadirlo; permite desviar los gif sin pasar por un worker */
+  /** el tipo que se conoce al añadir el archivo, y permite desviar los gif sin pasar por un worker */
   kind?: ImageKind | null
 }
 

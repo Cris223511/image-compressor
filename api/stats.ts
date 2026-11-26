@@ -1,5 +1,5 @@
 // contador global de imágenes comprimidas. guarda un único número en Redis (Upstash) y no recibe
-// nada más: ni archivos, ni nombres, ni identificadores de quien usa la herramienta.
+// nada más, ni archivos, ni nombres, ni identificadores de quien usa la herramienta.
 
 const KEY = 'squeezo:total'
 /** tope de imágenes que una sola petición puede sumar, para que un valor absurdo no desfigure la cifra */
@@ -26,7 +26,7 @@ async function redis(commands: Command[]): Promise<unknown[]> {
   return out.map((o) => o.result)
 }
 
-/** la dirección no se guarda tal cual: solo una huella corta que caduca al cabo de un minuto */
+/** la dirección no se guarda tal cual, solo se guarda una huella corta que caduca al cabo de un minuto */
 async function fingerprint(request: Request): Promise<string> {
   const ip = request.headers.get('x-forwarded-for')?.split(',')[0].trim() ?? 'desconocida'
   const bytes = new TextEncoder().encode(`${ip}:${new Date().getUTCMinutes()}`)

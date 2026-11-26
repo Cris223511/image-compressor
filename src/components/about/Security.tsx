@@ -4,7 +4,7 @@ import { Reveal } from './Reveal'
 
 const ICONS = [ShieldCheck, FileArchive, Code2, Lock]
 
-/** cuatro garantías con su explicación: aquí el texto manda y la animación solo acompaña */
+/** cuatro garantías con su explicación, donde el texto manda y la animación solo acompaña */
 export function Security() {
   const { pages } = useDict()
   return (

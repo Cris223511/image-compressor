@@ -4,7 +4,7 @@ import { useDict } from '../../i18n'
 import { Odometer } from './Odometer'
 import { useInView } from './Reveal'
 
-/** cifras grandes cuyos dígitos giran al aparecer en pantalla; una de ellas es el total global de imágenes comprimidas */
+/** cifras grandes cuyos dígitos giran al aparecer en pantalla, y una de ellas es el total global de imágenes comprimidas */
 export function Stats() {
   const { pages } = useDict()
   const [ref, seen] = useInView<HTMLDListElement>()

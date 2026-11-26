@@ -9,7 +9,7 @@ import type { SkipCategory } from '../formats'
 export interface ZipEntry {
   /** fecha de modificación guardada en el zip, en milisegundos */
   mtime: number
-  /** ruta ya normalizada, siempre con / y sin partes peligrosas */
+  /** ruta ya normalizada, con barras normales y sin partes peligrosas */
   path: string
   method: number
   compressedSize: number
@@ -26,7 +26,7 @@ export class ZipError extends Error {
   }
 }
 
-/** bytes comprimidos que se inflan de una vez: con deflate, 16 KB no pueden dar más de unos 16 MB */
+/** bytes comprimidos que se inflan de una vez, porque con deflate 16 KB no pueden dar más de unos 16 MB */
 const INFLATE_STEP = 16 * 1024
 
 const SIG_EOCD = 0x06054b50
@@ -84,7 +84,7 @@ export async function readZipDirectory(file: File): Promise<ZipEntry[]> {
   let cdSize = tdv.getUint32(eocd + 12, true)
   let cdOffset = tdv.getUint32(eocd + 16, true)
 
-  // valores al tope indican zip64: el índice real está en otro registro
+  // valores al tope indican zip64, y el índice real está en otro registro
   if (total === 0xffff || cdSize === 0xffffffff || cdOffset === 0xffffffff) {
     const locPos = eocd - 20
     if (locPos < 0 || tdv.getUint32(locPos, true) !== SIG_LOC64) throw new ZipError('corrupt')
@@ -106,7 +106,7 @@ export async function readZipDirectory(file: File): Promise<ZipEntry[]> {
 
   let p = 0
   while (p + 46 <= cd.length && dv.getUint32(p, true) === SIG_CEN) {
-    // el total declarado en el final del zip puede mentir: se cuenta lo que de verdad se lee
+    // el total declarado en el final del zip puede mentir, así que se cuenta lo que de verdad se lee
     if (entries.length >= MAX_ZIP_ENTRIES) throw new ZipError('tooMany')
     const flags = dv.getUint16(p + 8, true)
     const method = dv.getUint16(p + 10, true)
@@ -198,7 +198,7 @@ export async function extractZipEntry(file: File, entry: ZipEntry): Promise<Uint
     written += chunk.length
   })
   try {
-    // se inflan trozos pequeños: así el tope se aplica enseguida y una bomba no llega a materializarse
+    // se inflan trozos pequeños para que el tope se aplique enseguida y una bomba no llegue a materializarse
     if (!raw.length) inflater.push(raw, true)
     for (let i = 0; i < raw.length; i += INFLATE_STEP) {
       const end = Math.min(raw.length, i + INFLATE_STEP)

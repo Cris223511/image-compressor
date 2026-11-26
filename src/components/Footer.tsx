@@ -8,7 +8,7 @@ import { useDict } from '../i18n'
 // destinos de cada enlace, en el mismo orden que las columnas del diccionario
 const DEST: string[][] = [
   ['/', '/nosotros#como-funciona', '/nosotros#formatos', '/nosotros#seguridad', '/nosotros#faq'],
-  ['/privacidad', '/terminos', `${REPO_URL}/blob/main/LICENSE`],
+  ['/privacidad', '/terminos', '/cookies', `${REPO_URL}/blob/main/LICENSE`],
   [REPO_URL, `${REPO_URL}/issues`, `${REPO_URL}/blob/main/CHANGELOG.md`, `${REPO_URL}/releases`],
   ['https://react.dev', 'https://vite.dev', 'https://github.com/jamsinclair/jSquash', 'https://svgo.dev', 'https://www.lcdf.org/gifsicle/'],
 ]

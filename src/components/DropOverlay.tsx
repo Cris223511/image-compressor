@@ -1,7 +1,7 @@
 import { ImagePlus } from 'lucide-react'
 import { useT } from '../i18n'
 
-/** siempre montado: aparece y se va con un fundido, sin saltos */
+/** está siempre montado para que aparezca y se vaya con un fundido, sin saltos */
 export function DropOverlay({ show }: { show: boolean }) {
   const t = useT()
   return (

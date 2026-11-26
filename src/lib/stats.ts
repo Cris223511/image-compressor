@@ -1,3 +1,5 @@
+import { useConsent } from '../store/consent'
+
 // contador global de imágenes comprimidas. al servidor solo viaja un número, nunca archivos ni nombres.
 
 /** la cifra global, o null si no se pudo obtener (por ejemplo, sin conexión o en desarrollo local) */
@@ -12,9 +14,9 @@ export async function fetchTotal(): Promise<number | null> {
   }
 }
 
-/** suma al contador las imágenes que se acaban de comprimir; si falla, se ignora sin avisar */
+/** suma al contador las imágenes que se acaban de comprimir, y si falla no se avisa */
 export function reportCompressed(n: number) {
-  if (n < 1) return
+  if (n < 1 || !useConsent.getState().counter) return
   void fetch('/api/stats', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

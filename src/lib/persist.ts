@@ -1,6 +1,6 @@
 // guarda la sesión de trabajo en IndexedDB para que recargar, retroceder o cerrar la pestaña
-// no pierda nada: ni las imágenes subidas, ni lo ya comprimido, ni siquiera una compresión a
-// medias, que se retoma sola al volver. todo queda en el navegador, nada sale del equipo.
+// no haga perder las imágenes añadidas, lo ya comprimido ni una compresión a medias, que se
+// retoma sola al volver. todo queda en el navegador y nada sale del equipo.
 
 import type { NewSkip } from './intake'
 import type { ErrorCode, Source } from './compress/types'
@@ -8,6 +8,7 @@ import type { ImageKind } from './formats'
 import { safePath, type ZipEntry } from './zip/reader'
 import { MAX_ENTRY_BYTES } from '../config/limits'
 import { KIND_MIME } from './formats'
+import { useConsent } from '../store/consent'
 import { reserveIds, useWorkspace, type Item, type ItemResult, type ItemStatus, type Phase } from '../store/workspace'
 
 const DB_NAME = 'squeezo'
@@ -40,7 +41,7 @@ interface SavedSession {
 }
 
 // ---------------------------------------------------------------------------------------
-// acceso mínimo a indexeddb: un almacén para la sesión y otro para los archivos
+// acceso mínimo a indexeddb, con un almacén para la sesión y otro para los archivos
 
 function open(): Promise<IDBDatabase> {
   return new Promise((resolve, reject) => {
@@ -96,6 +97,11 @@ export function restoreSession(): Promise<void> {
 
 async function doRestore(): Promise<void> {
   const ws = useWorkspace
+  // sin permiso para guardar la sesión no hay nada que recuperar
+  if (!useConsent.getState().session) {
+    ws.setState({ hydrating: false })
+    return
+  }
   try {
     const saved = await tx<SavedSession | undefined>('kv', 'readonly', (s) => s.get('session'))
     if (!saved || saved.v !== 1) return
@@ -105,7 +111,7 @@ async function doRestore(): Promise<void> {
     const order: string[] = []
 
     for (const si of saved.items) {
-      // lo guardado puede venir alterado: se descarta lo que no cumpla las mismas reglas de siempre
+      // lo guardado puede venir alterado, así que se descarta lo que no cumpla las mismas reglas de siempre
       if (!(si.kind in KIND_MIME) || safePath(si.path) === null) continue
       if (si.source.kind === 'zip') {
         const e = si.source.entry
@@ -137,7 +143,7 @@ async function doRestore(): Promise<void> {
         const { hasBlob, ...rest } = si.result
         const blob = hasBlob ? await tx<Blob | undefined>('blobs', 'readonly', (s) => s.get(`res:${si.id}`)) : null
         if (hasBlob && !blob) {
-          // el resultado no llegó a guardarse: la imagen vuelve a la cola
+          // si el resultado no llegó a guardarse, la imagen vuelve a la cola
           status = 'pending'
         } else {
           result = { ...rest, blob: blob ?? null }
@@ -184,11 +190,11 @@ async function doRestore(): Promise<void> {
 }
 
 // ---------------------------------------------------------------------------------------
-// guardar: cada cambio programa una escritura; solo se suben los archivos nuevos
+// cada cambio programa una escritura y solo se suben los archivos nuevos
 
 async function flush() {
   const s = useWorkspace.getState()
-  if (s.hydrating) return
+  if (s.hydrating || !useConsent.getState().session) return
 
   if (!s.order.length && !s.skipped.length) {
     await tx('kv', 'readwrite', (k) => k.clear())
@@ -261,7 +267,7 @@ async function drain() {
       await flush()
     }
   } catch {
-    // normalmente es falta de espacio: se avisa en pantalla y se deja de intentar
+    // lo normal es que falte espacio, así que se avisa en pantalla y se deja de intentar
     useWorkspace.setState({ persistFailed: true })
     dirty = false
   } finally {
@@ -274,6 +280,24 @@ function schedule(now = false) {
   clearTimeout(timer)
   if (now) void drain()
   else timer = setTimeout(drain, DEBOUNCE_MS)
+}
+
+/** al conceder el permiso se guarda lo que haya en pantalla, y al retirarlo se borra lo guardado */
+export async function applySessionConsent(on: boolean) {
+  if (on) {
+    schedule(true)
+    return
+  }
+  clearTimeout(timer)
+  dirty = false
+  while (running) await new Promise((r) => setTimeout(r, 50))
+  try {
+    await tx('kv', 'readwrite', (k) => k.clear())
+    await tx('blobs', 'readwrite', (k) => k.clear())
+    written.clear()
+  } catch {
+    /* si no se puede borrar, tampoco quedó nada nuevo guardado */
+  }
 }
 
 let started = false
@@ -294,7 +318,7 @@ export function startPersisting() {
       state.collapsed !== last.collapsed ||
       state.phase !== last.phase
     last = state
-    if (changed && !state.hydrating) schedule()
+    if (changed && !state.hydrating && useConsent.getState().session) schedule()
   })
 
   // al ocultar o cerrar la pestaña se guarda de inmediato lo que quede pendiente

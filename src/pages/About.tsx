@@ -21,7 +21,7 @@ export default function About() {
 
   return (
     <article className="overflow-x-clip">
-      {/* portada: la misma foto antes y después, con el ahorro real a la vista */}
+      {/* portada con la misma foto antes y después y el ahorro real a la vista */}
       <header className="relative">
         <div
           aria-hidden

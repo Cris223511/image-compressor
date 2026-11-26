@@ -52,7 +52,7 @@ It is meant for anyone with a heavy folder of photos, screenshots or designs who
 
 ## Security and privacy
 
-> **Your images are processed entirely on your computer.** Nothing is uploaded to any server. There are no accounts, no tracking and no analytics. The only thing sent, when a compression finishes, is the number of images reduced, for the global counter on the About page.
+> **Your images are processed entirely on your computer.** Nothing is uploaded to any server. There are no accounts, no tracking and no analytics. The only thing that may be sent, and only if you allow it in the cookie preferences, is the number of images reduced when a compression finishes, for the global counter on the About page.
 
 Since the site accepts any file, these measures are in place:
 

@@ -23,7 +23,7 @@ function interpolate(text: string, vars?: Record<string, string | number>): stri
   return text.replace(/\{(\w+)\}/g, (_, k) => (k in vars ? String(vars[k]) : `{${k}}`))
 }
 
-/** traduce una clave con puntos. si trae count busca la variante _one o _other */
+/** traduce una clave con puntos y, si trae count, busca la variante _one o _other */
 export function translate(lang: 'es' | 'en', key: string, vars?: Record<string, string | number>): string {
   const dict = dictionaries[lang]
   let value = lookup(dict, key)

@@ -19,7 +19,7 @@ export const MAX_ZIP_ENTRIES = 100_000
 /** tiempo máximo que se le da a una imagen antes de darla por colgada */
 export const JOB_TIMEOUT_MS = 5 * 60 * 1000
 
-/** archivos omitidos que se recuerdan y se listan; el resto solo se cuenta por haberse pasado */
+/** archivos omitidos que se recuerdan y se listan, mientras que el resto solo se cuenta por haberse pasado */
 export const MAX_SKIPPED = 5000
 
 /** una entrada de zip más pesada que esto no genera miniatura, para no inflarla en el hilo principal */
