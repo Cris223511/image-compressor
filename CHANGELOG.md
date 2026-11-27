@@ -4,6 +4,11 @@ Este documento recoge los cambios importantes de Squeezo, de la versión más re
 
 El formato sigue la convención de [Keep a Changelog](https://keepachangelog.com/es/) y el versionado es [semántico](https://semver.org/lang/es/). El primer número marca los cambios mayores, el segundo las funciones nuevas y el tercero las correcciones.
 
+## 1.0.20 (2026-11-27)
+
+- **Un globo por elemento.** Cada botón muestra su propio globo de ayuda, que aparece al entrar el cursor y se desvanece por su cuenta al salir. Al pasar rápido por varios botones se ven varios globos a la vez, cada uno en una etapa distinta de su desvanecimiento, en lugar de un único globo que se desplaza de uno a otro.
+- **Sin desplazamientos al aparecer.** El globo ya no cruza la pantalla desde una esquina la primera vez que se pasa el cursor, sino que aparece directamente sobre su botón.
+
 ## 1.0.19 (2026-11-27)
 
 - **Globos de ayuda inmediatos.** El globo aparece en el mismo instante en que el cursor entra al elemento, sin la espera previa que tenía.

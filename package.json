@@ -1,7 +1,7 @@
 {
   "name": "squeezo",
   "private": true,
-  "version": "1.0.19",
+  "version": "1.0.20",
   "type": "module",
   "description": "Compresor de imágenes que reduce el peso sin perder calidad ni dimensiones, todo en el navegador.",
   "license": "MIT",
