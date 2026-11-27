@@ -1,8 +1,7 @@
 import { Link } from 'react-router-dom'
-import { ArrowUp, ExternalLink } from 'lucide-react'
+import { ExternalLink } from 'lucide-react'
 import { Logo } from './Logo'
 import { REPO_URL } from '../config/site'
-import { scrollToTarget } from '../lib/lenis'
 import { useDict } from '../i18n'
 
 // destinos de cada enlace, en el mismo orden que las columnas del diccionario
@@ -68,12 +67,6 @@ export function Footer() {
               v{__APP_VERSION__}
             </a>
           </p>
-          <button
-            onClick={() => scrollToTarget(0)}
-            className="group inline-flex items-center gap-2 rounded-full border border-line px-4 py-2 font-medium transition-all duration-300 hover:border-brand/40 hover:bg-brand-soft hover:text-brand"
-          >
-            {footer.top} <ArrowUp size={15} className="transition-transform duration-300 group-hover:-translate-y-0.5" />
-          </button>
         </div>
       </div>
 

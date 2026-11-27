@@ -9,8 +9,22 @@ export function Stats() {
   const { pages } = useDict()
   const [ref, seen] = useInView<HTMLDListElement>()
   const [total, setTotal] = useState<number | null>(null)
+  // la cifra se vuelve a pedir cada medio minuto y al regresar a la pestaña, así se actualiza sin recargar la página
   useEffect(() => {
-    void fetchTotal().then(setTotal)
+    let alive = true
+    const load = () =>
+      void fetchTotal().then((v) => {
+        if (alive && v !== null) setTotal(v)
+      })
+    const onVisible = () => document.visibilityState === 'visible' && load()
+    load()
+    const id = window.setInterval(onVisible, 30000)
+    document.addEventListener('visibilitychange', onVisible)
+    return () => {
+      alive = false
+      window.clearInterval(id)
+      document.removeEventListener('visibilitychange', onVisible)
+    }
   }, [])
   // mientras llega la cifra global (o si no se puede obtener) se muestra un guion
   const items = pages.about.stats.map((s) => (s.live ? { ...s, value: total === null ? '–' : String(total) } : s))
