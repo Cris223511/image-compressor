@@ -432,7 +432,7 @@
           },
           {
             "q": "What happens if I reload the page or close the tab?",
-            "a": "It depends on the cookie preferences. If you allow the working session to be saved, your progress is kept and, when you return, it is restored exactly as it was, even if a compression was halfway through, which resumes automatically. If you do not allow it, the files and the results are lost when the page is reloaded. The \"Clear\" button deletes the saved data in any case."
+            "a": "Your progress is kept. The working session is saved in the browser itself, so when you reload the page or come back later it is restored exactly as it was, even if a compression was halfway through, which resumes automatically. The \"Clear\" button deletes the saved data at any time, and a private window keeps nothing."
           },
           {
             "q": "Are the camera data and the location kept?",
@@ -451,9 +451,9 @@
             "This principle comes down to three commitments:",
             {
               "ul": [
-                "the user's files do not leave their device",
-                "there are no accounts, tracking cookies or analytics",
-                "the only data that reaches a server is what is strictly necessary for the global counter, and it is detailed below"
+                "the user's files do not leave their device.",
+                "there are no accounts, tracking cookies or analytics.",
+                "the only data that reaches a server is what is strictly necessary for the global counter, and it is detailed below."
               ]
             },
             "This commitment holds even when the optional functions are turned on, because none of them needs the files or personal data in order to work."
@@ -468,9 +468,9 @@
             },
             {
               "ul": [
-                "the images, folders and zip files that are added",
-                "the results of the compression",
-                "the preferences and settings chosen"
+                "the images, folders and zip files that are added.",
+                "the results of the compression.",
+                "the preferences and settings chosen."
               ]
             },
             {
@@ -478,8 +478,8 @@
             },
             {
               "ul": [
-                "**the number of images compressed** when each compression finishes",
-                "the technical data of each visit that the hosting provider records"
+                "**the number of images compressed** when each compression finishes.",
+                "the technical data of each visit that the hosting provider records."
               ]
             },
             {
@@ -487,9 +487,9 @@
             },
             {
               "ul": [
-                "names, email addresses or any other data that identifies the user",
-                "the content, the names or the properties of the files",
-                "the location or data about the device"
+                "names, email addresses or any other data that identifies the user.",
+                "the content, the names or the properties of the files.",
+                "the location or data about the device."
               ]
             },
             "This classification determines which decisions are within the person's reach: what stays on the device can be deleted from the browser, and the only thing sent to a server is **a number** unrelated to anyone."
@@ -506,16 +506,16 @@
         {
           "h": "Storage in the browser",
           "p": [
-            "Squeezo uses the browser's own storage so that work is not lost when the page is reloaded. What is saved depends on the permissions the person grants in the cookie preferences:",
+            "Squeezo uses the browser's own storage so that work is not lost when the page is reloaded. What is saved depends in part on the permissions the person grants in the cookie preferences:",
             {
               "ul": [
-                "always, the language, the theme and the decision about cookies, in local storage",
-                "only with permission, the compression settings, in local storage",
-                "only with permission, the working session, that is, the files added and the results, in the browser's database (IndexedDB)"
+                "always, the language, the theme and the decision about cookies, in local storage.",
+                "always, the working session, that is, the files added and the results, in the browser's database (IndexedDB).",
+                "only with permission, the compression settings, in local storage."
               ]
             },
             "This data does not leave the device, is not tied to any identity and is **not shared with any server**.",
-            "If no optional permission is granted, the tool remembers only the language, the theme and the decision about cookies, and **everything else is lost** when the page is closed or reloaded."
+            "If no optional permission is granted, the tool remembers the language, the theme, the decision about cookies and the working session, but **does not remember the settings** between visits."
           ]
         },
         {
@@ -524,10 +524,10 @@
             "The user can delete what Squeezo saves in their browser at any time, in four ways:",
             {
               "ol": [
-                "withdrawing the permissions on the cookie page, which **immediately** deletes the data tied to each one",
-                "pressing the \"Clear\" button in the file list, which deletes the working session",
-                "deleting the site data from the browser settings, which also deletes the preferences",
-                "using a private or incognito window, where nothing is kept once it is closed"
+                "withdrawing the settings permission on the cookie page, which **immediately** deletes the data tied to it.",
+                "pressing the \"Clear\" button in the file list, which deletes the working session.",
+                "deleting the site data from the browser settings, which also deletes the preferences.",
+                "using a private or incognito window, where nothing is kept once it is closed."
               ]
             },
             "After deletion, the tool returns to its initial state.",
@@ -543,9 +543,9 @@
             },
             {
               "ul": [
-                "only a whole number is sent",
-                "only the accumulated total is stored, unrelated to any person or session",
-                "no files, names, content or identifiers are sent"
+                "only a whole number is sent.",
+                "only the accumulated total is stored, unrelated to any person or session.",
+                "no files, names, content or identifiers are sent."
               ]
             },
             {
@@ -568,8 +568,8 @@
           "h": "Cookies and similar technologies",
           "p": [
             "Squeezo **installs no tracking or advertising cookies**. The only storage technologies it uses are local storage and the browser's database, and only for the operation described in this policy.",
-            "The person decides which of them are turned on through the notice shown on the first visit and the cookie policy page, where the decision can be changed at any time. None of them is used to identify or follow the user across sites.",
-            "Declining the additional options does not reduce the compression functions: the difference is limited to the tool **not remembering** the work or the settings between visits."
+            "The person decides which of the optional ones are turned on through the notice shown on the first visit and the cookie policy page, where the decision can be changed at any time. None of them is used to identify or follow the user across sites.",
+            "Declining the additional options does not reduce the compression functions: the difference is limited to the tool **not remembering** the settings between visits or adding images to the counter."
           ]
         },
         {
@@ -578,10 +578,10 @@
             "Photographs often include hidden data, known as metadata, which can reveal personal information. Among it:",
             {
               "ul": [
-                "the model of the camera or phone",
-                "the date and time the photo was taken",
-                "the location where it was taken",
-                "the color profile and other technical data"
+                "the model of the camera or phone.",
+                "the date and time the photo was taken.",
+                "the location where it was taken.",
+                "the color profile and other technical data."
               ]
             },
             "When a JPG or a PNG is compressed, **that data is removed**, unless the user turns on the option to keep it, in which case the location may still be included. If an image cannot be reduced, it is returned unchanged and with its original metadata.",
@@ -602,9 +602,9 @@
             "Squeezo **includes no third-party scripts**, fonts or resources: everything is served from the site itself. The external services involved are:",
             {
               "ul": [
-                "Vercel, for hosting the site and the counter function",
-                "Upstash, for storing the counter total",
-                "GitHub, where the source code is published"
+                "Vercel, for hosting the site and the counter function.",
+                "Upstash, for storing the counter total.",
+                "GitHub, where the source code is published."
               ]
             },
             "The links to the repository on GitHub and to the libraries used lead to external sites, which are governed by their own privacy policies.",
@@ -625,10 +625,10 @@
             "How long data is kept depends on each item:",
             {
               "ul": [
-                "files and results saved in the browser remain **until the user deletes them**",
-                "preferences remain until the site data is deleted",
-                "the short fingerprint of the IP address is deleted after one minute",
-                "the counter total is kept for as long as the service is active, and it is not tied to any person"
+                "files and results saved in the browser remain **until the user deletes them**.",
+                "preferences remain until the site data is deleted.",
+                "the short fingerprint of the IP address is deleted after one minute.",
+                "the counter total is kept for as long as the service is active, and it is not tied to any person."
               ]
             },
             "No backup copies of the images or the results are kept, because they never reach a server at any point. Once the user deletes them from the browser, **they are gone completely**."
@@ -669,10 +669,10 @@
             "These terms apply to everything that is part of the service:",
             {
               "ul": [
-                "the website and its information pages",
-                "the tool that compresses images, folders and zip files",
-                "the function that keeps the global counter of compressed images",
-                "the documentation and the source code published in the project repository"
+                "the website and its information pages.",
+                "the tool that compresses images, folders and zip files.",
+                "the function that keeps the global counter of compressed images.",
+                "the documentation and the source code published in the project repository."
               ]
             },
             "If the service is used on behalf of an organization, the person using it states that they have the authority to accept these terms on its behalf.",
@@ -689,10 +689,10 @@
             },
             {
               "ul": [
-                "compression of JPG, PNG, WebP, AVIF, GIF, SVG and BMP images, keeping the original dimensions unless the user chooses otherwise",
-                "reading of folders and zip files, with a view of their contents before compressing",
-                "a comparison between the original and the compressed image",
-                "download of the results individually or in a zip file"
+                "compression of JPG, PNG, WebP, AVIF, GIF, SVG and BMP images, keeping the original dimensions unless the user chooses otherwise.",
+                "reading of folders and zip files, with a view of their contents before compressing.",
+                "a comparison between the original and the compressed image.",
+                "download of the results individually or in a zip file."
               ]
             },
             {
@@ -700,9 +700,9 @@
             },
             {
               "ul": [
-                "storage of files on servers or backups of the user's work",
-                "accounts, history across devices or synchronization",
-                "editing, cropping or processing of videos or of files that are not images"
+                "storage of files on servers or backups of the user's work.",
+                "accounts, history across devices or synchronization.",
+                "editing, cropping or processing of videos or of files that are not images."
               ]
             }
           ]
@@ -713,9 +713,9 @@
             "The operation of Squeezo depends on the capabilities of the browser and the device it is used on. Proper use requires:",
             {
               "ul": [
-                "**an up-to-date browser** with JavaScript, WebAssembly and IndexedDB enabled",
-                "enough available memory for the size and number of images being processed",
-                "free space on the device to save the results"
+                "**an up-to-date browser** with JavaScript, WebAssembly and IndexedDB enabled.",
+                "enough available memory for the size and number of images being processed.",
+                "free space on the device to save the results."
               ]
             },
             "Some formats, such as TIFF and HEIC, can only be processed in browsers that support them. On a device with limited resources, processing large batches may be slow or may be interrupted.",
@@ -729,10 +729,10 @@
             "The following is forbidden:",
             {
               "ul": [
-                "processing unlawful content or content that infringes the rights of third parties",
-                "attempting to alter the operation of the service, bypass its limits or overload its resources",
-                "sending automated or mass requests to the global counter in order to falsify the figure",
-                "using the service for purposes that harm other people"
+                "processing unlawful content or content that infringes the rights of third parties.",
+                "attempting to alter the operation of the service, bypass its limits or overload its resources.",
+                "sending automated or mass requests to the global counter in order to falsify the figure.",
+                "using the service for purposes that harm other people."
               ]
             },
             "Failure to follow these rules may lead to access to the service being restricted.",
@@ -745,7 +745,7 @@
             "Files remain the property of their owner. Squeezo does not receive them, does not store them on servers and does not share them, because all processing takes place in the browser itself.",
             "The tool **never modifies the originals**: it creates compressed copies that are downloaded separately. When an image cannot be reduced without a noticeable loss, it is returned unchanged and this is indicated in the list.",
             "The user states that they have the right to process the files they add and takes responsibility for their content.",
-            "If the browser is closed or reloaded in the middle of a job, the files already added can only be recovered when the session permission exists. Without it, they have to be added again, which is why it is advisable to **download the results** before leaving."
+            "If the browser is closed or reloaded in the middle of a job, the files already added and the results are recovered on return, because the session is saved in the browser itself. Even so, it is advisable to **download the results** before leaving, since what is saved can be erased along with the site data."
           ]
         },
         {
@@ -771,9 +771,9 @@
             "Higher compression levels, format conversion and dimension reduction may produce visible differences. To check, it is recommended to:",
             {
               "ol": [
-                "review the results with the comparison view before downloading them",
-                "use the High quality level for images that will be printed or enlarged",
-                "always keep the original files"
+                "review the results with the comparison view before downloading them.",
+                "use the High quality level for images that will be printed or enlarged.",
+                "always keep the original files."
               ]
             },
             "Images that were already highly optimized are left unchanged, so the weight of the resulting image never exceeds that of the original.",
@@ -792,9 +792,9 @@
         {
           "h": "Storage in the browser",
           "p": [
-            "To avoid losing progress, and provided the user allows it in the cookie preferences, the working session is saved in the browser storage, including the files added and the results obtained. That data stays on the device until the permission is withdrawn, \"Clear\" is pressed or the site data is deleted from the browser settings.",
-            "On shared or public devices it is recommended **not to grant that permission** or to clear the session when finished, since anyone with access to the same browser profile could see the saved files. The storage is local: it is not synchronized with other devices or with any server.",
-            "The permission can be withdrawn at any time from the cookie page, and when that happens the saved data is **deleted immediately**. Without the permission the tool works just the same, with the only difference that the work does not survive a reload."
+            "To avoid losing progress, the working session is saved in the browser storage, including the files added and the results obtained. That data stays on the device until \"Clear\" is pressed or the site data is deleted from the browser settings.",
+            "On shared or public devices it is recommended to **press \"Clear\"** when finished or to use a private window, since anyone with access to the same browser profile could see the saved files. The storage is local: it is not synchronized with other devices or with any server.",
+            "Saving the session is a function of the tool itself and sends nothing to any server. If you prefer that nothing stays saved, it is enough to **use a private window** or to press \"Clear\" when finished."
           ]
         },
         {
@@ -803,11 +803,11 @@
             "To protect the operation of the browser, the following limits apply:",
             {
               "ul": [
-                "up to **1000 images** per zip and per load",
-                "up to 50 megapixels per image",
-                "up to 768 MB per file once decompressed",
-                "up to 100,000 entries read from the directory of a zip",
-                "up to 5 minutes of processing per image, and if exceeded it is discarded"
+                "up to **1000 images** per zip and per load.",
+                "up to 50 megapixels per image.",
+                "up to 768 MB per file once decompressed.",
+                "up to 100,000 entries read from the directory of a zip.",
+                "up to 5 minutes of processing per image, and if exceeded it is discarded."
               ]
             },
             "Files that are not images, password-protected files, executables and files that pose a security risk are excluded from processing, and the list of what was left out is shown to the user. These limits may be adjusted in future versions.",
@@ -820,10 +820,10 @@
             "Squeezo includes protections to reduce the risks of processing unknown files:",
             {
               "ul": [
-                "every file is identified **by its content** and not by its extension",
-                "zip paths that try to leave the destination folder, encrypted files and files that, once decompressed, far exceed the size they declare are rejected",
-                "scripts and external links are removed from SVG files, which are only displayed as images",
-                "no added file is ever run"
+                "every file is identified **by its content** and not by its extension.",
+                "zip paths that try to leave the destination folder, encrypted files and files that, once decompressed, far exceed the size they declare are rejected.",
+                "scripts and external links are removed from SVG files, which are only displayed as images.",
+                "no added file is ever run."
               ]
             },
             "These measures reduce the risk but do not remove it entirely. Anyone using the tool should make sure the files come from trusted sources.",
@@ -853,10 +853,10 @@
             "Nor is it liable for losses, damages or harm arising from the use of the tool, including:",
             {
               "ul": [
-                "the loss or alteration of files",
-                "the difference in quality between the original and the result",
-                "the interruption of processing due to a lack of resources on the device",
-                "the use that third parties make of the downloaded files"
+                "the loss or alteration of files.",
+                "the difference in quality between the original and the result.",
+                "the interruption of processing due to a lack of resources on the device.",
+                "the use that third parties make of the downloaded files."
               ]
             },
             "The user is responsible for keeping copies of the originals.",
@@ -870,11 +870,11 @@
             "Squeezo relies on third-party libraries, which keep their own licenses:",
             {
               "ul": [
-                "jSquash, which brings together the MozJPEG, OxiPNG, WebP and AVIF encoders",
-                "SVGO, for optimizing SVG files",
-                "gifsicle, for GIF files",
-                "UPNG, for palette reduction in PNG files",
-                "fflate, for reading and creating zip files"
+                "jSquash, which brings together the MozJPEG, OxiPNG, WebP and AVIF encoders.",
+                "SVGO, for optimizing SVG files.",
+                "gifsicle, for GIF files.",
+                "UPNG, for palette reduction in PNG files.",
+                "fflate, for reading and creating zip files."
               ]
             },
             "The sample images that accompany the site are used for illustrative purposes only.",
@@ -934,7 +934,8 @@
             {
               "ul": [
                 "The **language and theme** chosen, saved in local storage.",
-                "The decision made about these preferences, also in local storage."
+                "The decision made about these preferences, also in local storage.",
+                "The working session, that is, the files added and the results, saved in the browser's database (IndexedDB) so that progress is not lost."
               ]
             },
             {
@@ -943,7 +944,6 @@
             {
               "ul": [
                 "The compression settings, saved in local storage.",
-                "The working session, that is, the files added and the results, saved in the browser's database (IndexedDB).",
                 "The submission of the number of compressed images to the global counter, which saves nothing in the browser."
               ]
             },
@@ -956,9 +956,8 @@
           "p": [
             {
               "ul": [
-                "The necessary ones keep the language and the theme from changing on every visit and avoid asking the cookie question again.",
+                "The necessary ones keep the language and the theme from changing on every visit, avoid asking the cookie question again and **keep the working session** when the page is reloaded, when going back or when closing the tab.",
                 "The compression settings avoid configuring the tool again every time it is used.",
-                "The working session **avoids losing progress** when the page is reloaded, when going back or when closing the tab.",
                 "The global counter makes it possible to show how many images have been compressed by everyone who uses Squeezo."
               ]
             },
@@ -968,11 +967,10 @@
         {
           "h": "What happens when you accept or reject",
           "p": [
-            "When you accept, the three optional permissions are turned on. When you reject, **only the necessary ones remain active**, and the tool keeps working normally.",
+            "When you accept, the two optional permissions are turned on. When you reject, **only the necessary ones remain active**, including the working session, and the tool keeps working normally.",
             {
               "ul": [
                 "Without permission for the settings, they return to their initial values on every visit.",
-                "Without permission for the session, the files and the results are lost when the page is reloaded.",
                 "Without permission for the counter, no data is sent to the server when a compression finishes."
               ]
             },
@@ -999,7 +997,7 @@
           "p": [
             "The saved data stays in the browser **until the person deletes it**, whether from this page, with the \"Clear\" button in the file list or from the browser settings. Squeezo does not assign it an expiry date.",
             "The decision about cookies is kept until it is changed, so the notice does not appear again after choosing.",
-            "To delete everything at once it is enough to withdraw the three optional permissions, or to delete the site data, which also **resets** the language and the theme."
+            "To delete everything at once it is enough to delete the site data from the browser, which also **resets** the language and the theme. The \"Clear\" button deletes only the working session."
           ]
         },
         {
@@ -1021,7 +1019,7 @@
   },
   "cookies": {
     "bannerTitle": "Cookies and storage",
-    "bannerText": "Squeezo uses no tracking or advertising cookies. It saves your language and theme in your browser and, if you allow it, your settings, your work in progress and an anonymous counter of compressed images.",
+    "bannerText": "Squeezo uses no tracking or advertising cookies. It saves your language, your theme and your work in progress in your browser and, if you allow it, your settings and an anonymous counter of compressed images.",
     "accept": "Accept",
     "reject": "Reject",
     "customize": "Customize preferences",
@@ -1030,15 +1028,11 @@
     "decided": "You can change any of these permissions at any time. Changes apply immediately.",
     "necessary": {
       "title": "Necessary",
-      "text": "They remember the language, the theme and this very decision. They are always on."
+      "text": "They remember the language, the theme, this very decision and your work in progress, that is, the files added and the results. They are always on."
     },
     "settings": {
       "title": "Compression settings",
       "text": "They remember the level, the output format and the other options you choose."
-    },
-    "session": {
-      "title": "Working session",
-      "text": "It keeps the added files and the results when you reload the page or close the tab."
     },
     "counter": {
       "title": "Global counter",

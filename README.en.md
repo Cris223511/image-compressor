@@ -55,7 +55,7 @@ It is meant for anyone with a heavy folder of photos, screenshots or designs who
 - **Before and after comparison** to check the result image by image.
 - **Flexible download.** One by one, or everything together in a .zip with the same folder structure.
 - **Your progress is not lost.** If you allow it in the cookie preferences, when you reload, go back or close the tab you pick up where you left off, even in the middle of a compression. Everything stays in your browser.
-- **You decide what is saved.** An initial notice and a cookie page let you turn on or withdraw, separately, the memory of the settings, of the working session and of the global counter of compressed images.
+- **You decide what is saved.** An initial notice and a cookie page let you turn on or withdraw, separately, the memory of the settings and the global counter of compressed images.
 - **Spanish and English,** with light and dark themes.
 
 ## Security and privacy

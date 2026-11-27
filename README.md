@@ -54,8 +54,8 @@ Sirve para quien tiene una carpeta pesada de fotos, capturas o diseños y necesi
 - **Lista a tu medida.** Cada imagen o carpeta se puede eliminar con confirmación, y las imágenes se reordenan arrastrando el asa de puntos. Al añadirlas se ordenan por fecha de modificación, de la más antigua a la más reciente, y el orden de la lista es el que se usa al comprimir y al descargar.
 - **Comparador antes y después** para comprobar el resultado imagen por imagen.
 - **Descarga flexible.** Una por una o todo junto en un .zip con la misma estructura de carpetas.
-- **Tu progreso no se pierde.** Si lo permites en las preferencias de cookies, al recargar, retroceder o cerrar la pestaña sigues donde estabas, incluso a mitad de una compresión. Todo queda en tu navegador.
-- **Tú decides qué se guarda.** Un aviso inicial y una página de cookies permiten activar o retirar por separado la memoria de los ajustes, de la sesión de trabajo y del contador global de imágenes comprimidas.
+- **Tu progreso no se pierde.** Al recargar, retroceder o cerrar la pestaña sigues donde estabas, incluso a mitad de una compresión. Todo queda en tu navegador y el botón Vaciar lo borra.
+- **Tú decides qué se guarda.** Un aviso inicial y una página de cookies permiten activar o retirar por separado la memoria de los ajustes y el contador global de imágenes comprimidas.
 - **Español e inglés,** con tema claro y oscuro.
 
 ## Seguridad y privacidad

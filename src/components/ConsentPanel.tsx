@@ -17,7 +17,6 @@ export function ConsentPanel() {
 
   const rows: { key: keyof Consent; title: string; text: string }[] = [
     { key: 'settings', title: cookies.settings.title, text: cookies.settings.text },
-    { key: 'session', title: cookies.session.title, text: cookies.session.text },
     { key: 'counter', title: cookies.counter.title, text: cookies.counter.text },
   ]
 

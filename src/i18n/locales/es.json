@@ -432,7 +432,7 @@
           },
           {
             "q": "¿Qué ocurre si recargo la página o cierro la pestaña?",
-            "a": "Depende de las preferencias de cookies. Si permites guardar la sesión de trabajo, el progreso se conserva y, al volver, se recupera tal como estaba, incluso si había una compresión a medias, que se retoma automáticamente. Si no lo permites, los archivos y los resultados se pierden al recargar. El botón «Vaciar» elimina los datos guardados en cualquier caso."
+            "a": "El progreso se conserva. La sesión de trabajo se guarda en el propio navegador, de modo que al recargar la página o volver más tarde se recupera tal como estaba, incluso si había una compresión a medias, que se retoma automáticamente. El botón «Vaciar» elimina los datos guardados en cualquier momento, y una ventana privada no conserva nada."
           },
           {
             "q": "¿Se conservan los datos de la cámara y la ubicación?",
@@ -451,9 +451,9 @@
             "Este principio se concreta en tres compromisos:",
             {
               "ul": [
-                "los archivos del usuario no salen de su equipo",
-                "no existen cuentas, cookies de seguimiento ni analítica",
-                "los únicos datos que llegan a un servidor son los estrictamente necesarios para el contador global, y se detallan más abajo"
+                "los archivos del usuario no salen de su equipo.",
+                "no existen cuentas, cookies de seguimiento ni analítica.",
+                "los únicos datos que llegan a un servidor son los estrictamente necesarios para el contador global, y se detallan más abajo."
               ]
             },
             "Este compromiso se mantiene incluso cuando se activan las funciones opcionales, porque ninguna de ellas necesita los archivos ni datos personales para funcionar."
@@ -468,9 +468,9 @@
             },
             {
               "ul": [
-                "las imágenes, las carpetas y los archivos zip que se añaden",
-                "los resultados de la compresión",
-                "las preferencias y los ajustes elegidos"
+                "las imágenes, las carpetas y los archivos zip que se añaden.",
+                "los resultados de la compresión.",
+                "las preferencias y los ajustes elegidos."
               ]
             },
             {
@@ -478,8 +478,8 @@
             },
             {
               "ul": [
-                "**la cantidad de imágenes comprimidas** al terminar cada compresión",
-                "los datos técnicos de cada visita que registra el proveedor de alojamiento"
+                "**la cantidad de imágenes comprimidas** al terminar cada compresión.",
+                "los datos técnicos de cada visita que registra el proveedor de alojamiento."
               ]
             },
             {
@@ -487,9 +487,9 @@
             },
             {
               "ul": [
-                "nombres, correos electrónicos ni cualquier otro dato que identifique al usuario",
-                "el contenido, los nombres ni las propiedades de los archivos",
-                "la ubicación ni los datos del dispositivo"
+                "nombres, correos electrónicos ni cualquier otro dato que identifique al usuario.",
+                "el contenido, los nombres ni las propiedades de los archivos.",
+                "la ubicación ni los datos del dispositivo."
               ]
             },
             "Esta clasificación determina qué decisiones están al alcance de la persona: lo que se queda en el equipo puede borrarse desde el navegador, y lo único que viaja a un servidor es **un número** sin relación con nadie."
@@ -506,16 +506,16 @@
         {
           "h": "Almacenamiento en el navegador",
           "p": [
-            "Squeezo utiliza el almacenamiento del propio navegador para que el trabajo no se pierda al recargar la página. Lo que se guarda depende de los permisos que la persona conceda en las preferencias de cookies:",
+            "Squeezo utiliza el almacenamiento del propio navegador para que el trabajo no se pierda al recargar la página. Lo que se guarda depende en parte de los permisos que la persona conceda en las preferencias de cookies:",
             {
               "ul": [
-                "siempre, el idioma, el tema y la decisión sobre las cookies, en el almacenamiento local",
-                "solo con permiso, los ajustes de compresión, en el almacenamiento local",
-                "solo con permiso, la sesión de trabajo, es decir, los archivos añadidos y los resultados, en la base de datos del navegador (IndexedDB)"
+                "siempre, el idioma, el tema y la decisión sobre las cookies, en el almacenamiento local.",
+                "siempre, la sesión de trabajo, es decir, los archivos añadidos y los resultados, en la base de datos del navegador (IndexedDB).",
+                "solo con permiso, los ajustes de compresión, en el almacenamiento local."
               ]
             },
             "Estos datos no salen del equipo, no se asocian a ninguna identidad y **no se comparten con ningún servidor**.",
-            "Si no se concede ningún permiso opcional, la herramienta solo recuerda el idioma, el tema y la decisión sobre las cookies, y **todo lo demás se pierde** al cerrar o recargar la página."
+            "Si no se concede ningún permiso opcional, la herramienta recuerda el idioma, el tema, la decisión sobre las cookies y la sesión de trabajo, pero **no recuerda los ajustes** de compresión entre visitas."
           ]
         },
         {
@@ -524,10 +524,10 @@
             "El usuario puede borrar en cualquier momento lo que Squeezo guarda en su navegador, de cuatro maneras:",
             {
               "ol": [
-                "retirando los permisos en la página de cookies, lo que elimina **de inmediato** los datos asociados a cada uno",
-                "pulsando el botón «Vaciar» en la lista de archivos, que elimina la sesión de trabajo",
-                "borrando los datos del sitio desde la configuración del navegador, que elimina además las preferencias",
-                "utilizando una ventana privada o de incógnito, en la que nada se conserva al cerrarla"
+                "retirando el permiso de los ajustes en la página de cookies, lo que elimina **de inmediato** los datos asociados.",
+                "pulsando el botón «Vaciar» en la lista de archivos, que elimina la sesión de trabajo.",
+                "borrando los datos del sitio desde la configuración del navegador, que elimina además las preferencias.",
+                "utilizando una ventana privada o de incógnito, en la que nada se conserva al cerrarla."
               ]
             },
             "Tras el borrado, la herramienta vuelve a su estado inicial.",
@@ -543,9 +543,9 @@
             },
             {
               "ul": [
-                "se envía solo un número entero",
-                "se guarda únicamente el total acumulado, sin relación con ninguna persona ni sesión",
-                "no se envían archivos, nombres, contenido ni identificadores"
+                "se envía solo un número entero.",
+                "se guarda únicamente el total acumulado, sin relación con ninguna persona ni sesión.",
+                "no se envían archivos, nombres, contenido ni identificadores."
               ]
             },
             {
@@ -568,8 +568,8 @@
           "h": "Cookies y tecnologías similares",
           "p": [
             "Squeezo **no instala cookies de seguimiento ni de publicidad**. Las únicas tecnologías de almacenamiento que utiliza son el almacenamiento local y la base de datos del navegador, y solo para el funcionamiento descrito en esta política.",
-            "La persona decide cuáles de ellas se activan mediante el aviso que aparece en la primera visita y la página de política de cookies, donde puede cambiar su decisión en cualquier momento. Ninguna se emplea para identificar ni para seguir al usuario entre sitios.",
-            "Rechazar las opciones adicionales no reduce las funciones de compresión: la diferencia se limita a que la herramienta **no recuerda** el trabajo ni los ajustes entre visitas."
+            "La persona decide cuáles de las opcionales se activan mediante el aviso que aparece en la primera visita y la página de política de cookies, donde puede cambiar su decisión en cualquier momento. Ninguna se emplea para identificar ni para seguir al usuario entre sitios.",
+            "Rechazar las opciones adicionales no reduce las funciones de compresión: la diferencia se limita a que la herramienta **no recuerda** los ajustes entre visitas ni suma imágenes al contador."
           ]
         },
         {
@@ -578,10 +578,10 @@
             "Las fotografías suelen incluir datos ocultos, conocidos como metadatos, que pueden revelar información personal. Entre ellos:",
             {
               "ul": [
-                "el modelo de la cámara o del teléfono",
-                "la fecha y la hora de la toma",
-                "la ubicación donde se tomó la fotografía",
-                "el perfil de color y otros datos técnicos"
+                "el modelo de la cámara o del teléfono.",
+                "la fecha y la hora de la toma.",
+                "la ubicación donde se tomó la fotografía.",
+                "el perfil de color y otros datos técnicos."
               ]
             },
             "Al comprimir un JPG o un PNG **esos datos se eliminan**, salvo que el usuario active la opción de conservarlos, en cuyo caso la ubicación podría seguir incluida. Si una imagen no puede reducirse, se devuelve sin cambios y con sus metadatos originales.",
@@ -602,9 +602,9 @@
             "Squeezo **no incorpora scripts**, tipografías ni recursos de terceros: todo se sirve desde el propio sitio. Los servicios externos que intervienen son:",
             {
               "ul": [
-                "Vercel, para el alojamiento del sitio y de la función del contador",
-                "Upstash, para almacenar el total del contador",
-                "GitHub, donde se publica el código fuente"
+                "Vercel, para el alojamiento del sitio y de la función del contador.",
+                "Upstash, para almacenar el total del contador.",
+                "GitHub, donde se publica el código fuente."
               ]
             },
             "Los enlaces al repositorio en GitHub y a las bibliotecas utilizadas conducen a sitios externos, que se rigen por sus propias políticas de privacidad.",
@@ -625,10 +625,10 @@
             "El tiempo de conservación depende de cada dato:",
             {
               "ul": [
-                "los archivos y resultados guardados en el navegador permanecen **hasta que el usuario los elimine**",
-                "las preferencias permanecen hasta que se borren los datos del sitio",
-                "la huella abreviada de la dirección IP se elimina al cabo de un minuto",
-                "el total del contador se conserva mientras el servicio esté activo, y no está asociado a ninguna persona"
+                "los archivos y resultados guardados en el navegador permanecen **hasta que el usuario los elimine**.",
+                "las preferencias permanecen hasta que se borren los datos del sitio.",
+                "la huella abreviada de la dirección IP se elimina al cabo de un minuto.",
+                "el total del contador se conserva mientras el servicio esté activo, y no está asociado a ninguna persona."
               ]
             },
             "No se conservan copias de seguridad de las imágenes ni de los resultados, porque en ningún momento llegan a un servidor. Cuando el usuario los elimina de su navegador, **desaparecen por completo**."
@@ -669,10 +669,10 @@
             "Estos términos se aplican a todo lo que forma parte del servicio:",
             {
               "ul": [
-                "el sitio web y sus páginas informativas",
-                "la herramienta de compresión de imágenes, carpetas y archivos zip",
-                "la función que mantiene el contador global de imágenes comprimidas",
-                "la documentación y el código fuente publicados en el repositorio del proyecto"
+                "el sitio web y sus páginas informativas.",
+                "la herramienta de compresión de imágenes, carpetas y archivos zip.",
+                "la función que mantiene el contador global de imágenes comprimidas.",
+                "la documentación y el código fuente publicados en el repositorio del proyecto."
               ]
             },
             "Si el servicio se utiliza en nombre de una organización, quien lo utiliza declara contar con autoridad para aceptar estos términos en su nombre.",
@@ -689,10 +689,10 @@
             },
             {
               "ul": [
-                "compresión de imágenes JPG, PNG, WebP, AVIF, GIF, SVG y BMP, conservando las dimensiones originales salvo que el usuario indique lo contrario",
-                "lectura de carpetas y archivos zip, con vista del contenido antes de comprimir",
-                "comparación entre la imagen original y la comprimida",
-                "descarga de los resultados de forma individual o en un archivo zip"
+                "compresión de imágenes JPG, PNG, WebP, AVIF, GIF, SVG y BMP, conservando las dimensiones originales salvo que el usuario indique lo contrario.",
+                "lectura de carpetas y archivos zip, con vista del contenido antes de comprimir.",
+                "comparación entre la imagen original y la comprimida.",
+                "descarga de los resultados de forma individual o en un archivo zip."
               ]
             },
             {
@@ -700,9 +700,9 @@
             },
             {
               "ul": [
-                "almacenamiento de archivos en servidores ni copias de seguridad de los trabajos del usuario",
-                "cuentas, historial entre dispositivos ni sincronización",
-                "edición, recorte ni procesamiento de videos u otros archivos que no sean imágenes"
+                "almacenamiento de archivos en servidores ni copias de seguridad de los trabajos del usuario.",
+                "cuentas, historial entre dispositivos ni sincronización.",
+                "edición, recorte ni procesamiento de videos u otros archivos que no sean imágenes."
               ]
             }
           ]
@@ -713,9 +713,9 @@
             "El funcionamiento de Squeezo depende de las capacidades del navegador y del equipo desde el que se utiliza. Para un uso adecuado se necesita:",
             {
               "ul": [
-                "**un navegador actualizado** con JavaScript, WebAssembly e IndexedDB habilitados",
-                "memoria disponible suficiente para el tamaño y la cantidad de imágenes que se procesan",
-                "espacio libre en el equipo para guardar los resultados"
+                "**un navegador actualizado** con JavaScript, WebAssembly e IndexedDB habilitados.",
+                "memoria disponible suficiente para el tamaño y la cantidad de imágenes que se procesan.",
+                "espacio libre en el equipo para guardar los resultados."
               ]
             },
             "Algunos formatos, como TIFF y HEIC, solo pueden procesarse en los navegadores que los admiten. En un equipo con pocos recursos, el procesamiento de lotes grandes puede ser lento o interrumpirse.",
@@ -729,10 +729,10 @@
             "Queda prohibido:",
             {
               "ul": [
-                "procesar contenido ilícito o que vulnere derechos de terceros",
-                "intentar alterar el funcionamiento del servicio, eludir sus límites o sobrecargar sus recursos",
-                "enviar solicitudes automatizadas o masivas al contador global con el fin de falsear la cifra",
-                "utilizar el servicio con fines que perjudiquen a otras personas"
+                "procesar contenido ilícito o que vulnere derechos de terceros.",
+                "intentar alterar el funcionamiento del servicio, eludir sus límites o sobrecargar sus recursos.",
+                "enviar solicitudes automatizadas o masivas al contador global con el fin de falsear la cifra.",
+                "utilizar el servicio con fines que perjudiquen a otras personas."
               ]
             },
             "El incumplimiento de estas reglas puede dar lugar a que se restrinja el acceso al servicio.",
@@ -745,7 +745,7 @@
             "Los archivos siguen siendo propiedad de su titular. Squeezo no los recibe, no los almacena en servidores ni los comparte, porque todo el procesamiento se realiza en el propio navegador.",
             "La herramienta **nunca modifica los originales**: genera copias comprimidas que se descargan por separado. Cuando una imagen no puede reducirse sin pérdida apreciable, se devuelve sin cambios y así se indica en la lista.",
             "El usuario declara que tiene derecho a procesar los archivos que añade y asume la responsabilidad por su contenido.",
-            "Si el navegador se cierra o se recarga a mitad de un trabajo, los archivos ya añadidos solo se recuperan cuando existe el permiso de sesión. Sin él, hace falta volver a añadirlos, y por eso conviene **descargar los resultados** antes de salir."
+            "Si el navegador se cierra o se recarga a mitad de un trabajo, los archivos ya añadidos y los resultados se recuperan al volver, porque la sesión se guarda en el propio navegador. Aun así, conviene **descargar los resultados** antes de salir, ya que lo guardado puede borrarse junto con los datos del sitio."
           ]
         },
         {
@@ -771,9 +771,9 @@
             "Los niveles de mayor compresión, la conversión de formato y la reducción de dimensiones pueden producir diferencias visibles. Para comprobarlo, se recomienda:",
             {
               "ol": [
-                "revisar los resultados con el comparador antes de descargarlos",
-                "usar el nivel Calidad alta con imágenes que se vayan a imprimir o a ampliar",
-                "conservar siempre los archivos originales"
+                "revisar los resultados con el comparador antes de descargarlos.",
+                "usar el nivel Calidad alta con imágenes que se vayan a imprimir o a ampliar.",
+                "conservar siempre los archivos originales."
               ]
             },
             "Las imágenes que ya estaban muy optimizadas se dejan sin cambios, de modo que el peso de la imagen resultante nunca supera al del original.",
@@ -792,9 +792,9 @@
         {
           "h": "Almacenamiento en el navegador",
           "p": [
-            "Para evitar la pérdida del progreso, y siempre que el usuario lo permita en las preferencias de cookies, la sesión de trabajo se guarda en el almacenamiento del navegador, incluidos los archivos añadidos y los resultados obtenidos. Esos datos permanecen en el equipo hasta que se retire el permiso, se pulse «Vaciar» o se borren los datos del sitio desde la configuración del navegador.",
-            "En equipos compartidos o públicos se recomienda **no conceder ese permiso** o vaciar la sesión al terminar, ya que cualquier persona con acceso al mismo perfil del navegador podría ver los archivos guardados. El almacenamiento es local: no se sincroniza con otros dispositivos ni con ningún servidor.",
-            "El permiso puede retirarse en cualquier momento desde la página de cookies, y al hacerlo los datos guardados se **eliminan al instante**. Sin el permiso, la herramienta funciona igual, con la única diferencia de que el trabajo no sobrevive a una recarga."
+            "Para evitar la pérdida del progreso, la sesión de trabajo se guarda en el almacenamiento del navegador, incluidos los archivos añadidos y los resultados obtenidos. Esos datos permanecen en el equipo hasta que se pulse «Vaciar» o se borren los datos del sitio desde la configuración del navegador.",
+            "En equipos compartidos o públicos se recomienda **pulsar «Vaciar»** al terminar o usar una ventana privada, ya que cualquier persona con acceso al mismo perfil del navegador podría ver los archivos guardados. El almacenamiento es local: no se sincroniza con otros dispositivos ni con ningún servidor.",
+            "Guardar la sesión es una función de la propia herramienta y no envía nada a ningún servidor. Si se prefiere que no quede nada guardado, basta con **usar una ventana privada** o pulsar «Vaciar» al terminar."
           ]
         },
         {
@@ -803,11 +803,11 @@
             "Para proteger el funcionamiento del navegador se aplican los siguientes límites:",
             {
               "ul": [
-                "hasta **1000 imágenes** por zip y por carga",
-                "hasta 50 megapíxeles por imagen",
-                "hasta 768 MB por archivo una vez descomprimido",
-                "hasta 100 000 entradas leídas en el directorio de un zip",
-                "hasta 5 minutos de procesamiento por imagen, y si se supera se descarta"
+                "hasta **1000 imágenes** por zip y por carga.",
+                "hasta 50 megapíxeles por imagen.",
+                "hasta 768 MB por archivo una vez descomprimido.",
+                "hasta 100 000 entradas leídas en el directorio de un zip.",
+                "hasta 5 minutos de procesamiento por imagen, y si se supera se descarta."
               ]
             },
             "Los archivos que no son imágenes, los protegidos con contraseña, los ejecutables y los que representen un riesgo para la seguridad se excluyen del procesamiento, y la lista de lo omitido se muestra al usuario. Estos límites pueden ajustarse en futuras versiones.",
@@ -820,10 +820,10 @@
             "Squeezo incorpora protecciones para reducir los riesgos de procesar archivos desconocidos:",
             {
               "ul": [
-                "cada archivo se identifica **por su contenido** y no por su extensión",
-                "se rechazan las rutas de zip que intentan salir de la carpeta de destino, los archivos cifrados y los que al descomprimirse superan con creces el tamaño que declaran",
-                "se eliminan los scripts y los enlaces externos de los archivos SVG, que solo se muestran como imagen",
-                "ningún archivo añadido se ejecuta"
+                "cada archivo se identifica **por su contenido** y no por su extensión.",
+                "se rechazan las rutas de zip que intentan salir de la carpeta de destino, los archivos cifrados y los que al descomprimirse superan con creces el tamaño que declaran.",
+                "se eliminan los scripts y los enlaces externos de los archivos SVG, que solo se muestran como imagen.",
+                "ningún archivo añadido se ejecuta."
               ]
             },
             "Estas medidas reducen el riesgo, pero no lo eliminan por completo. Quien utilice la herramienta debe procurar que los archivos provengan de fuentes de confianza.",
@@ -853,10 +853,10 @@
             "Tampoco se responsabiliza por las pérdidas, los daños o los perjuicios derivados del uso de la herramienta, entre ellos:",
             {
               "ul": [
-                "la pérdida o la alteración de archivos",
-                "la diferencia de calidad entre el original y el resultado",
-                "la interrupción del procesamiento por falta de recursos del equipo",
-                "el uso que terceros hagan de los archivos descargados"
+                "la pérdida o la alteración de archivos.",
+                "la diferencia de calidad entre el original y el resultado.",
+                "la interrupción del procesamiento por falta de recursos del equipo.",
+                "el uso que terceros hagan de los archivos descargados."
               ]
             },
             "El usuario es responsable de conservar copias de sus originales.",
@@ -870,11 +870,11 @@
             "Squeezo se apoya en bibliotecas de terceros, que conservan sus propias licencias:",
             {
               "ul": [
-                "jSquash, que reúne los codificadores MozJPEG, OxiPNG, WebP y AVIF",
-                "SVGO, para la optimización de archivos SVG",
-                "gifsicle, para los archivos GIF",
-                "UPNG, para la reducción de paleta en los PNG",
-                "fflate, para leer y crear archivos zip"
+                "jSquash, que reúne los codificadores MozJPEG, OxiPNG, WebP y AVIF.",
+                "SVGO, para la optimización de archivos SVG.",
+                "gifsicle, para los archivos GIF.",
+                "UPNG, para la reducción de paleta en los PNG.",
+                "fflate, para leer y crear archivos zip."
               ]
             },
             "Las imágenes de ejemplo que acompañan al sitio se utilizan únicamente con fines ilustrativos.",
@@ -934,7 +934,8 @@
             {
               "ul": [
                 "El **idioma y el tema** elegidos, que se guardan en el almacenamiento local.",
-                "La decisión que se toma sobre estas preferencias, también en el almacenamiento local."
+                "La decisión que se toma sobre estas preferencias, también en el almacenamiento local.",
+                "La sesión de trabajo, es decir, los archivos añadidos y los resultados, guardada en la base de datos del navegador (IndexedDB) para no perder el progreso."
               ]
             },
             {
@@ -943,7 +944,6 @@
             {
               "ul": [
                 "Los ajustes de compresión, guardados en el almacenamiento local.",
-                "La sesión de trabajo, es decir, los archivos añadidos y los resultados, guardada en la base de datos del navegador (IndexedDB).",
                 "El envío de la cantidad de imágenes comprimidas al contador global, que no guarda nada en el navegador."
               ]
             },
@@ -956,9 +956,8 @@
           "p": [
             {
               "ul": [
-                "Las necesarias evitan que el idioma y el tema cambien en cada visita y permiten no repetir la pregunta sobre las cookies.",
+                "Las necesarias evitan que el idioma y el tema cambien en cada visita, permiten no repetir la pregunta sobre las cookies y **conservan la sesión de trabajo** al recargar la página, al retroceder o al cerrar la pestaña.",
                 "Los ajustes de compresión evitan volver a configurar la herramienta cada vez que se usa.",
-                "La sesión de trabajo **evita perder el progreso** al recargar la página, al retroceder o al cerrar la pestaña.",
                 "El contador global permite mostrar cuántas imágenes se han comprimido entre todas las personas que usan Squeezo."
               ]
             },
@@ -968,11 +967,10 @@
         {
           "h": "Qué ocurre al aceptar o rechazar",
           "p": [
-            "Al aceptar, se activan los tres permisos opcionales. Al rechazar, **solo permanecen activas las necesarias**, y la herramienta sigue funcionando con normalidad.",
+            "Al aceptar, se activan los dos permisos opcionales. Al rechazar, **solo permanecen activas las necesarias**, entre ellas la sesión de trabajo, y la herramienta sigue funcionando con normalidad.",
             {
               "ul": [
                 "Sin permiso para los ajustes, estos vuelven a sus valores iniciales en cada visita.",
-                "Sin permiso para la sesión, los archivos y los resultados se pierden al recargar la página.",
                 "Sin permiso para el contador, no se envía ningún dato al servidor al terminar una compresión."
               ]
             },
@@ -999,7 +997,7 @@
           "p": [
             "Los datos guardados permanecen en el navegador **hasta que la persona los elimine**, ya sea desde esta página, con el botón «Vaciar» de la lista de archivos o desde la configuración del navegador. Squeezo no les asigna una fecha de caducidad.",
             "La decisión sobre las cookies se conserva hasta que se cambie, de modo que el aviso no vuelve a aparecer después de elegir.",
-            "Para borrarlo todo de una vez basta con retirar los tres permisos opcionales o con eliminar los datos del sitio, lo que además **restablece** el idioma y el tema."
+            "Para borrarlo todo de una vez basta con eliminar los datos del sitio desde el navegador, lo que además **restablece** el idioma y el tema. El botón «Vaciar» borra solo la sesión de trabajo."
           ]
         },
         {
@@ -1021,7 +1019,7 @@
   },
   "cookies": {
     "bannerTitle": "Cookies y almacenamiento",
-    "bannerText": "Squeezo no usa cookies de seguimiento ni publicidad. Guarda en tu navegador el idioma y el tema y, si lo permites, tus ajustes, tu trabajo en curso y un contador anónimo de imágenes comprimidas.",
+    "bannerText": "Squeezo no usa cookies de seguimiento ni publicidad. Guarda en tu navegador el idioma, el tema y tu trabajo en curso y, si lo permites, tus ajustes y un contador anónimo de imágenes comprimidas.",
     "accept": "Aceptar",
     "reject": "Rechazar",
     "customize": "Personalizar preferencias",
@@ -1030,15 +1028,11 @@
     "decided": "Puedes cambiar cualquiera de estos permisos en cualquier momento. Los cambios se aplican de inmediato.",
     "necessary": {
       "title": "Necesarias",
-      "text": "Recuerdan el idioma, el tema y esta misma decisión. Siempre están activas."
+      "text": "Recuerdan el idioma, el tema, esta misma decisión y tu trabajo en curso, es decir, los archivos añadidos y los resultados. Siempre están activas."
     },
     "settings": {
       "title": "Ajustes de compresión",
       "text": "Recuerdan el nivel, el formato de salida y las demás opciones que elijas."
-    },
-    "session": {
-      "title": "Sesión de trabajo",
-      "text": "Conserva los archivos añadidos y los resultados cuando recargas la página o cierras la pestaña."
     },
     "counter": {
       "title": "Contador global",

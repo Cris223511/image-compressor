@@ -15,11 +15,11 @@ describe('consentimiento', () => {
   beforeEach(() => vi.resetModules())
   afterEach(() => vi.unstubAllGlobals())
 
-  it('sin decisión previa todo lo opcional está apagado y se pregunta', async () => {
+  it('sin decisión previa lo opcional está apagado, la sesión se guarda y se pregunta', async () => {
     fakeStorage()
     const { useConsent } = await import('../src/store/consent')
     const s = useConsent.getState()
-    expect([s.decided, s.settings, s.session, s.counter]).toEqual([false, false, false, false])
+    expect([s.decided, s.settings, s.session, s.counter]).toEqual([false, false, true, false])
   })
 
   it('aceptar activa los tres permisos y los recuerda', async () => {
@@ -30,23 +30,23 @@ describe('consentimiento', () => {
     expect(JSON.parse(data.get('squeezo-consent')!)).toEqual({ settings: true, session: true, counter: true })
   })
 
-  it('rechazar deja todo apagado pero marca la decisión como tomada', async () => {
+  it('rechazar apaga lo opcional, mantiene la sesión y marca la decisión como tomada', async () => {
     fakeStorage()
     const { useConsent } = await import('../src/store/consent')
     useConsent.getState().rejectAll()
-    expect(useConsent.getState()).toMatchObject({ decided: true, settings: false, session: false, counter: false })
+    expect(useConsent.getState()).toMatchObject({ decided: true, settings: false, session: true, counter: false })
   })
 
-  it('al volver recupera la decisión guardada', async () => {
+  it('al volver recupera la decisión guardada y la sesión sigue activa aunque antes se hubiera apagado', async () => {
     fakeStorage({ 'squeezo-consent': JSON.stringify({ settings: true, session: false, counter: true }) })
     const { useConsent } = await import('../src/store/consent')
-    expect(useConsent.getState()).toMatchObject({ decided: true, settings: true, session: false, counter: true })
+    expect(useConsent.getState()).toMatchObject({ decided: true, settings: true, session: true, counter: true })
   })
 
   it('un valor guardado alterado no concede permisos de más', async () => {
     fakeStorage({ 'squeezo-consent': JSON.stringify({ settings: 'sí', session: 1 }) })
     const { useConsent } = await import('../src/store/consent')
-    expect(useConsent.getState()).toMatchObject({ settings: false, session: false, counter: false })
+    expect(useConsent.getState()).toMatchObject({ settings: false, session: true, counter: false })
   })
 
   it('el contador no envía nada sin permiso y sí con él', async () => {

@@ -4,7 +4,7 @@ import { create } from 'zustand'
 export interface Consent {
   /** recordar los ajustes de compresión entre visitas */
   settings: boolean
-  /** conservar los archivos y los resultados al recargar la página */
+  /** conservar los archivos y los resultados al recargar la página, algo que siempre está activo para no perder el progreso */
   session: boolean
   /** sumar las imágenes comprimidas al contador global */
   counter: boolean
@@ -19,14 +19,15 @@ interface ConsentState extends Consent {
 }
 
 const KEY = 'squeezo-consent'
-const NONE: Consent = { settings: false, session: false, counter: false }
+// la sesión de trabajo nunca se apaga sola, porque perder lo que se lleva hecho al recargar no es lo que se espera
+const NONE: Consent = { settings: false, session: true, counter: false }
 
 function read(): { decided: boolean; consent: Consent } {
   try {
     const raw = localStorage.getItem(KEY)
     if (raw) {
       const v = JSON.parse(raw) as Partial<Consent>
-      return { decided: true, consent: { settings: v.settings === true, session: v.session === true, counter: v.counter === true } }
+      return { decided: true, consent: { settings: v.settings === true, session: true, counter: v.counter === true } }
     }
   } catch {
     /* sin almacenamiento se vuelve a preguntar en cada visita */
@@ -40,6 +41,7 @@ export const useConsent = create<ConsentState>((set) => ({
   ...initial.consent,
   decided: initial.decided,
   save: (c) => {
+    c = { ...c, session: true }
     try {
       localStorage.setItem(KEY, JSON.stringify(c))
     } catch {

@@ -4,6 +4,13 @@ Este documento recoge los cambios importantes de Squeezo, de la versión más re
 
 El formato sigue la convención de [Keep a Changelog](https://keepachangelog.com/es/) y el versionado es [semántico](https://semver.org/lang/es/). El primer número marca los cambios mayores, el segundo las funciones nuevas y el tercero las correcciones.
 
+## 1.0.21 (2026-11-27)
+
+- **El progreso nunca se pierde.** La sesión de trabajo, con los archivos añadidos y los resultados, se guarda siempre en el navegador, sin depender de las preferencias de cookies. Al recargar con F5, con Ctrl + R o con Ctrl + Mayús + R, o al cerrar y volver a abrir la pestaña, todo sigue donde estaba. Antes esa memoria solo funcionaba si se había aceptado de forma expresa, y quien rechazaba las cookies perdía el trabajo. El botón Vaciar y una ventana privada siguen siendo las formas de no dejar nada guardado.
+- **Preferencias de cookies.** La página de cookies ya no incluye el interruptor de la sesión de trabajo, que pasa a la categoría de las necesarias, y los textos legales y las preguntas frecuentes lo reflejan.
+- **Textos legales.** Cada punto de las listas de los términos, la privacidad y las cookies termina ahora con punto final.
+- **Capturas del README.** Las tres imágenes de la documentación se vuelven a tomar con el aspecto actual del sitio.
+
 ## 1.0.20 (2026-11-27)
 
 - **Un globo por elemento.** Cada botón muestra su propio globo de ayuda, que aparece al entrar el cursor y se desvanece por su cuenta al salir. Al pasar rápido por varios botones se ven varios globos a la vez, cada uno en una etapa distinta de su desvanecimiento, en lugar de un único globo que se desplaza de uno a otro.
