@@ -3,6 +3,7 @@ import { Route, Routes, useLocation } from 'react-router-dom'
 import { Header } from './components/Header'
 import { Footer } from './components/Footer'
 import { CookieBanner } from './components/CookieBanner'
+import { TooltipLayer } from './components/TooltipLayer'
 import { DropOverlay } from './components/DropOverlay'
 import { useGlobalDrop } from './lib/useGlobalDrop'
 import { startConsentEffects } from './lib/consentEffects'
@@ -71,6 +72,7 @@ export default function App() {
       <Footer />
       <DropOverlay show={dragging} />
       <CookieBanner />
+      <TooltipLayer />
     </div>
   )
 }

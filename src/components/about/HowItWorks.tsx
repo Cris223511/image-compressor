@@ -474,7 +474,7 @@ function StepCompress({ selected }: { selected: Selection }) {
               <span className="btn-primary h-11 px-4 text-sm">
                 <Download size={16} /> {t('work.downloadAll')}
               </span>
-              <button className="btn-ghost h-11" onClick={() => setPhase('idle')} aria-label={t('pages.about.how.again')} title={t('pages.about.how.again')}>
+              <button className="btn-ghost h-11" onClick={() => setPhase('idle')} aria-label={t('pages.about.how.again')} data-tip={t('pages.about.how.again')}>
                 <RotateCcw size={15} />
               </button>
             </div>

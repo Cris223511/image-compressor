@@ -6,7 +6,7 @@ export function RemoveButton({ label, onRemove, disabled }: { label: string; onR
     <button
       disabled={disabled}
       className="grid h-8 w-8 shrink-0 place-items-center rounded-lg text-muted transition-colors hover:bg-bad-soft hover:text-bad disabled:pointer-events-none disabled:opacity-40"
-      title={label}
+      data-tip={label}
       aria-label={label}
       onClick={(e) => {
         e.stopPropagation()

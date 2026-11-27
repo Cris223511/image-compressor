@@ -103,7 +103,7 @@ export function ResultBanner({ open, onSettings }: { open: boolean; onSettings: 
               <button className="btn-ghost flex-1" onClick={redo}>
                 <RotateCcw size={15} /> {t('work.again')}
               </button>
-              <button className="btn-ghost" onClick={onSettings} aria-label={t('work.settings')} title={t('work.settings')}>
+              <button className="btn-ghost" onClick={onSettings} aria-label={t('work.settings')} data-tip={t('work.settings')}>
                 <SlidersHorizontal size={15} />
               </button>
             </div>

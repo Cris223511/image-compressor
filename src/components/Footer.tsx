@@ -62,7 +62,7 @@ export function Footer() {
               href={`${REPO_URL}/releases/tag/v${__APP_VERSION__}`}
               target="_blank"
               rel="noopener noreferrer"
-              title={footer.version}
+              data-tip={footer.version}
               className="chip bg-brand-soft text-brand transition-all duration-300 hover:-translate-y-0.5 hover:shadow-card"
             >
               v{__APP_VERSION__}

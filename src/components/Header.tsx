@@ -65,7 +65,7 @@ export function Header() {
             onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
             className="grid h-9 w-9 place-items-center rounded-xl text-muted transition-colors hover:bg-sunken hover:text-ink"
             aria-label={t('nav.theme')}
-            title={t('nav.theme')}
+            data-tip={t('nav.theme')}
           >
             {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
           </button>
@@ -75,7 +75,7 @@ export function Header() {
             rel="noopener noreferrer"
             className="hidden h-9 w-9 place-items-center rounded-xl text-muted transition-colors hover:bg-sunken hover:text-ink sm:grid"
             aria-label={t('nav.repo')}
-            title={t('nav.repo')}
+            data-tip={t('nav.repo')}
           >
             <Code2 size={18} />
           </a>

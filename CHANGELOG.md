@@ -4,6 +4,12 @@ Este documento recoge los cambios importantes de Squeezo, de la versión más re
 
 El formato sigue la convención de [Keep a Changelog](https://keepachangelog.com/es/) y el versionado es [semántico](https://semver.org/lang/es/). El primer número marca los cambios mayores, el segundo las funciones nuevas y el tercero las correcciones.
 
+## 1.0.18 (2026-11-27)
+
+- **Globos de ayuda propios.** Los botones y textos que mostraban el aviso gris del sistema ahora muestran un globo oscuro del propio sitio, que aparece por encima del elemento con un fundido suave. También aparece al enfocar con el teclado.
+- **Comparador a pantalla completa.** El botón de expandir abre una vista grande con la comparación sobre un fondo hecho de la propia imagen desenfocada. Incluye zoom con la rueda, arrastre, doble clic y una barra con alejar, acercar, tamaño real, ajustar, descargar y cerrar. Se abre y se cierra con suavidad, y se cierra con la X, con Esc o con un clic en el fondo. El botón de ajustar a la ventana pasa a tener un icono propio.
+- **Desplazamiento del índice.** Al pulsar un título del índice de los textos legales, la duración del deslizamiento crece con la distancia, de modo que los saltos largos no se sienten bruscos.
+
 ## 1.0.17 (2026-11-26)
 
 - **Reordenar arrastrando.** Al arrastrar una imagen de la lista, la fila sigue al puntero y las demás se apartan con una animación para hacerle sitio, en lugar de mostrar una línea azul. Al soltar, la imagen se acomoda en su nueva posición también con animación.

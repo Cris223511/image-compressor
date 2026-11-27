@@ -143,7 +143,7 @@ function RoundButton({
     <button
       onClick={onClick}
       disabled={disabled}
-      title={label}
+      data-tip={label}
       aria-label={label}
       className="grid h-[34px] w-[34px] place-items-center rounded-full bg-brand text-white shadow-md transition-transform hover:scale-110 sm:h-[38px] sm:w-[38px]"
     >

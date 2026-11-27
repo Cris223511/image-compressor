@@ -142,7 +142,9 @@
     "zoomIn": "Acercar",
     "zoomOut": "Alejar",
     "fit": "Ajustar a la ventana",
-    "actual": "Tamaño real (100 %). Con la rueda del ratón se acerca y con un doble clic también"
+    "actual": "Tamaño real (100 %). Con la rueda del ratón se acerca y con un doble clic también",
+    "fullscreen": "Pantalla completa",
+    "download": "Descargar la imagen comprimida"
   },
   "settings": {
     "title": "Ajustes de compresión",

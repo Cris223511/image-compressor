@@ -270,7 +270,7 @@ const FileRow = memo(function FileRow({
       <button
         type="button"
         disabled={locked}
-        title={t('work.reorder')}
+        data-tip={t('work.reorder')}
         aria-label={t('work.reorder')}
         onPointerDown={(e) => onGrip(e, id)}
         onKeyDown={(e) => {
@@ -308,7 +308,7 @@ function FileInfo({ item }: { item: Item }) {
   const name = item.result?.name ?? item.name
   return (
     <div className="min-w-0 flex-1">
-      <p className="truncate text-[0.95rem] font-medium" title={item.path}>
+      <p className="truncate text-[0.95rem] font-medium" data-tip={item.path}>
         {name}
       </p>
       <p className="truncate text-xs text-muted">
@@ -335,7 +335,7 @@ function FileStatus({ item, onCompare }: { item: Item; onCompare: (id: string) =
   }
   if (item.status === 'error') {
     return (
-      <span className="fade-in chip max-w-[46%] bg-bad-soft text-bad" title={errorText}>
+      <span className="fade-in chip max-w-[46%] bg-bad-soft text-bad" data-tip={errorText}>
         <AlertCircle size={13} className="shrink-0" />
         <span className="truncate">{errorText}</span>
       </span>
@@ -346,7 +346,7 @@ function FileStatus({ item, onCompare }: { item: Item; onCompare: (id: string) =
     const saved = 1 - r.outSize / item.size
     const note = r.note ? t(`notes.${r.note}`, { format: KIND_LABEL[r.outKind] }) : ''
     return (
-      <div className="fade-in flex items-center gap-2" title={note}>
+      <div className="fade-in flex items-center gap-2" data-tip={note}>
         <span className="hidden items-center gap-1.5 text-xs text-muted md:flex">
           {formatBytes(item.size, locale)}
           <ArrowRight size={12} />
@@ -361,7 +361,7 @@ function FileStatus({ item, onCompare }: { item: Item; onCompare: (id: string) =
           {r.blob && (
             <button
               className="grid h-8 w-8 place-items-center rounded-lg text-muted hover:bg-surface hover:text-brand"
-              title={t('work.compare')}
+              data-tip={t('work.compare')}
               aria-label={t('work.compare')}
               onClick={(e) => {
                 e.stopPropagation()
@@ -373,7 +373,7 @@ function FileStatus({ item, onCompare }: { item: Item; onCompare: (id: string) =
           )}
           <button
             className="grid h-8 w-8 place-items-center rounded-lg text-muted hover:bg-surface hover:text-brand"
-            title={t('work.downloadOne')}
+            data-tip={t('work.downloadOne')}
             aria-label={t('work.downloadOne')}
             onClick={(e) => {
               e.stopPropagation()

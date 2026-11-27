@@ -142,7 +142,9 @@
     "zoomIn": "Zoom in",
     "zoomOut": "Zoom out",
     "fit": "Fit to window",
-    "actual": "Actual size (100 %). The mouse wheel zooms and so does a double click"
+    "actual": "Actual size (100 %). The mouse wheel zooms and so does a double click",
+    "fullscreen": "Full screen",
+    "download": "Download the compressed image"
   },
   "settings": {
     "title": "Compression settings",

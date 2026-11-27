@@ -43,7 +43,11 @@ const easeInOut = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 
 /** baja o sube hasta un elemento (o una altura) deslizando, y sin lenis usa el scroll nativo */
 export function scrollToTarget(target: number | HTMLElement, offset = -88) {
   if (lenis) {
-    lenis.scrollTo(target, { offset: typeof target === 'number' ? 0 : offset, duration: 1.3, easing: easeInOut })
+    // cuanto más lejos queda el destino, más tarda en llegar, así los saltos largos no se sienten como un tirón
+    const from = window.scrollY
+    const to = typeof target === 'number' ? target : target.getBoundingClientRect().top + from + offset
+    const duration = Math.min(2.6, Math.max(0.9, 0.7 + Math.abs(to - from) / 2600))
+    lenis.scrollTo(target, { offset: typeof target === 'number' ? 0 : offset, duration, easing: easeInOut })
     wake()
   } else if (typeof target === 'number') {
     window.scrollTo({ top: target, behavior: 'smooth' })
