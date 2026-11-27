@@ -12,14 +12,9 @@ export function TooltipLayer() {
   const [at, setAt] = useState({ left: 0, top: 0, arrow: 0, below: false })
   const box = useRef<HTMLDivElement>(null)
   const current = useRef<Element | null>(null)
-  const timer = useRef(0)
-  const onRef = useRef(false)
-  onRef.current = on
 
   useEffect(() => {
-    const clear = () => window.clearTimeout(timer.current)
     const hide = () => {
-      clear()
       current.current = null
       setOn(false)
     }
@@ -37,10 +32,9 @@ export function TooltipLayer() {
       if (e.pointerType === 'touch') return
       const el = target(e)
       if (el === current.current) return
-      clear()
       if (!el) return hide()
-      // con un globo ya visible el siguiente aparece al instante, y si no se espera un momento para no molestar
-      timer.current = window.setTimeout(() => show(el), onRef.current ? 0 : 350)
+      // el globo sale en el mismo instante en que el cursor entra al elemento, sin esperar
+      show(el)
     }
     const focus = (e: FocusEvent) => {
       const el = target(e)
@@ -56,7 +50,6 @@ export function TooltipLayer() {
     document.addEventListener('keydown', hide, true)
     document.documentElement.addEventListener('mouseleave', hide)
     return () => {
-      clear()
       document.removeEventListener('pointerover', over)
       document.removeEventListener('pointerdown', hide, true)
       document.removeEventListener('wheel', hide, true)
