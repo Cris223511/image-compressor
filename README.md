@@ -15,8 +15,8 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/Cris223511/image-compressor/actions/workflows/ci.yml"><img src="https://github.com/Cris223511/image-compressor/actions/workflows/ci.yml/badge.svg" alt="estado de la integración continua"></a>
-  <a href="https://github.com/Cris223511/image-compressor/releases/latest"><img src="https://img.shields.io/github/v/release/Cris223511/image-compressor?label=versi%C3%B3n&color=1861ff" alt="última versión"></a>
+  <a href="https://github.com/Cris223511/squeezo/actions/workflows/ci.yml"><img src="https://github.com/Cris223511/squeezo/actions/workflows/ci.yml/badge.svg" alt="estado de la integración continua"></a>
+  <a href="https://github.com/Cris223511/squeezo/releases/latest"><img src="https://img.shields.io/github/v/release/Cris223511/squeezo?label=versi%C3%B3n&color=1861ff" alt="última versión"></a>
   <img src="https://img.shields.io/badge/React-18-1861ff" alt="react 18">
   <img src="https://img.shields.io/badge/TypeScript-5-1861ff" alt="typescript 5">
   <img src="https://img.shields.io/badge/Vite-5-1861ff" alt="vite 5">
@@ -111,7 +111,7 @@ Cada JPG, WebP o AVIF se codifica varias veces y se compara con el original midi
 
 ## Contribuir
 
-Los reportes de errores y las ideas son bienvenidos en los [issues](https://github.com/Cris223511/image-compressor/issues). Para aportar código, abre un *pull request*.
+Los reportes de errores y las ideas son bienvenidos en los [issues](https://github.com/Cris223511/squeezo/issues). Para aportar código, abre un *pull request*.
 
 ## Licencia
 

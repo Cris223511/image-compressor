@@ -7,7 +7,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Cris223511/image-compressor.git"
+    "url": "git+https://github.com/Cris223511/squeezo.git"
   },
   "scripts": {
     "dev": "vite",

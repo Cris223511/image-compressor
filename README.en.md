@@ -15,8 +15,8 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/Cris223511/image-compressor/actions/workflows/ci.yml"><img src="https://github.com/Cris223511/image-compressor/actions/workflows/ci.yml/badge.svg" alt="continuous integration status"></a>
-  <a href="https://github.com/Cris223511/image-compressor/releases/latest"><img src="https://img.shields.io/github/v/release/Cris223511/image-compressor?label=release&color=1861ff" alt="latest release"></a>
+  <a href="https://github.com/Cris223511/squeezo/actions/workflows/ci.yml"><img src="https://github.com/Cris223511/squeezo/actions/workflows/ci.yml/badge.svg" alt="continuous integration status"></a>
+  <a href="https://github.com/Cris223511/squeezo/releases/latest"><img src="https://img.shields.io/github/v/release/Cris223511/squeezo?label=release&color=1861ff" alt="latest release"></a>
   <img src="https://img.shields.io/badge/React-18-1861ff" alt="react 18">
   <img src="https://img.shields.io/badge/TypeScript-5-1861ff" alt="typescript 5">
   <img src="https://img.shields.io/badge/Vite-5-1861ff" alt="vite 5">
@@ -111,7 +111,7 @@ Each JPG, WebP or AVIF is encoded several times and compared with the original b
 
 ## Contributing
 
-Bug reports and ideas are welcome in the [issues](https://github.com/Cris223511/image-compressor/issues). To contribute code, open a pull request.
+Bug reports and ideas are welcome in the [issues](https://github.com/Cris223511/squeezo/issues). To contribute code, open a pull request.
 
 ## License
 
